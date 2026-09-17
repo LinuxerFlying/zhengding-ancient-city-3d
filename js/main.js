@@ -145,6 +145,74 @@ function flyOverview() {
   flyTo(new THREE.Vector3(0, 40, 0), new THREE.Vector3(0, 900, -1900), 2000);
 }
 
+// ============ 长乐门出行交通图 ============
+const TRANSPORT = {
+  metro: [
+    { station: '福泽', note: '1号线北端终点' },
+    { station: '会展中心', note: '' },
+    { station: '商务中心', note: '接驳公交' },
+    { station: '洨河大道', note: '通往市区' }
+  ],
+  buses: [
+    { no: '136', color: '#3f8f5f', span: '南牛 — 正定南门', stops: '开元寺 · 临济寺 · 广惠寺 · 正定南城门' },
+    { no: '164', color: '#3f6fb0', span: '火车北站 — 中博电车厂', stops: '正定县政府 · 大佛寺 · 滹沱河南北岸' },
+    { no: '130', color: '#b07a3f', span: '蟠桃 — 博物院', stops: '正定南门 · 河北医大 · 太平河公园' },
+    { no: '177', color: '#8a4fa0', span: '园博园 — 南焦客运站', stops: '正定南门 · 商务中心 · 河北医大' },
+    { no: '观光1', color: '#b04f4f', span: '白佛 — 正定县政府', stops: '广惠寺 · 太平河公园 · 古城景点' }
+  ]
+};
+
+function buildTransportSvg() {
+  const W = 336;
+  const top = 24;
+  const metroY = 52;
+  const n = TRANSPORT.metro.length;
+  const x0 = 30, x1 = W - 30, gap = (x1 - x0) / (n - 1);
+  let stations = '';
+  TRANSPORT.metro.forEach((s, i) => {
+    const x = x0 + gap * i;
+    stations += `
+      <circle cx="${x}" cy="${metroY}" r="6.5" fill="#d8483a" stroke="#f4ead4" stroke-width="1.6"/>
+      <text x="${x}" y="${metroY + 23}" text-anchor="middle" class="t-st">${s.station}</text>
+      ${s.note ? `<text x="${x}" y="${metroY + 34}" text-anchor="middle" class="t-nt">${s.note}</text>` : ''}`;
+  });
+  const gateX = W / 2;
+  const gateY = 150;
+  const busTop = 196;
+  let rows = '';
+  TRANSPORT.buses.forEach((b, i) => {
+    const y = busTop + i * 46;
+    rows += `
+      <g class="bus-row">
+        <rect x="8" y="${y - 13}" width="${W - 16}" height="38" rx="7" fill="rgba(255,255,255,0.045)"/>
+        <circle cx="30" cy="${y + 6}" r="14" fill="${b.color}"/>
+        <text x="30" y="${y + 11}" text-anchor="middle" class="t-bus">${b.no}</text>
+        <text x="54" y="${y + 1}" class="t-line">${b.span}</text>
+        <text x="54" y="${y + 17}" class="t-stops">${b.stops}</text>
+      </g>`;
+  });
+  const svg = `
+  <svg viewBox="0 0 ${W} ${busTop + TRANSPORT.buses.length * 46 + 4}" class="t-svg" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <marker id="t-arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+        <path d="M0,0 L8,4 L0,8 z" fill="#e7c97e"/>
+      </marker>
+    </defs>
+    <text x="8" y="${top}" class="t-title">地铁1号线（标志色·二期通达正定）</text>
+    <text x="${x1 + 8}" y="${metroY + 4}" text-anchor="end" class="t-nt">市区方向</text>
+    <text x="${x0 - 10}" y="${metroY + 4}" text-anchor="start" class="t-nt">正定新城</text>
+    <line x1="${x0 - 12}" y1="${metroY}" x2="${x1 + 12}" y2="${metroY}" stroke="#d8483a" stroke-width="3.5" stroke-linecap="round"/>
+    ${stations}
+    <line x1="${x0 + gap}" y1="${metroY + 40}" x2="${gateX}" y2="${gateY - 20}" stroke="#e7c97e" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#t-arrow)"/>
+    <text x="${x0 + gap - 6}" y="${(metroY + gateY) / 2}" text-anchor="end" class="t-transfer">出站换乘公交可达</text>
+    <path d="M ${gateX} ${gateY - 14} L ${gateX - 13} ${gateY + 4} L ${gateX - 5} ${gateY + 4} L ${gateX - 5} ${gateY + 16} L ${gateX + 5} ${gateY + 16} L ${gateX + 5} ${gateY + 4} L ${gateX + 13} ${gateY + 4} Z" fill="#a03a2c" stroke="#e7c97e" stroke-width="1.4"/>
+    <text x="${gateX}" y="${gateY + 30}" text-anchor="middle" class="t-gate">长乐门（正定南门）</text>
+    <text x="8" y="${busTop - 12}" class="t-title">公交线路 · “正定南门”站下车</text>
+    ${rows}
+  </svg>`;
+  return svg;
+}
+
 // ============ 景点面板 ============
 const panel = document.getElementById('poi-panel');
 let currentPoi = null;
@@ -162,6 +230,14 @@ function showPanel(poi) {
   } else {
     panel.classList.remove('has-photo');
     photoEl.removeAttribute('src');
+  }
+  const transEl = document.getElementById('poi-transport');
+  if (poi.id === 'changle') {
+    transEl.innerHTML = buildTransportSvg();
+    transEl.style.display = '';
+  } else {
+    transEl.innerHTML = '';
+    transEl.style.display = 'none';
   }
   panel.classList.add('show');
 }

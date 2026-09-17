@@ -35027,6 +35027,71 @@
   function flyOverview() {
     flyTo(new Vector3(0, 40, 0), new Vector3(0, 900, -1900), 2e3);
   }
+  var TRANSPORT = {
+    metro: [
+      { station: "\u798F\u6CFD", note: "1\u53F7\u7EBF\u5317\u7AEF\u7EC8\u70B9" },
+      { station: "\u4F1A\u5C55\u4E2D\u5FC3", note: "" },
+      { station: "\u5546\u52A1\u4E2D\u5FC3", note: "\u63A5\u9A73\u516C\u4EA4" },
+      { station: "\u6D28\u6CB3\u5927\u9053", note: "\u901A\u5F80\u5E02\u533A" }
+    ],
+    buses: [
+      { no: "136", color: "#3f8f5f", span: "\u5357\u725B \u2014 \u6B63\u5B9A\u5357\u95E8", stops: "\u5F00\u5143\u5BFA \xB7 \u4E34\u6D4E\u5BFA \xB7 \u5E7F\u60E0\u5BFA \xB7 \u6B63\u5B9A\u5357\u57CE\u95E8" },
+      { no: "164", color: "#3f6fb0", span: "\u706B\u8F66\u5317\u7AD9 \u2014 \u4E2D\u535A\u7535\u8F66\u5382", stops: "\u6B63\u5B9A\u53BF\u653F\u5E9C \xB7 \u5927\u4F5B\u5BFA \xB7 \u6EF9\u6CB1\u6CB3\u5357\u5317\u5CB8" },
+      { no: "130", color: "#b07a3f", span: "\u87E0\u6843 \u2014 \u535A\u7269\u9662", stops: "\u6B63\u5B9A\u5357\u95E8 \xB7 \u6CB3\u5317\u533B\u5927 \xB7 \u592A\u5E73\u6CB3\u516C\u56ED" },
+      { no: "177", color: "#8a4fa0", span: "\u56ED\u535A\u56ED \u2014 \u5357\u7126\u5BA2\u8FD0\u7AD9", stops: "\u6B63\u5B9A\u5357\u95E8 \xB7 \u5546\u52A1\u4E2D\u5FC3 \xB7 \u6CB3\u5317\u533B\u5927" },
+      { no: "\u89C2\u51491", color: "#b04f4f", span: "\u767D\u4F5B \u2014 \u6B63\u5B9A\u53BF\u653F\u5E9C", stops: "\u5E7F\u60E0\u5BFA \xB7 \u592A\u5E73\u6CB3\u516C\u56ED \xB7 \u53E4\u57CE\u666F\u70B9" }
+    ]
+  };
+  function buildTransportSvg() {
+    const W2 = 336;
+    const top = 24;
+    const metroY = 52;
+    const n = TRANSPORT.metro.length;
+    const x0 = 30, x1 = W2 - 30, gap = (x1 - x0) / (n - 1);
+    let stations = "";
+    TRANSPORT.metro.forEach((s, i) => {
+      const x = x0 + gap * i;
+      stations += `
+      <circle cx="${x}" cy="${metroY}" r="6.5" fill="#d8483a" stroke="#f4ead4" stroke-width="1.6"/>
+      <text x="${x}" y="${metroY + 23}" text-anchor="middle" class="t-st">${s.station}</text>
+      ${s.note ? `<text x="${x}" y="${metroY + 34}" text-anchor="middle" class="t-nt">${s.note}</text>` : ""}`;
+    });
+    const gateX = W2 / 2;
+    const gateY = 150;
+    const busTop = 196;
+    let rows = "";
+    TRANSPORT.buses.forEach((b, i) => {
+      const y = busTop + i * 46;
+      rows += `
+      <g class="bus-row">
+        <rect x="8" y="${y - 13}" width="${W2 - 16}" height="38" rx="7" fill="rgba(255,255,255,0.045)"/>
+        <circle cx="30" cy="${y + 6}" r="14" fill="${b.color}"/>
+        <text x="30" y="${y + 11}" text-anchor="middle" class="t-bus">${b.no}</text>
+        <text x="54" y="${y + 1}" class="t-line">${b.span}</text>
+        <text x="54" y="${y + 17}" class="t-stops">${b.stops}</text>
+      </g>`;
+    });
+    const svg = `
+  <svg viewBox="0 0 ${W2} ${busTop + TRANSPORT.buses.length * 46 + 4}" class="t-svg" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <marker id="t-arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+        <path d="M0,0 L8,4 L0,8 z" fill="#e7c97e"/>
+      </marker>
+    </defs>
+    <text x="8" y="${top}" class="t-title">\u5730\u94C11\u53F7\u7EBF\uFF08\u6807\u5FD7\u8272\xB7\u4E8C\u671F\u901A\u8FBE\u6B63\u5B9A\uFF09</text>
+    <text x="${x1 + 8}" y="${metroY + 4}" text-anchor="end" class="t-nt">\u5E02\u533A\u65B9\u5411</text>
+    <text x="${x0 - 10}" y="${metroY + 4}" text-anchor="start" class="t-nt">\u6B63\u5B9A\u65B0\u57CE</text>
+    <line x1="${x0 - 12}" y1="${metroY}" x2="${x1 + 12}" y2="${metroY}" stroke="#d8483a" stroke-width="3.5" stroke-linecap="round"/>
+    ${stations}
+    <line x1="${x0 + gap}" y1="${metroY + 40}" x2="${gateX}" y2="${gateY - 20}" stroke="#e7c97e" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#t-arrow)"/>
+    <text x="${x0 + gap - 6}" y="${(metroY + gateY) / 2}" text-anchor="end" class="t-transfer">\u51FA\u7AD9\u6362\u4E58\u516C\u4EA4\u53EF\u8FBE</text>
+    <path d="M ${gateX} ${gateY - 14} L ${gateX - 13} ${gateY + 4} L ${gateX - 5} ${gateY + 4} L ${gateX - 5} ${gateY + 16} L ${gateX + 5} ${gateY + 16} L ${gateX + 5} ${gateY + 4} L ${gateX + 13} ${gateY + 4} Z" fill="#a03a2c" stroke="#e7c97e" stroke-width="1.4"/>
+    <text x="${gateX}" y="${gateY + 30}" text-anchor="middle" class="t-gate">\u957F\u4E50\u95E8\uFF08\u6B63\u5B9A\u5357\u95E8\uFF09</text>
+    <text x="8" y="${busTop - 12}" class="t-title">\u516C\u4EA4\u7EBF\u8DEF \xB7 \u201C\u6B63\u5B9A\u5357\u95E8\u201D\u7AD9\u4E0B\u8F66</text>
+    ${rows}
+  </svg>`;
+    return svg;
+  }
   var panel = document.getElementById("poi-panel");
   var currentPoi = null;
   function showPanel(poi) {
@@ -35043,6 +35108,14 @@
     } else {
       panel.classList.remove("has-photo");
       photoEl.removeAttribute("src");
+    }
+    const transEl = document.getElementById("poi-transport");
+    if (poi.id === "changle") {
+      transEl.innerHTML = buildTransportSvg();
+      transEl.style.display = "";
+    } else {
+      transEl.innerHTML = "";
+      transEl.style.display = "none";
     }
     panel.classList.add("show");
   }

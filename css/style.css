@@ -234,6 +234,27 @@ html, body {
   max-height: 200px;
   overflow-y: auto;
 }
+.panel-transport {
+  margin-top: 14px;
+  border: 1px solid rgba(231,201,126,0.35);
+  border-radius: 10px;
+  padding: 10px 10px 8px;
+  background: rgba(0,0,0,0.22);
+}
+.t-svg { width: 100%; height: auto; display: block; }
+.t-svg .t-title {
+  fill: var(--gold, #e7c97e);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+.t-svg .t-st { fill: #efe6cf; font-size: 10px; font-weight: 600; }
+.t-svg .t-nt { fill: rgba(230,220,190,0.62); font-size: 7.5px; }
+.t-svg .t-line { fill: #efe6cf; font-size: 10px; font-weight: 600; }
+.t-svg .t-stops { fill: rgba(230,220,190,0.78); font-size: 8.5px; }
+.t-svg .t-bus { fill: #fff; font-size: 10px; font-weight: 700; }
+.t-svg .t-gate { fill: #ffd36b; font-size: 11px; font-weight: 700; letter-spacing: 1px; }
+.t-svg .t-transfer { fill: rgba(231,201,126,0.9); font-size: 8.5px; }
 #panel-fly {
   margin-top: 14px;
   width: 100%;
