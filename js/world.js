@@ -145,26 +145,61 @@ function addRoad(scene, x1, z1, x2, z2, width, mat, y = 0.06) {
   return m;
 }
 
+// 隆兴寺寺址占位（数据坐标），街巷在此区间断开（寺内自有院落甬道）
+const TEMPLE_BLOCK = { x0: 432, x1: 698, z0: 128, z1: 542 };
+
+function segRoadH(scene, x1, x2, z, width, mat, block, y = 0.06) {
+  const segs = [[x1, x2]];
+  if (block && z > block.z0 && z < block.z1) {
+    const b0 = block.x0 - width * 0.5, b1 = block.x1 + width * 0.5;
+    for (let i = segs.length - 1; i >= 0; i--) {
+      const [s, e] = segs[i];
+      if (b1 > s && b0 < e) {
+        segs.splice(i, 1);
+        if (b0 - s > 4) segs.push([s, Math.min(b0, e)]);
+        if (e - b1 > 4) segs.push([Math.max(b1, s), e]);
+      }
+    }
+  }
+  for (const [s, e] of segs) addRoad(scene, s, z, e, z, width, mat, y);
+}
+
+function segRoadV(scene, x, z1, z2, width, mat, block, y = 0.06) {
+  const segs = [[z1, z2]];
+  if (block && x > block.x0 && x < block.x1) {
+    const b0 = block.z0 - width * 0.5, b1 = block.z1 + width * 0.5;
+    for (let i = segs.length - 1; i >= 0; i--) {
+      const [s, e] = segs[i];
+      if (b1 > s && b0 < e) {
+        segs.splice(i, 1);
+        if (b0 - s > 4) segs.push([s, Math.min(b0, e)]);
+        if (e - b1 > 4) segs.push([Math.max(b1, s), e]);
+      }
+    }
+  }
+  for (const [s, e] of segs) addRoad(scene, x, s, x, e, width, mat, y);
+}
+
 function buildRoads(scene) {
   const roadMat = new THREE.MeshStandardMaterial({ color: 0x8d8270, roughness: 1 });
   const mainMat = new THREE.MeshStandardMaterial({ color: 0x9c9078, roughness: 1 });
   // 燕赵南大街 / 北大街（南北中轴）
   addRoad(scene, 0, -D + 30, 0, D - 30, 46, mainMat);
   // 中山路等东西向
-  addRoad(scene, -W + 30, 0, W - 30, 0, 40, mainMat);
-  addRoad(scene, -W + 60, -430, W - 60, -430, 20, roadMat);
-  addRoad(scene, -W + 60, -100, W - 60, -100, 22, roadMat);
-  addRoad(scene, -W + 60, 230, W - 60, 230, 20, roadMat);
-  addRoad(scene, -W + 60, 480, W - 60, 480, 20, roadMat);
+  addRoad(scene, -W + 30, W - 30, 0, 40, mainMat);
+  segRoadH(scene, -W + 60, W - 60, -430, 20, roadMat, null);
+  segRoadH(scene, -W + 60, W - 60, -100, 22, roadMat, null);
+  segRoadH(scene, -W + 60, W - 60, 230, 20, roadMat, TEMPLE_BLOCK);
+  segRoadH(scene, -W + 60, W - 60, 480, 20, roadMat, TEMPLE_BLOCK);
   // 纵向次干道
   for (const x of [-470, -240, 240, 470]) {
-    addRoad(scene, x, -D + 60, x, D - 60, 18, roadMat);
+    segRoadV(scene, x, -D + 60, D - 60, 18, roadMat, TEMPLE_BLOCK);
   }
   // 南关古道（长乐门至滹沱河）
   addRoad(scene, 0, -D - 30, 0, -1150, 34, mainMat, 0.04);
-  // 东门外至隆兴寺
-  addRoad(scene, SX(-W - 30), 0, SX(-760), 260, 26, mainMat, 0.04);
-  addRoad(scene, SX(-700), 300, SX(-820), 300, 26, mainMat, 0.04);
+  // 东门内至隆兴寺引道（迎旭门内 → 寺院山门外）
+  addRoad(scene, SX(-W + 40), 60, SX(-620), 60, 24, mainMat, 0.05);
+  addRoad(scene, SX(-620), 60, SX(-560), 132, 24, mainMat, 0.05);
   // 城外道路网
   addRoad(scene, -2600, -1000, 2600, -1000, 18, roadMat, 0.03);
   addRoad(scene, SX(-1000), -1200, SX(-1000), 1500, 16, roadMat, 0.03);

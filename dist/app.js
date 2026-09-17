@@ -32287,8 +32287,8 @@
       name: "\u9686\u5174\u5BFA",
       cat: "temple",
       tag: "\u516B\u5927\u5BFA \xB7 \u4EAC\u5916\u540D\u5239\u4E4B\u9996",
-      x: 760,
-      z: 300,
+      x: 560,
+      z: 330,
       model: "longxing",
       level: "\u56FD\u4FDD",
       intro: "\u9686\u5174\u5BFA\u59CB\u5EFA\u4E8E\u968B\u5F00\u7687\u516D\u5E74\uFF08586\u5E74\uFF09\uFF0C\u5B8B\u521D\u5927\u89C4\u6A21\u6269\u5EFA\uFF0C\u662F\u4E2D\u56FD\u73B0\u5B58\u89C4\u6A21\u6700\u5927\u3001\u4FDD\u5B58\u6700\u5B8C\u6574\u7684\u5B8B\u4EE3\u4F5B\u6559\u5BFA\u9662\u5EFA\u7B51\u7FA4\uFF0C\u88AB\u8A89\u4E3A\u201C\u4EAC\u5916\u540D\u5239\u4E4B\u9996\u201D\u3002\u5BFA\u5185\u6709\u516D\u5904\u6587\u7269\u582A\u79F0\u5168\u56FD\u4E4B\u6700\uFF1A\u9AD8 21.3 \u7C73\u7684\u94DC\u94F8\u5343\u624B\u5343\u773C\u89C2\u97F3\u3001\u88AB\u9C81\u8FC5\u8A89\u4E3A\u201C\u4E1C\u65B9\u7F8E\u795E\u201D\u7684\u5012\u5EA7\u89C2\u97F3\u3001\u4E2D\u56FD\u53E4\u4EE3\u6700\u7CBE\u7F8E\u7684\u94DC\u94F8\u6BD7\u5362\u4F5B\u3001\u5317\u5B8B\u6469\u5C3C\u6BBF\u7B49\u3002"
@@ -32375,7 +32375,7 @@
       cat: "mansion",
       tag: "87\u7248\u300A\u7EA2\u697C\u68A6\u300B\u53D6\u666F\u5730",
       x: 600,
-      z: 560,
+      z: 610,
       model: "mansion",
       intro: "\u8363\u56FD\u5E9C\u662F 1986 \u5E74\u4E3A\u62CD\u6444\u7535\u89C6\u5267\u300A\u7EA2\u697C\u68A6\u300B\uFF0C\u4F9D\u636E\u5C0F\u8BF4\u63CF\u5199\u5E76\u53C2\u7167\u300A\u5927\u6E05\u4F1A\u5178\u300B\u4E25\u683C\u8BBE\u8BA1\u5EFA\u9020\u7684\u4EFF\u53E4\u5EFA\u7B51\u7FA4\uFF0C\u5206\u8363\u56FD\u5E9C\u3001\u5B81\u8363\u8857\u4E24\u90E8\u5206\uFF0C\u662F\u56FD\u5185\u6700\u65E9\u7684\u5F71\u89C6\u5B9E\u666F\u62CD\u6444\u57FA\u5730\u4E4B\u4E00\u3002\u5E9C\u5185\u4EAD\u53F0\u697C\u9601\u3001\u96D5\u6881\u753B\u680B\uFF0C\u73B0\u5E38\u5E74\u4E0A\u6F14\u201C\u5143\u5983\u7701\u4EB2\u201D\u7B49\u5B9E\u666F\u6F14\u51FA\u3002"
     },
@@ -32465,8 +32465,8 @@
       name: "\u771F\u6B66\u5E99",
       cat: "temple",
       tag: "\u9053\u6559\u5E99\u5B87",
-      x: 560,
-      z: 720,
+      x: 420,
+      z: 730,
       model: "temple",
       intro: "\u771F\u6B66\u5E99\u4F9B\u5949\u5317\u65B9\u4E4B\u795E\u771F\u6B66\u5927\u5E1D\uFF0C\u662F\u6B63\u5B9A\u53E4\u57CE\u5317\u90E8\u91CD\u8981\u7684\u9053\u6559\u5E99\u5B87\uFF0C\u5BC4\u6258\u7740\u6C11\u4F17\u7948\u613F\u98CE\u8C03\u96E8\u987A\u3001\u57CE\u6C60\u5B89\u5B81\u7684\u6734\u7D20\u613F\u671B\u3002"
     },
@@ -33544,21 +33544,58 @@
     scene2.add(m);
     return m;
   }
+  var TEMPLE_BLOCK = { x0: 432, x1: 698, z0: 128, z1: 542 };
+  function segRoadH(scene2, x1, x2, z, width, mat, block, y = 0.06) {
+    const segs = [[x1, x2]];
+    if (block && z > block.z0 && z < block.z1) {
+      const b0 = block.x0 - width * 0.5, b1 = block.x1 + width * 0.5;
+      for (let i = segs.length - 1; i >= 0; i--) {
+        const [s, e] = segs[i];
+        if (b1 > s && b0 < e) {
+          segs.splice(i, 1);
+          if (b0 - s > 4)
+            segs.push([s, Math.min(b0, e)]);
+          if (e - b1 > 4)
+            segs.push([Math.max(b1, s), e]);
+        }
+      }
+    }
+    for (const [s, e] of segs)
+      addRoad(scene2, s, z, e, z, width, mat, y);
+  }
+  function segRoadV(scene2, x, z1, z2, width, mat, block, y = 0.06) {
+    const segs = [[z1, z2]];
+    if (block && x > block.x0 && x < block.x1) {
+      const b0 = block.z0 - width * 0.5, b1 = block.z1 + width * 0.5;
+      for (let i = segs.length - 1; i >= 0; i--) {
+        const [s, e] = segs[i];
+        if (b1 > s && b0 < e) {
+          segs.splice(i, 1);
+          if (b0 - s > 4)
+            segs.push([s, Math.min(b0, e)]);
+          if (e - b1 > 4)
+            segs.push([Math.max(b1, s), e]);
+        }
+      }
+    }
+    for (const [s, e] of segs)
+      addRoad(scene2, x, s, x, e, width, mat, y);
+  }
   function buildRoads(scene2) {
     const roadMat = new MeshStandardMaterial({ color: 9273968, roughness: 1 });
     const mainMat = new MeshStandardMaterial({ color: 10260600, roughness: 1 });
     addRoad(scene2, 0, -D + 30, 0, D - 30, 46, mainMat);
-    addRoad(scene2, -W + 30, 0, W - 30, 0, 40, mainMat);
-    addRoad(scene2, -W + 60, -430, W - 60, -430, 20, roadMat);
-    addRoad(scene2, -W + 60, -100, W - 60, -100, 22, roadMat);
-    addRoad(scene2, -W + 60, 230, W - 60, 230, 20, roadMat);
-    addRoad(scene2, -W + 60, 480, W - 60, 480, 20, roadMat);
+    addRoad(scene2, -W + 30, W - 30, 0, 40, mainMat);
+    segRoadH(scene2, -W + 60, W - 60, -430, 20, roadMat, null);
+    segRoadH(scene2, -W + 60, W - 60, -100, 22, roadMat, null);
+    segRoadH(scene2, -W + 60, W - 60, 230, 20, roadMat, TEMPLE_BLOCK);
+    segRoadH(scene2, -W + 60, W - 60, 480, 20, roadMat, TEMPLE_BLOCK);
     for (const x of [-470, -240, 240, 470]) {
-      addRoad(scene2, x, -D + 60, x, D - 60, 18, roadMat);
+      segRoadV(scene2, x, -D + 60, D - 60, 18, roadMat, TEMPLE_BLOCK);
     }
     addRoad(scene2, 0, -D - 30, 0, -1150, 34, mainMat, 0.04);
-    addRoad(scene2, SX(-W - 30), 0, SX(-760), 260, 26, mainMat, 0.04);
-    addRoad(scene2, SX(-700), 300, SX(-820), 300, 26, mainMat, 0.04);
+    addRoad(scene2, SX(-W + 40), 60, SX(-620), 60, 24, mainMat, 0.05);
+    addRoad(scene2, SX(-620), 60, SX(-560), 132, 24, mainMat, 0.05);
     addRoad(scene2, -2600, -1e3, 2600, -1e3, 18, roadMat, 0.03);
     addRoad(scene2, SX(-1e3), -1200, SX(-1e3), 1500, 16, roadMat, 0.03);
     addRoad(scene2, SX(1100), -1200, SX(1100), 1500, 16, roadMat, 0.03);

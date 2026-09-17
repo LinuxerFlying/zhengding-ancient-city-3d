@@ -105,7 +105,7 @@ export const POIS = [
     name: '隆兴寺',
     cat: 'temple',
     tag: '八大寺 · 京外名刹之首',
-    x: 760, z: 300,
+    x: 560, z: 330,
     model: 'longxing',
     level: '国保',
     intro:
@@ -192,7 +192,7 @@ export const POIS = [
     name: '荣国府',
     cat: 'mansion',
     tag: '87版《红楼梦》取景地',
-    x: 600, z: 560,
+    x: 600, z: 610,
     model: 'mansion',
     intro:
       '荣国府是 1986 年为拍摄电视剧《红楼梦》，依据小说描写并参照《大清会典》严格设计建造的仿古建筑群，分荣国府、宁荣街两部分，是国内最早的影视实景拍摄基地之一。府内亭台楼阁、雕梁画栋，现常年上演“元妃省亲”等实景演出。'
@@ -281,7 +281,7 @@ export const POIS = [
     name: '真武庙',
     cat: 'temple',
     tag: '道教庙宇',
-    x: 560, z: 720,
+    x: 420, z: 730,
     model: 'temple',
     intro: '真武庙供奉北方之神真武大帝，是正定古城北部重要的道教庙宇，寄托着民众祈愿风调雨顺、城池安宁的朴素愿望。'
   },
