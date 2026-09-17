@@ -6,6 +6,7 @@ const mats = {
   wall: new THREE.MeshStandardMaterial({ color: 0xf2e6cf, roughness: 0.85 }),
   wallWarm: new THREE.MeshStandardMaterial({ color: 0xddccb0, roughness: 0.9 }),
   red: new THREE.MeshStandardMaterial({ color: 0x8c2f24, roughness: 0.7 }),
+  redBright: new THREE.MeshStandardMaterial({ color: 0xa33627, roughness: 0.65 }),
   redDark: new THREE.MeshStandardMaterial({ color: 0x61241d, roughness: 0.75 }),
   wood: new THREE.MeshStandardMaterial({ color: 0x4a3527, roughness: 0.8 }),
   stone: new THREE.MeshStandardMaterial({ color: 0x9a938a, roughness: 0.95 }),
@@ -231,50 +232,139 @@ export function makeTower(w, d, floors = 2, roofColor = ROOF_GREEN) {
 
 // ---------- 凌霄塔（八角楼阁式木塔，9层） ----------
 const winDarkMat = new THREE.MeshStandardMaterial({ color: 0x241a12, roughness: 0.6 });
+const lingWinMat = new THREE.MeshStandardMaterial({ map: latticeTexture('#241a12', '#a33627'), roughness: 0.7 });
+const LING_GREEN = 0x2e6b4f;
+
+function addLingEave(g, r, yEave, h, up) {
+  const eave = makeEaveRing(r, h, 8, LING_GREEN, up);
+  eave.position.y = yEave; g.add(eave);
+  const faceHalf = r * Math.tan(Math.PI / 8) * 0.72;
+  for (let k = 0; k < 8; k++) {
+    const a = (k / 8) * Math.PI * 2;
+    const nx = Math.sin(a), nz = Math.cos(a);
+    const tx = Math.cos(a), tz = -Math.sin(a);
+    for (const u of [-faceHalf, 0, faceHalf]) {
+      const raft = shadowify(new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.9, 3), mats.wood), true, false);
+      raft.position.set(nx * (r - 1.4) + tx * u, yEave - 1.1, nz * (r - 1.4) + tz * u);
+      raft.rotation.y = a;
+      g.add(raft);
+    }
+  }
+  const tileRing = shadowify(new THREE.Mesh(new THREE.CylinderGeometry(r + 0.25, r + 0.25, 0.8, 8), roofMat(LING_GREEN)), true, false);
+  tileRing.position.y = yEave - 0.5; g.add(tileRing);
+}
+
 export function makeLingxiaoPagoda() {
   const g = new THREE.Group();
   let y = 0;
-  // 八角石砌台基（两层）
   const base1 = shadowify(new THREE.Mesh(new THREE.CylinderGeometry(30, 34, 5, 8), mats.stone));
   base1.position.y = 2.5; g.add(base1);
   const base2 = shadowify(new THREE.Mesh(new THREE.CylinderGeometry(26, 29, 5, 8), mats.stoneDark));
   base2.position.y = 7.5; g.add(base2);
   y = 10;
   let r = 21;
-  for (let i = 0; i < 9; i++) {
-    const bodyH = 7.5 - i * 0.18;
-    // 平座栏杆（木构外廊）
-    const deck = shadowify(new THREE.Mesh(new THREE.CylinderGeometry(r + 3.2, r + 3.2, 1.6, 8), mats.wood));
-    deck.position.y = y + 1.2; g.add(deck);
-    const rail = shadowify(new THREE.Mesh(new THREE.CylinderGeometry(r + 3, r + 3, 2.2, 8, 1, true), mats.redDark), false, true);
-    rail.position.y = y + 2.6; g.add(rail);
-    // 朱红木塔身
-    const body = shadowify(new THREE.Mesh(new THREE.CylinderGeometry(r * 0.96, r, bodyH, 8), mats.red));
-    body.position.y = y + 1.6 + bodyH / 2; g.add(body);
-    // 八面暗窗
+
+  const addWall = (yBase, bodyH, rr, first) => {
+    const faceR = rr * Math.cos(Math.PI / 8);
+    for (let k = 0; k < 8; k++) {
+      const a = (k / 8) * Math.PI * 2;
+      const nx = Math.sin(a), nz = Math.cos(a);
+      const col = shadowify(new THREE.Mesh(new THREE.CylinderGeometry(0.95, 1.05, bodyH + 0.8, 8), mats.redBright));
+      col.position.set(nx * rr, yBase + bodyH / 2, nz * rr);
+      g.add(col);
+      const panelW = rr * 0.62;
+      const panel = shadowify(new THREE.Mesh(new THREE.BoxGeometry(panelW, bodyH * 0.78, 0.7), mats.red));
+      panel.position.set(nx * (faceR - 0.15), yBase + bodyH * 0.5, nz * (faceR - 0.15));
+      panel.rotation.y = a;
+      g.add(panel);
+      if (first && k === 4) {
+        const doorFrame = shadowify(new THREE.Mesh(new THREE.BoxGeometry(8, bodyH * 0.8, 0.5), mats.redBright));
+        doorFrame.position.set(nx * (faceR + 0.1), yBase + bodyH * 0.42, nz * (faceR + 0.1));
+        doorFrame.rotation.y = a;
+        g.add(doorFrame);
+        const door = new THREE.Mesh(new THREE.BoxGeometry(6.4, bodyH * 0.72, 0.8), winDarkMat);
+        door.position.set(nx * (faceR + 0.35), yBase + bodyH * 0.38, nz * (faceR + 0.35));
+        door.rotation.y = a;
+        g.add(door);
+      } else {
+        const winW = rr * (first ? 0.3 : 0.32);
+        const winH = bodyH * 0.4;
+        const frame = shadowify(new THREE.Mesh(new THREE.BoxGeometry(winW + 1.5, winH + 1.5, 0.5), mats.redBright));
+        frame.position.set(nx * (faceR + 0.1), yBase + bodyH * 0.56, nz * (faceR + 0.1));
+        frame.rotation.y = a;
+        g.add(frame);
+        const win = new THREE.Mesh(new THREE.BoxGeometry(winW, winH, 0.7), lingWinMat);
+        win.position.set(nx * (faceR + 0.35), yBase + bodyH * 0.56, nz * (faceR + 0.35));
+        win.rotation.y = a;
+        g.add(win);
+      }
+    }
+    for (const fy of [yBase + 0.5, yBase + bodyH - 0.5]) {
+      const beam = shadowify(new THREE.Mesh(new THREE.CylinderGeometry(rr * 1.03, rr * 1.03, 1.4, 8, 1, true), mats.redDark));
+      beam.position.y = fy; g.add(beam);
+    }
+  };
+
+  const addBalustrade = (yBase, rr) => {
+    const railR = rr + 3;
     for (let k = 0; k < 8; k++) {
       const a = (k / 8) * Math.PI * 2 + Math.PI / 8;
-      const win = new THREE.Mesh(new THREE.BoxGeometry(r * 0.3, bodyH * 0.42, 0.6), winDarkMat);
-      win.position.set(Math.sin(a) * (r + 0.15), y + 1.6 + bodyH * 0.55, Math.cos(a) * (r + 0.15));
-      win.rotation.y = a;
-      g.add(win);
+      const post = shadowify(new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.55, 2.8, 6), mats.redDark));
+      post.position.set(Math.sin(a) * railR, yBase + 1.4, Math.cos(a) * railR);
+      g.add(post);
     }
-    y += bodyH + 1.6;
-    // 绿琉璃瓦密檐（翘角明显）
-    const eave = makeEaveRing(r + 4.6, 4.6, 8, 0x34524a, 1.6);
-    eave.position.y = y; g.add(eave);
-    y += 4.6;
+    for (const hy of [yBase + 1.2, yBase + 2.5]) {
+      const rail = shadowify(new THREE.Mesh(new THREE.CylinderGeometry(railR, railR, 0.45, 8, 1, true), mats.redDark), false, true);
+      rail.position.y = hy; g.add(rail);
+    }
+  };
+
+  // 首层：高台基 + 副阶周匝 + 重檐
+  const deck0 = shadowify(new THREE.Mesh(new THREE.CylinderGeometry(r + 3.4, r + 3.4, 1.6, 8), mats.wood));
+  deck0.position.y = y + 1.2; g.add(deck0);
+  const firstH = 11;
+  const wallBase = y + 1.6;
+  const porchR = r + 2.8;
+  for (let k = 0; k < 8; k++) {
+    const a = (k / 8) * Math.PI * 2;
+    const nx = Math.sin(a), nz = Math.cos(a);
+    const tx = Math.cos(a), tz = -Math.sin(a);
+    for (const s of [-1, 1]) {
+      const pc = shadowify(new THREE.Mesh(new THREE.CylinderGeometry(1, 1.1, 12, 8), mats.redBright));
+      pc.position.set(nx * porchR + tx * s * porchR * 0.24, y + 6, nz * porchR + tz * s * porchR * 0.24);
+      g.add(pc);
+    }
+  }
+  addWall(wallBase, firstH, r, true);
+  const firstTop = wallBase + firstH;
+  addLingEave(g, r + 6.2, y + 10.5, 3.2, 1.4);
+  addLingEave(g, r + 4.8, firstTop + 0.6, 5, 1.8);
+  y = firstTop + 5.6;
+  r *= 0.93;
+
+  for (let i = 1; i < 9; i++) {
+    const bodyH = 7.2 - i * 0.2;
+    const deck = shadowify(new THREE.Mesh(new THREE.CylinderGeometry(r + 3.2, r + 3.2, 1.6, 8), mats.wood));
+    deck.position.y = y + 0.8; g.add(deck);
+    addBalustrade(y + 1.4, r);
+    const yBase = y + 2.2;
+    addWall(yBase, bodyH, r, false);
+    const yTop = yBase + bodyH;
+    addLingEave(g, r + 4.8, yTop, i === 8 ? 5 : 4.4, 1.6);
+    y = yTop + (i === 8 ? 5 : 4.4);
     r *= 0.93;
   }
-  // 塔刹：宝珠+相轮
+
+  const pole = shadowify(new THREE.Mesh(new THREE.CylinderGeometry(0.7, 0.9, 17, 8), mats.gold), true, false);
+  pole.position.y = y + 7.5; g.add(pole);
   for (let i = 0; i < 4; i++) {
-    const disc = shadowify(new THREE.Mesh(new THREE.CylinderGeometry(3.6 - i * 0.5, 3.6 - i * 0.5, 1.2, 8), mats.gold), true, false);
-    disc.position.y = y + 1 + i * 1.8; g.add(disc);
+    const disc = shadowify(new THREE.Mesh(new THREE.CylinderGeometry(3.4 - i * 0.4, 3.4 - i * 0.4, 1.3, 8), mats.gold), true, false);
+    disc.position.y = y + 1.4 + i * 1.8; g.add(disc);
   }
   const bead = shadowify(new THREE.Mesh(GEO.sphere, mats.gold), true, false);
-  bead.scale.setScalar(2.6); bead.position.y = y + 9; g.add(bead);
+  bead.scale.setScalar(2.4); bead.position.y = y + 9.4; g.add(bead);
   const fin = shadowify(new THREE.Mesh(GEO.cone, mats.gold), true, false);
-  fin.scale.set(1.6, 7, 1.6); fin.position.y = y + 14; g.add(fin);
+  fin.scale.set(1.6, 7, 1.6); fin.position.y = y + 14.5; g.add(fin);
   g.userData.height = y + 18;
   return g;
 }

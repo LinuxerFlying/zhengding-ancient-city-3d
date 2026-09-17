@@ -154,12 +154,25 @@ function showPanel(poi) {
   document.getElementById('poi-name').textContent = poi.name;
   document.getElementById('poi-tag').textContent = poi.tag + (poi.level ? ` · ${poi.level}` : '');
   document.getElementById('poi-intro').textContent = poi.intro;
+  const photoEl = document.getElementById('poi-photo');
+  if (poi.photo) {
+    panel.classList.add('has-photo');
+    photoEl.src = poi.photo;
+    photoEl.alt = poi.name + '实景照片';
+  } else {
+    panel.classList.remove('has-photo');
+    photoEl.removeAttribute('src');
+  }
   panel.classList.add('show');
 }
 function closePanel() {
   panel.classList.remove('show');
 }
 document.getElementById('panel-close').addEventListener('click', closePanel);
+document.getElementById('poi-photo').addEventListener('error', e => {
+  panel.classList.remove('has-photo');
+  e.currentTarget.removeAttribute('src');
+});
 document.getElementById('panel-fly').addEventListener('click', () => {
   if (currentPoi) flyToPoi(currentPoi);
 });

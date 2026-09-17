@@ -32199,6 +32199,7 @@
       x: 0,
       z: -820,
       model: "gate",
+      photo: "assets/photos/changle.jpg",
       intro: "\u957F\u4E50\u95E8\u4E3A\u6B63\u5B9A\u57CE\u5357\u57CE\u95E8\uFF0C\u662F\u53E4\u57CE\u56DB\u95E8\u4E2D\u4FDD\u5B58\u6700\u4E3A\u5B8C\u6574\u3001\u6C14\u52BF\u6700\u6062\u5F18\u7684\u4E00\u5EA7\uFF0C\u57CE\u95E8\u4E0A\u65B9\u9576\u5D4C\u201C\u4E09\u5173\u96C4\u9547\u201D\u77F3\u989D\u3002\u6B63\u5B9A\u57CE\u57A3\u59CB\u5EFA\u4E8E\u5317\u5468\uFF0C\u73B0\u5B58\u7816\u77F3\u57CE\u57A3\u4E3A\u660E\u4EE3\u91CD\u4FEE\uFF0C2013 \u5E74\u88AB\u5217\u4E3A\u5168\u56FD\u91CD\u70B9\u6587\u7269\u4FDD\u62A4\u5355\u4F4D\u3002\u57CE\u95E8\u5750\u5317\u671D\u5357\uFF0C\u662F\u8FA8\u8BC6\u53E4\u57CE\u65B9\u4F4D\u7684\u57FA\u51C6\u3002"
     },
     {
@@ -32279,6 +32280,7 @@
       x: 0,
       z: -250,
       model: "yanghe",
+      photo: "assets/photos/yanghe.jpg",
       intro: "\u9633\u548C\u697C\u59CB\u5EFA\u4E8E\u91D1\u672B\u5143\u521D\uFF0C\u6A2A\u8DE8\u57CE\u5357\u71D5\u8D75\u5927\u8857\uFF0C\u6881\u601D\u6210\u8A89\u4E3A\u201C\u660E\u6E05\u57CE\u697C\u7ED3\u6784\u4E4B\u5148\u8F88\u201D\uFF0C\u5143\u4EE3\u66FE\u5728\u6B64\u4E0A\u6F14\u6742\u5267\uFF0C\u767D\u6734\u3001\u674E\u6587\u851A\u7B49\u771F\u5B9A\u6742\u5267\u5BB6\u4E91\u96C6\uFF0C\u88AB\u89C6\u4F5C\u5143\u66F2\u7684\u91CD\u8981\u6447\u7BEE\u3002\u539F\u697C\u4E8E\u4E0A\u4E16\u7EAA\u635F\u6BC1\uFF0C\u73B0\u5DF2\u4F9D\u636E\u8003\u53E4\u53D1\u6398\u590D\u5EFA\u3002"
     },
     // ================= 四塔 =================
@@ -32290,6 +32292,7 @@
       x: 560,
       z: 330,
       model: "longxing",
+      photo: "assets/photos/longxing.jpg",
       level: "\u56FD\u4FDD",
       intro: "\u9686\u5174\u5BFA\u59CB\u5EFA\u4E8E\u968B\u5F00\u7687\u516D\u5E74\uFF08586\u5E74\uFF09\uFF0C\u5B8B\u521D\u5927\u89C4\u6A21\u6269\u5EFA\uFF0C\u662F\u4E2D\u56FD\u73B0\u5B58\u89C4\u6A21\u6700\u5927\u3001\u4FDD\u5B58\u6700\u5B8C\u6574\u7684\u5B8B\u4EE3\u4F5B\u6559\u5BFA\u9662\u5EFA\u7B51\u7FA4\uFF0C\u88AB\u8A89\u4E3A\u201C\u4EAC\u5916\u540D\u5239\u4E4B\u9996\u201D\u3002\u5BFA\u5185\u6709\u516D\u5904\u6587\u7269\u582A\u79F0\u5168\u56FD\u4E4B\u6700\uFF1A\u9AD8 21.3 \u7C73\u7684\u94DC\u94F8\u5343\u624B\u5343\u773C\u89C2\u97F3\u3001\u88AB\u9C81\u8FC5\u8A89\u4E3A\u201C\u4E1C\u65B9\u7F8E\u795E\u201D\u7684\u5012\u5EA7\u89C2\u97F3\u3001\u4E2D\u56FD\u53E4\u4EE3\u6700\u7CBE\u7F8E\u7684\u94DC\u94F8\u6BD7\u5362\u4F5B\u3001\u5317\u5B8B\u6469\u5C3C\u6BBF\u7B49\u3002"
     },
@@ -32301,6 +32304,7 @@
       x: 260,
       z: -520,
       model: "huata",
+      photo: "assets/photos/guanghui.jpg",
       level: "\u56FD\u4FDD",
       intro: "\u534E\u5854\u5EFA\u4E8E\u91D1\u4EE3\u5927\u5B9A\u5E74\u95F4\uFF0C\u4E3A\u5E7F\u60E0\u5BFA\u73B0\u5B58\u552F\u4E00\u5EFA\u7B51\u3002\u4E3B\u5854\u9AD8\u7EA6 40.5 \u7C73\uFF0C\u5854\u8EAB\u7B2C\u4E09\u3001\u56DB\u5C42\u5851\u6EE1\u83B2\u82B1\u74E3\u3001\u72EE\u3001\u8C61\u3001\u4F5B\u3001\u83E9\u8428\u7B49\u5F62\u8C61\uFF0C\u8FDC\u671B\u5B9B\u5982\u4E00\u675F\u5DE8\u578B\u82B1\u675F\uFF0C\u6545\u53C8\u79F0\u201C\u82B1\u5854\u201D\u3002\u6881\u601D\u6210\u79F0\u5176\u4E3A\u201C\u6D77\u5185\u5B64\u4F8B\u201D\uFF0C\u662F\u4E2D\u56FD\u82B1\u5854\u4E2D\u9020\u578B\u6700\u5947\u3001\u88C5\u9970\u6700\u5BCC\u7684\u4E00\u4F8B\u3002"
     },
@@ -32312,6 +32316,7 @@
       x: 240,
       z: -180,
       model: "chengling",
+      photo: "assets/photos/linji.jpg",
       level: "\u56FD\u4FDD",
       intro: "\u6F84\u7075\u5854\u4E3A\u4E34\u6D4E\u5B97\u521B\u59CB\u4EBA\u5510\u4EE3\u4E49\u7384\u7985\u5E08\u7684\u820D\u5229\u5854\uFF0C\u5510\u54B8\u901A\u516B\u5E74\uFF08867\u5E74\uFF09\u5EFA\uFF0C\u91D1\u5927\u5B9A\u5E74\u95F4\u91CD\u4FEE\u3002\u5854\u9AD8 30.47 \u7C73\uFF0C\u4E5D\u5C42\u516B\u9762\u5BC6\u6A90\uFF0C\u901A\u4F53\u6E05\u7D20\u79C0\u4E3D\uFF0C\u4FD7\u79F0\u201C\u9752\u5854\u201D\u3002\u4E34\u6D4E\u5BFA\u662F\u4F5B\u6559\u4E34\u6D4E\u5B97\u7956\u5EAD\uFF0C\u4E34\u6D4E\u5B97\u8FDC\u64AD\u65E5\u672C\u3001\u97E9\u56FD\u53CA\u4E1C\u5357\u4E9A\uFF0C\u81F3\u4ECA\u4FE1\u5F92\u6765\u671D\u8005\u7EDC\u7ECE\u4E0D\u7EDD\u3002"
     },
@@ -32323,6 +32328,7 @@
       x: -260,
       z: -200,
       model: "xumi",
+      photo: "assets/photos/kaiyuan.jpg",
       level: "\u56FD\u4FDD",
       intro: "\u987B\u5F25\u5854\u59CB\u5EFA\u4E8E\u4E1C\u9B4F\u5174\u548C\u4E8C\u5E74\uFF08540\u5E74\uFF09\uFF0C\u73B0\u5B58\u4E3A\u5510\u8D1E\u89C2\u5341\u5E74\uFF08636\u5E74\uFF09\u91CD\u5EFA\uFF0C\u662F\u6B63\u5B9A\u56DB\u5854\u4E2D\u5E74\u4EE3\u6700\u65E9\u7684\u4E00\u5EA7\u3002\u5854\u9AD8 42.5 \u7C73\uFF0C\u4E5D\u5C42\u5BC6\u6A90\u65B9\u5F62\u7816\u5854\uFF0C\u5916\u89C2\u6E05\u79C0\u633A\u62D4\uFF0C\u7C7B\u897F\u5B89\u5927\u96C1\u5854\u3002\u5BFA\u5185\u949F\u697C\u4E0E\u5854\u5BF9\u5CD9\uFF0C\u662F\u7814\u7A76\u5510\u4EE3\u5BFA\u9662\u201C\u5854\u9601\u5E76\u5217\u201D\u683C\u5C40\u7684\u73CD\u8D35\u5B9E\u4F8B\uFF1B\u8FD1\u5E74\u8FD8\u51FA\u571F\u4E86\u5DE8\u578B\u8D51\u5C43\u7891\u5EA7\u3002"
     },
@@ -32334,6 +32340,7 @@
       x: 180,
       z: 60,
       model: "lingxiao",
+      photo: "assets/photos/tianning.jpg",
       level: "\u56FD\u4FDD",
       intro: "\u51CC\u9704\u5854\u59CB\u5EFA\u4E8E\u5510\uFF0C\u5B8B\u91D1\u91CD\u4FEE\uFF0C\u9AD8 41 \u7C73\uFF0C\u4E5D\u5C42\u516B\u89D2\u697C\u9601\u5F0F\uFF0C\u662F\u6B63\u5B9A\u56DB\u5854\u4E2D\u6700\u9AD8\u3001\u4E5F\u662F\u6700\u9AD8\u5927\u7684\u4E00\u5EA7\u7816\u6728\u7ED3\u6784\u5854\uFF0C\u4FD7\u79F0\u201C\u6728\u5854\u201D\u3002\u5854\u5185\u7B2C\u56DB\u5C42\u4E2D\u5FC3\u8BBE\u901A\u5929\u67F1\uFF0C\u4EE5\u653E\u5C04\u72B6\u6252\u6881\u4E0E\u6A90\u67F1\u76F8\u8FDE\uFF0C\u7ED3\u6784\u5947\u5DE7\uFF0C\u4E3A\u4E2D\u56FD\u73B0\u5B58\u6B64\u7C7B\u5854\u4E2D\u7684\u5B64\u4F8B\uFF0C\u767B\u5854\u53EF\u4FEF\u77B0\u5168\u57CE\u3002"
     },
@@ -32377,6 +32384,7 @@
       x: 600,
       z: 610,
       model: "mansion",
+      photo: "assets/photos/rongguo.jpg",
       intro: "\u8363\u56FD\u5E9C\u662F 1986 \u5E74\u4E3A\u62CD\u6444\u7535\u89C6\u5267\u300A\u7EA2\u697C\u68A6\u300B\uFF0C\u4F9D\u636E\u5C0F\u8BF4\u63CF\u5199\u5E76\u53C2\u7167\u300A\u5927\u6E05\u4F1A\u5178\u300B\u4E25\u683C\u8BBE\u8BA1\u5EFA\u9020\u7684\u4EFF\u53E4\u5EFA\u7B51\u7FA4\uFF0C\u5206\u8363\u56FD\u5E9C\u3001\u5B81\u8363\u8857\u4E24\u90E8\u5206\uFF0C\u662F\u56FD\u5185\u6700\u65E9\u7684\u5F71\u89C6\u5B9E\u666F\u62CD\u6444\u57FA\u5730\u4E4B\u4E00\u3002\u5E9C\u5185\u4EAD\u53F0\u697C\u9601\u3001\u96D5\u6881\u753B\u680B\uFF0C\u73B0\u5E38\u5E74\u4E0A\u6F14\u201C\u5143\u5983\u7701\u4EB2\u201D\u7B49\u5B9E\u666F\u6F14\u51FA\u3002"
     },
     {
@@ -32397,6 +32405,7 @@
       x: -420,
       z: 120,
       model: "temple",
+      photo: "assets/photos/xianwenmiao.jpg",
       level: "\u56FD\u4FDD",
       intro: "\u6B63\u5B9A\u53BF\u6587\u5E99\u5927\u6210\u6BBF\u5EFA\u4E8E\u4E94\u4EE3\uFF0C\u662F\u4E2D\u56FD\u73B0\u5B58\u6700\u65E9\u7684\u6587\u5E99\u5927\u6210\u6BBF\u5EFA\u7B51\uFF0C\u6BD4\u66F2\u961C\u5B54\u5E99\u73B0\u5B58\u5927\u6210\u6BBF\u8FD8\u65E9\u6570\u767E\u5E74\u3002\u6881\u601D\u6210 1933 \u5E74\u8003\u5BDF\u65F6\u65AD\u5B9A\u4E3A\u4E94\u4EE3\u9057\u7269\uFF0C\u9762\u9614\u4E94\u95F4\uFF0C\u6597\u62F1\u5947\u5927\uFF0C\u53E4\u6734\u96C4\u6D51\u3002"
     },
@@ -32408,6 +32417,7 @@
       x: -300,
       z: 360,
       model: "temple",
+      photo: "assets/photos/fuwenmiao.jpg",
       intro: "\u5E9C\u6587\u5E99\u539F\u4E3A\u771F\u5B9A\u5E9C\u5B66\u6240\u5728\uFF0C\u59CB\u5EFA\u4E8E\u5B8B\uFF0C\u5386\u4EE3\u91CD\u4FEE\uFF0C\u89C4\u6A21\u5B8F\u9614\uFF0C\u4E0E\u53BF\u6587\u5E99\u5E76\u5CD9\uFF0C\u89C1\u8BC1\u6B63\u5B9A\u201C\u5343\u5E74\u53E4\u90E1\u3001\u4EBA\u6587\u835F\u8403\u201D\u7684\u6587\u6559\u4F20\u7EDF\uFF0C\u73B0\u4EC5\u5B58\u5927\u6210\u6BBF\u7B49\u5EFA\u7B51\u3002"
     },
     {
@@ -32626,6 +32636,7 @@
     wall: new MeshStandardMaterial({ color: 15918799, roughness: 0.85 }),
     wallWarm: new MeshStandardMaterial({ color: 14535856, roughness: 0.9 }),
     red: new MeshStandardMaterial({ color: 9187108, roughness: 0.7 }),
+    redBright: new MeshStandardMaterial({ color: 10696231, roughness: 0.65 }),
     redDark: new MeshStandardMaterial({ color: 6366237, roughness: 0.75 }),
     wood: new MeshStandardMaterial({ color: 4863271, roughness: 0.8 }),
     stone: new MeshStandardMaterial({ color: 10130314, roughness: 0.95 }),
@@ -32837,6 +32848,28 @@
     return g;
   }
   var winDarkMat = new MeshStandardMaterial({ color: 2365970, roughness: 0.6 });
+  var lingWinMat = new MeshStandardMaterial({ map: latticeTexture("#241a12", "#a33627"), roughness: 0.7 });
+  var LING_GREEN = 3042127;
+  function addLingEave(g, r, yEave, h, up) {
+    const eave = makeEaveRing(r, h, 8, LING_GREEN, up);
+    eave.position.y = yEave;
+    g.add(eave);
+    const faceHalf = r * Math.tan(Math.PI / 8) * 0.72;
+    for (let k = 0; k < 8; k++) {
+      const a = k / 8 * Math.PI * 2;
+      const nx = Math.sin(a), nz = Math.cos(a);
+      const tx = Math.cos(a), tz = -Math.sin(a);
+      for (const u of [-faceHalf, 0, faceHalf]) {
+        const raft = shadowify(new Mesh(new BoxGeometry(0.9, 0.9, 3), mats.wood), true, false);
+        raft.position.set(nx * (r - 1.4) + tx * u, yEave - 1.1, nz * (r - 1.4) + tz * u);
+        raft.rotation.y = a;
+        g.add(raft);
+      }
+    }
+    const tileRing = shadowify(new Mesh(new CylinderGeometry(r + 0.25, r + 0.25, 0.8, 8), roofMat(LING_GREEN)), true, false);
+    tileRing.position.y = yEave - 0.5;
+    g.add(tileRing);
+  }
   function makeLingxiaoPagoda() {
     const g = new Group();
     let y = 0;
@@ -32848,43 +32881,111 @@
     g.add(base2);
     y = 10;
     let r = 21;
-    for (let i = 0; i < 9; i++) {
-      const bodyH = 7.5 - i * 0.18;
-      const deck = shadowify(new Mesh(new CylinderGeometry(r + 3.2, r + 3.2, 1.6, 8), mats.wood));
-      deck.position.y = y + 1.2;
-      g.add(deck);
-      const rail = shadowify(new Mesh(new CylinderGeometry(r + 3, r + 3, 2.2, 8, 1, true), mats.redDark), false, true);
-      rail.position.y = y + 2.6;
-      g.add(rail);
-      const body = shadowify(new Mesh(new CylinderGeometry(r * 0.96, r, bodyH, 8), mats.red));
-      body.position.y = y + 1.6 + bodyH / 2;
-      g.add(body);
+    const addWall = (yBase, bodyH, rr, first) => {
+      const faceR = rr * Math.cos(Math.PI / 8);
+      for (let k = 0; k < 8; k++) {
+        const a = k / 8 * Math.PI * 2;
+        const nx = Math.sin(a), nz = Math.cos(a);
+        const col = shadowify(new Mesh(new CylinderGeometry(0.95, 1.05, bodyH + 0.8, 8), mats.redBright));
+        col.position.set(nx * rr, yBase + bodyH / 2, nz * rr);
+        g.add(col);
+        const panelW = rr * 0.62;
+        const panel2 = shadowify(new Mesh(new BoxGeometry(panelW, bodyH * 0.78, 0.7), mats.red));
+        panel2.position.set(nx * (faceR - 0.15), yBase + bodyH * 0.5, nz * (faceR - 0.15));
+        panel2.rotation.y = a;
+        g.add(panel2);
+        if (first && k === 4) {
+          const doorFrame = shadowify(new Mesh(new BoxGeometry(8, bodyH * 0.8, 0.5), mats.redBright));
+          doorFrame.position.set(nx * (faceR + 0.1), yBase + bodyH * 0.42, nz * (faceR + 0.1));
+          doorFrame.rotation.y = a;
+          g.add(doorFrame);
+          const door = new Mesh(new BoxGeometry(6.4, bodyH * 0.72, 0.8), winDarkMat);
+          door.position.set(nx * (faceR + 0.35), yBase + bodyH * 0.38, nz * (faceR + 0.35));
+          door.rotation.y = a;
+          g.add(door);
+        } else {
+          const winW = rr * (first ? 0.3 : 0.32);
+          const winH = bodyH * 0.4;
+          const frame = shadowify(new Mesh(new BoxGeometry(winW + 1.5, winH + 1.5, 0.5), mats.redBright));
+          frame.position.set(nx * (faceR + 0.1), yBase + bodyH * 0.56, nz * (faceR + 0.1));
+          frame.rotation.y = a;
+          g.add(frame);
+          const win = new Mesh(new BoxGeometry(winW, winH, 0.7), lingWinMat);
+          win.position.set(nx * (faceR + 0.35), yBase + bodyH * 0.56, nz * (faceR + 0.35));
+          win.rotation.y = a;
+          g.add(win);
+        }
+      }
+      for (const fy of [yBase + 0.5, yBase + bodyH - 0.5]) {
+        const beam = shadowify(new Mesh(new CylinderGeometry(rr * 1.03, rr * 1.03, 1.4, 8, 1, true), mats.redDark));
+        beam.position.y = fy;
+        g.add(beam);
+      }
+    };
+    const addBalustrade = (yBase, rr) => {
+      const railR = rr + 3;
       for (let k = 0; k < 8; k++) {
         const a = k / 8 * Math.PI * 2 + Math.PI / 8;
-        const win = new Mesh(new BoxGeometry(r * 0.3, bodyH * 0.42, 0.6), winDarkMat);
-        win.position.set(Math.sin(a) * (r + 0.15), y + 1.6 + bodyH * 0.55, Math.cos(a) * (r + 0.15));
-        win.rotation.y = a;
-        g.add(win);
+        const post = shadowify(new Mesh(new CylinderGeometry(0.55, 0.55, 2.8, 6), mats.redDark));
+        post.position.set(Math.sin(a) * railR, yBase + 1.4, Math.cos(a) * railR);
+        g.add(post);
       }
-      y += bodyH + 1.6;
-      const eave = makeEaveRing(r + 4.6, 4.6, 8, 3428938, 1.6);
-      eave.position.y = y;
-      g.add(eave);
-      y += 4.6;
+      for (const hy of [yBase + 1.2, yBase + 2.5]) {
+        const rail = shadowify(new Mesh(new CylinderGeometry(railR, railR, 0.45, 8, 1, true), mats.redDark), false, true);
+        rail.position.y = hy;
+        g.add(rail);
+      }
+    };
+    const deck0 = shadowify(new Mesh(new CylinderGeometry(r + 3.4, r + 3.4, 1.6, 8), mats.wood));
+    deck0.position.y = y + 1.2;
+    g.add(deck0);
+    const firstH = 11;
+    const wallBase = y + 1.6;
+    const porchR = r + 2.8;
+    for (let k = 0; k < 8; k++) {
+      const a = k / 8 * Math.PI * 2;
+      const nx = Math.sin(a), nz = Math.cos(a);
+      const tx = Math.cos(a), tz = -Math.sin(a);
+      for (const s of [-1, 1]) {
+        const pc = shadowify(new Mesh(new CylinderGeometry(1, 1.1, 12, 8), mats.redBright));
+        pc.position.set(nx * porchR + tx * s * porchR * 0.24, y + 6, nz * porchR + tz * s * porchR * 0.24);
+        g.add(pc);
+      }
+    }
+    addWall(wallBase, firstH, r, true);
+    const firstTop = wallBase + firstH;
+    addLingEave(g, r + 6.2, y + 10.5, 3.2, 1.4);
+    addLingEave(g, r + 4.8, firstTop + 0.6, 5, 1.8);
+    y = firstTop + 5.6;
+    r *= 0.93;
+    for (let i = 1; i < 9; i++) {
+      const bodyH = 7.2 - i * 0.2;
+      const deck = shadowify(new Mesh(new CylinderGeometry(r + 3.2, r + 3.2, 1.6, 8), mats.wood));
+      deck.position.y = y + 0.8;
+      g.add(deck);
+      addBalustrade(y + 1.4, r);
+      const yBase = y + 2.2;
+      addWall(yBase, bodyH, r, false);
+      const yTop = yBase + bodyH;
+      addLingEave(g, r + 4.8, yTop, i === 8 ? 5 : 4.4, 1.6);
+      y = yTop + (i === 8 ? 5 : 4.4);
       r *= 0.93;
     }
+    const pole = shadowify(new Mesh(new CylinderGeometry(0.7, 0.9, 17, 8), mats.gold), true, false);
+    pole.position.y = y + 7.5;
+    g.add(pole);
     for (let i = 0; i < 4; i++) {
-      const disc = shadowify(new Mesh(new CylinderGeometry(3.6 - i * 0.5, 3.6 - i * 0.5, 1.2, 8), mats.gold), true, false);
-      disc.position.y = y + 1 + i * 1.8;
+      const disc = shadowify(new Mesh(new CylinderGeometry(3.4 - i * 0.4, 3.4 - i * 0.4, 1.3, 8), mats.gold), true, false);
+      disc.position.y = y + 1.4 + i * 1.8;
       g.add(disc);
     }
     const bead = shadowify(new Mesh(GEO.sphere, mats.gold), true, false);
-    bead.scale.setScalar(2.6);
-    bead.position.y = y + 9;
+    bead.scale.setScalar(2.4);
+    bead.position.y = y + 9.4;
     g.add(bead);
     const fin = shadowify(new Mesh(GEO.cone, mats.gold), true, false);
     fin.scale.set(1.6, 7, 1.6);
-    fin.position.y = y + 14;
+    fin.position.y = y + 14.5;
     g.add(fin);
     g.userData.height = y + 18;
     return g;
@@ -34860,12 +34961,25 @@
     document.getElementById("poi-name").textContent = poi.name;
     document.getElementById("poi-tag").textContent = poi.tag + (poi.level ? ` \xB7 ${poi.level}` : "");
     document.getElementById("poi-intro").textContent = poi.intro;
+    const photoEl = document.getElementById("poi-photo");
+    if (poi.photo) {
+      panel.classList.add("has-photo");
+      photoEl.src = poi.photo;
+      photoEl.alt = poi.name + "\u5B9E\u666F\u7167\u7247";
+    } else {
+      panel.classList.remove("has-photo");
+      photoEl.removeAttribute("src");
+    }
     panel.classList.add("show");
   }
   function closePanel() {
     panel.classList.remove("show");
   }
   document.getElementById("panel-close").addEventListener("click", closePanel);
+  document.getElementById("poi-photo").addEventListener("error", (e) => {
+    panel.classList.remove("has-photo");
+    e.currentTarget.removeAttribute("src");
+  });
   document.getElementById("panel-fly").addEventListener("click", () => {
     if (currentPoi)
       flyToPoi(currentPoi);
