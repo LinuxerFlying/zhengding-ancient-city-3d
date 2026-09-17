@@ -1,0 +1,16 @@
+{
+  "name": "zhengding-ancient-city-3d",
+  "version": "1.0.0",
+  "description": "3D 畅游正定古城 —— 九楼四塔八大寺",
+  "scripts": {
+    "dev": "node server.cjs",
+    "build": "esbuild js/main.js --bundle --format=iife --target=es2020 --outfile=dist/app.js",
+    "start": "npm run build && node server.cjs"
+  },
+  "devDependencies": {
+    "esbuild": "0.20.2"
+  },
+  "dependencies": {
+    "three": "0.160.0"
+  }
+}

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>畅游正定古城 · 3D 文物古迹分布图</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%238c2f24'/%3E%3Ctext x='32' y='46' font-size='40' text-anchor='middle' fill='%23e7c97e' font-family='sans-serif'%3E%E6%AD%A3%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="css/style.css" />
+
+</head>
+<body>
+  <div id="app"></div>
+
+  <!-- 顶部标题栏 -->
+  <header id="topbar">
+    <button id="menu-toggle" title="景点目录">☰</button>
+    <div class="title-block">
+      <h1>畅游正定古城</h1>
+      <p>九楼 · 四塔 · 八大寺 ｜ 千年古郡 北方雄镇</p>
+    </div>
+    <div class="top-actions">
+      <button id="overview-btn" title="回到全城俯瞰">全景</button>
+      <button id="auto-rota" title="自动环绕">360° 环游</button>
+    </div>
+  </header>
+
+  <!-- 景点目录侧栏 -->
+  <aside id="sidebar">
+    <div class="side-head">
+      <span>文物古迹导览</span>
+      <button id="side-close">×</button>
+    </div>
+    <div id="poi-list"></div>
+  </aside>
+  <div id="side-mask"></div>
+
+  <!-- 景点简介面板 -->
+  <section id="poi-panel">
+    <button id="panel-close">×</button>
+    <div class="panel-tag" id="poi-tag"></div>
+    <h2 id="poi-name"></h2>
+    <div class="panel-divider"></div>
+    <p id="poi-intro"></p>
+    <button id="panel-fly">✦ 飞临此景</button>
+  </section>
+
+  <!-- 指南针 -->
+  <div id="compass">
+    <div class="compass-ring">
+      <div id="compass-n">
+        <div class="needle up">N</div>
+        <div class="needle down"></div>
+      </div>
+      <span class="compass-e">E</span>
+      <span class="compass-s">S</span>
+      <span class="compass-w">W</span>
+    </div>
+  </div>
+
+  <!-- 区域导航缩略图 -->
+  <div id="minimap-wrap">
+    <div class="mm-title">区域导航图</div>
+    <canvas id="minimap" width="200" height="200"></canvas>
+    <div class="mm-legend"><i></i>您的视角 &nbsp; <b></b>重点古迹</div>
+  </div>
+
+  <!-- 操作提示 -->
+  <div id="hint">
+    左键拖拽 360° 旋转 ｜ 滚轮缩放 ｜ 点击发光景点即可飞临观景
+  </div>
+
+  <script src="dist/app.js"></script>
+  <script>
+    // 若未打包（开发模式），退回 ES 模块
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.__zdLoaded) {
+        var s = document.createElement('script');
+        s.type = 'module';
+        s.src = 'js/main.js';
+        document.body.appendChild(s);
+      }
+    });
+  </script>
+</body>
+</html>
