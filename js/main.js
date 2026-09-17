@@ -340,6 +340,10 @@ addEventListener('resize', () => {
   renderer.setSize(innerWidth, innerHeight);
 });
 
+if (new URLSearchParams(location.search).has('debug')) {
+  window.__zd = { camera, controls, THREE, POIS, SX, flyToPoi, showPanel };
+}
+
 // 初始提示
 setTimeout(() => {
   document.getElementById('hint').classList.add('fade');
