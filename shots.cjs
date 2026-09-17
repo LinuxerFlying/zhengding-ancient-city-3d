@@ -2,7 +2,7 @@ const { chromium } = require('playwright');
 const path = require('path');
 
 const OUT = path.join(__dirname, 'docs', '第一阶段效果图');
-const BASE = 'file:///' + __dirname.replace(/\\/g, '/') + '/index.html?debug';
+const BASE = 'file:///' + __dirname.replace(/\\/g, '/') + '/index.html?debug&skipintro=1';
 
 const shots = [
   { file: '01-全城鸟瞰（南望）.png', cam: [0, 900, -1900], tgt: [0, 40, 0] },
@@ -27,6 +27,10 @@ const shots = [
   const page = await browser.newPage({ viewport: { width: 1600, height: 900 } });
   const errors = [];
   page.on('pageerror', e => errors.push(e.message));
+  await page.goto('file:///' + __dirname.replace(/\\/g, '/') + '/index.html', { waitUntil: 'load' });
+  await page.waitForTimeout(3500);
+  await page.screenshot({ path: path.join(OUT, '00-启动介绍页.png') });
+  console.log('shot 00 intro');
   await page.goto(BASE, { waitUntil: 'load' });
   await page.waitForTimeout(3500);
 

@@ -22,6 +22,7 @@ document.getElementById('app').appendChild(renderer.domElement);
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.target.set(0, 40, 0);
+controls.enabled = false;
 controls.enableDamping = true;
 controls.dampingFactor = 0.06;
 controls.minDistance = 60;
@@ -344,7 +345,19 @@ if (new URLSearchParams(location.search).has('debug')) {
   window.__zd = { camera, controls, THREE, POIS, SX, flyToPoi, showPanel };
 }
 
-// 初始提示
-setTimeout(() => {
-  document.getElementById('hint').classList.add('fade');
-}, 6000);
+// 启动介绍页
+const intro = document.getElementById('intro');
+document.getElementById('intro-start').addEventListener('click', () => {
+  intro.classList.add('hide');
+  controls.enabled = true;
+  setTimeout(() => {
+    document.getElementById('hint').classList.add('fade');
+  }, 8000);
+});
+
+// 自动化/截图模式：?skipintro=1 直接进入
+if (new URLSearchParams(location.search).has('skipintro')) {
+  intro.classList.add('hide');
+  controls.enabled = true;
+  setTimeout(() => document.getElementById('hint').classList.add('fade'), 6000);
+}

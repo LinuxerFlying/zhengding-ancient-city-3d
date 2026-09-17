@@ -33983,6 +33983,7 @@
   document.getElementById("app").appendChild(renderer.domElement);
   var controls = new OrbitControls(camera, renderer.domElement);
   controls.target.set(0, 40, 0);
+  controls.enabled = false;
   controls.enableDamping = true;
   controls.dampingFactor = 0.06;
   controls.minDistance = 60;
@@ -34273,9 +34274,19 @@
   if (new URLSearchParams(location.search).has("debug")) {
     window.__zd = { camera, controls, THREE: three_module_exports, POIS, SX: SX2, flyToPoi, showPanel };
   }
-  setTimeout(() => {
-    document.getElementById("hint").classList.add("fade");
-  }, 6e3);
+  var intro = document.getElementById("intro");
+  document.getElementById("intro-start").addEventListener("click", () => {
+    intro.classList.add("hide");
+    controls.enabled = true;
+    setTimeout(() => {
+      document.getElementById("hint").classList.add("fade");
+    }, 8e3);
+  });
+  if (new URLSearchParams(location.search).has("skipintro")) {
+    intro.classList.add("hide");
+    controls.enabled = true;
+    setTimeout(() => document.getElementById("hint").classList.add("fade"), 6e3);
+  }
 })();
 /*! Bundled license information:
 
