@@ -122,7 +122,7 @@ function flyToPoi(poi) {
     : 330;
   const height = poi.model === 'longxing' ? 420
     : poi.model === 'landmark' ? 360
-    : poi.model === 'riverbridge' ? 230
+    : poi.model === 'riverbridge' ? 300
     : 260;
   const pos = new THREE.Vector3(SX(poi.x) - dist * 0.45, height, poi.z - dist * 0.9);
   flyTo(target, pos, 1900);
@@ -268,7 +268,7 @@ function drawMinimap() {
   mctx.strokeStyle = 'rgba(225,210,170,0.7)';
   mctx.lineWidth = 1.6;
   mctx.beginPath();
-  for (const [ax, az, bx, bz] of [[0, -820, 0, 2500], [0, -820, 0, -1200], [-700, 0, 2700, 0], [700, 0, -2700, 0]]) {
+  for (const [ax, az, bx, bz] of [[0, -820, 0, 2500], [0, -820, 0, -1850], [-700, 0, 2700, 0], [700, 0, -2700, 0]]) {
     const [p0, p1] = [w2m(ax, az), w2m(bx, bz)];
     mctx.moveTo(p0[0], p0[1]); mctx.lineTo(p1[0], p1[1]);
   }

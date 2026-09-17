@@ -32527,11 +32527,11 @@
       id: "bridge",
       name: "\u6EF9\u6CB1\u6CB3\u5927\u6865",
       cat: "bridge",
-      tag: "\u73B0\u4EE3\u6865\u6881 \xB7 \u5357\u5173\u901A\u8862",
+      tag: "\u73B0\u4EE3\u659C\u62C9\u6865 \xB7 \u5357\u5173\u901A\u8862",
       x: 0,
-      z: -1330,
+      z: -1480,
       model: "riverbridge",
-      intro: "\u6EF9\u6CB1\u6CB3\u5927\u6865\u6A2A\u8DE8\u57CE\u5357\u6EF9\u6CB1\u6CB3\uFF0C\u5BBD\u8FBE\u53CC\u5411\u516D\u8F66\u9053\uFF0C\u8FDE\u63A5\u5357\u5173\u53E4\u9547\u4E0E\u6CB3\u5357\u5CB8\u65B0\u533A\uFF0C\u662F\u53E4\u57CE\u5357\u4E2D\u8F74\u7EBF\u7684\u73B0\u4EE3\u5EF6\u4F38\u3002\u51ED\u6865\u5317\u671B\uFF0C\u957F\u4E50\u95E8\u57CE\u697C\u4E0E\u57CE\u5899\u4E00\u7EBF\u5C3D\u6536\u773C\u5E95\uFF0C\u53E4\u4ECA\u4EA4\u6C47\u3002"
+      intro: "\u6EF9\u6CB1\u6CB3\u5927\u6865\u4E3A\u53CC\u5854\u53CC\u7D22\u9762\u659C\u62C9\u6865\uFF0C\u5357\u5317\u6A2A\u8DE8\u57CE\u5357\u6EF9\u6CB1\u6CB3\uFF0C\u6865\u5854\u9AD8\u8038\u3001\u659C\u7D22\u5982\u6247\uFF0C\u5BBD\u8FBE\u53CC\u5411\u516D\u8F66\u9053\uFF0C\u8FDE\u63A5\u5357\u5173\u53E4\u9547\u4E0E\u6CB3\u5357\u5CB8\u65B0\u533A\uFF0C\u662F\u53E4\u57CE\u5357\u4E2D\u8F74\u7EBF\u7684\u73B0\u4EE3\u5EF6\u4F38\u3002\u51ED\u6865\u5317\u671B\uFF0C\u957F\u4E50\u95E8\u57CE\u697C\u4E0E\u57CE\u5899\u4E00\u7EBF\u5C3D\u6536\u773C\u5E95\uFF0C\u53E4\u4ECA\u4EA4\u6C47\u3002"
     },
     {
       id: "eastcity",
@@ -33854,6 +33854,81 @@
     }
     return g;
   }
+  var cableMat = new MeshStandardMaterial({ color: 14276040, roughness: 0.4, metalness: 0.6 });
+  var pylonMat = new MeshStandardMaterial({ color: 13157044, roughness: 0.85 });
+  function makeCableStayedBridge(len = 380, width = 64) {
+    const g = new Group();
+    const deck = shadowify(new Mesh(new BoxGeometry(width, 3.4, len), concreteMat));
+    deck.position.y = 7;
+    g.add(deck);
+    const road = new Mesh(
+      new PlaneGeometry(width - 10, len),
+      new MeshStandardMaterial({ map: asphaltTexture(width, len), roughness: 1 })
+    );
+    road.rotation.x = -Math.PI / 2;
+    road.position.y = 8.8;
+    g.add(road);
+    for (const sx of [-1, 1]) {
+      const rail = shadowify(new Mesh(new BoxGeometry(1.6, 3.6, len), mats.stoneDark));
+      rail.position.set(sx * (width / 2 - 1.4), 10.6, 0);
+      g.add(rail);
+    }
+    const towerZ = 100;
+    const towerH = 132;
+    for (const sz of [-1, 1]) {
+      for (const sx of [-1, 1]) {
+        const leg = shadowify(new Mesh(new BoxGeometry(4.6, towerH, 5.4), pylonMat));
+        leg.position.set(sx * (width / 2 - 7), towerH / 2 + 8, sz * towerZ);
+        g.add(leg);
+      }
+      for (const hy of [30, 86]) {
+        const beam = shadowify(new Mesh(new BoxGeometry(width - 6, 5, 6), pylonMat));
+        beam.position.set(0, 8 + hy, sz * towerZ);
+        g.add(beam);
+      }
+    }
+    const cableGeo = new CylinderGeometry(0.28, 0.28, 1, 6);
+    const up = new Vector3(0, 1, 0);
+    for (const sz of [-1, 1]) {
+      for (const sx of [-1, 1]) {
+        const apex = new Vector3(sx * (width / 2 - 7), 8 + towerH - 4, sz * towerZ);
+        for (const side of [-1, 1]) {
+          for (let i = 1; i <= 6; i++) {
+            const az = sz * towerZ + side * (14 + i * 16);
+            if (Math.abs(az) > len / 2 - 8)
+              continue;
+            const anchor = new Vector3(sx * (width / 2 - 4), 11.4, az);
+            const dir = apex.clone().sub(anchor);
+            const cl = dir.length();
+            const cable = shadowify(new Mesh(cableGeo, cableMat), false, false);
+            cable.scale.y = cl;
+            cable.position.copy(anchor).addScaledVector(dir, 0.5);
+            cable.quaternion.setFromUnitVectors(up, dir.normalize());
+            g.add(cable);
+          }
+        }
+      }
+    }
+    for (const z of [-len / 2 + 30, -len / 2 + 80, len / 2 - 80, len / 2 - 30]) {
+      for (const sx of [-1, 1]) {
+        const pier = shadowify(new Mesh(new BoxGeometry(3.4, 12, 7), mats.stoneDark));
+        pier.position.set(sx * (width / 2 - 9), 5, z);
+        g.add(pier);
+      }
+    }
+    for (let lz = -len / 2 + 30; lz < len / 2; lz += 80)
+      for (const sx of [-1, 1]) {
+        const pole = shadowify(new Mesh(new CylinderGeometry(0.3, 0.3, 15, 6), mats.stoneDark));
+        pole.position.set(sx * (width / 2 - 6), 16, lz);
+        g.add(pole);
+        const lamp = new Mesh(GEO.sphere, new MeshBasicMaterial({ color: 16773824 }));
+        lamp.scale.setScalar(1);
+        lamp.position.set(sx * (width / 2 - 6), 23.8, lz);
+        g.add(lamp);
+      }
+    g.userData.height = 8 + towerH + 8;
+    return g;
+  }
   function asphaltTexture(width, len) {
     const c = document.createElement("canvas");
     c.width = 64;
@@ -34234,7 +34309,7 @@
       else
         segRoadV(scene2, x, -D + 60, D - 60, 18, roadMat);
     }
-    addRoad(scene2, 0, -D - 30, 0, -1150, 34, mainMat, 0.04);
+    addRoad(scene2, 0, -D - 30, 0, -1290, 34, mainMat, 0.04);
     addRoad(scene2, W - 40, 60, 620, 60, 24, mainMat, 0.05);
     addRoad(scene2, 620, 60, 560, 132, 24, mainMat, 0.05);
     addRoad(scene2, -2600, -1e3, 2600, -1e3, 18, roadMat, 0.03);
@@ -34569,7 +34644,8 @@
     scene2.add(m);
   }
   function buildAvenues(scene2) {
-    addAvenue(scene2, 0, -D + 20, 0, -1200, 64);
+    addAvenue(scene2, 0, -D + 20, 0, -1290, 64);
+    addAvenue(scene2, 0, -1670, 0, -1850, 64);
     addAvenue(scene2, 0, D - 20, 0, 2500, 64);
     addAvenue(scene2, -W - 20, 0, 2700, 0, 58);
     addAvenue(scene2, W + 20, 0, -2700, 0, 58);
@@ -34691,7 +34767,7 @@
       case "museum":
         return makeMuseum();
       case "riverbridge":
-        return makeBridge(300, 92);
+        return makeCableStayedBridge(380, 64);
       case "landmark":
         return makeOfficeTower(mulberry32(701));
       case "stele":
@@ -34735,8 +34811,6 @@
       }
       if (poi.model === "paifang" && poi.paifangRot)
         group.rotation.y = poi.paifangRot;
-      if (poi.model === "riverbridge")
-        group.rotation.y = Math.PI / 2;
       if (poi.model === "gate") {
         const plaques = {
           changle: { text: "\u4E09\u5173\u96C4\u9547", side: "south" },
@@ -34934,7 +35008,7 @@
   function flyToPoi(poi) {
     const target = new Vector3(SX2(poi.x), 30, poi.z);
     const dist = poi.model === "stele" ? 220 : poi.model === "landmark" ? 560 : poi.model === "riverbridge" ? 480 : poi.model === "museum" || poi.model === "visitor" ? 400 : 330;
-    const height = poi.model === "longxing" ? 420 : poi.model === "landmark" ? 360 : poi.model === "riverbridge" ? 230 : 260;
+    const height = poi.model === "longxing" ? 420 : poi.model === "landmark" ? 360 : poi.model === "riverbridge" ? 300 : 260;
     const pos = new Vector3(SX2(poi.x) - dist * 0.45, height, poi.z - dist * 0.9);
     flyTo(target, pos, 1900);
     highlightMarker(poi);
@@ -35066,7 +35140,7 @@
     mctx.strokeStyle = "rgba(225,210,170,0.7)";
     mctx.lineWidth = 1.6;
     mctx.beginPath();
-    for (const [ax, az, bx, bz] of [[0, -820, 0, 2500], [0, -820, 0, -1200], [-700, 0, 2700, 0], [700, 0, -2700, 0]]) {
+    for (const [ax, az, bx, bz] of [[0, -820, 0, 2500], [0, -820, 0, -1850], [-700, 0, 2700, 0], [700, 0, -2700, 0]]) {
       const [p0, p1] = [w2m(ax, az), w2m(bx, bz)];
       mctx.moveTo(p0[0], p0[1]);
       mctx.lineTo(p1[0], p1[1]);

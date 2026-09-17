@@ -194,8 +194,8 @@ function buildRoads(scene) {
     if (x === 470) segRoadV(scene, x, -D + 60, D - 60, 18, roadMat, TEMPLE_BLOCK);
     else segRoadV(scene, x, -D + 60, D - 60, 18, roadMat);
   }
-  // 南关古道（长乐门至滹沱河）
-  addRoad(scene, 0, -D - 30, 0, -1150, 34, mainMat, 0.04);
+  // 南关古道（长乐门至滹沱河大桥北端）
+  addRoad(scene, 0, -D - 30, 0, -1290, 34, mainMat, 0.04);
   // 东门内至隆兴寺引道（迎旭门内 → 寺院山门外）
   addRoad(scene, W - 40, 60, 620, 60, 24, mainMat, 0.05);
   addRoad(scene, 620, 60, 560, 132, 24, mainMat, 0.05);
@@ -533,7 +533,8 @@ function addAvenue(scene, dataX1, z1, dataX2, z2, width = 60) {
 
 function buildAvenues(scene) {
   // 中轴向城外延伸的城市主干道
-  addAvenue(scene, 0, -D + 20, 0, -1200, 64);   // 南关大街
+  addAvenue(scene, 0, -D + 20, 0, -1290, 64);   // 南关大街（接滹沱河大桥北端）
+  addAvenue(scene, 0, -1670, 0, -1850, 64);     // 大桥南岸引道
   addAvenue(scene, 0, D - 20, 0, 2500, 64);     // 燕赵北大街
   addAvenue(scene, -W - 20, 0, 2700, 0, 58);    // 中山路向东接新区
   addAvenue(scene, W + 20, 0, -2700, 0, 58);    // 向西
@@ -664,7 +665,7 @@ function buildPoiModel(poi) {
     case 'museum':
       return B.makeMuseum();
     case 'riverbridge':
-      return B.makeBridge(300, 92);
+      return B.makeCableStayedBridge(380, 64);
     case 'landmark':
       return B.makeOfficeTower(B.mulberry32(701));
     case 'stele':
@@ -709,7 +710,6 @@ export function buildPois(scene) {
         : poi.id === 'guangyuan' ? Math.PI : 0;
     }
     if (poi.model === 'paifang' && poi.paifangRot) group.rotation.y = poi.paifangRot;
-    if (poi.model === 'riverbridge') group.rotation.y = Math.PI / 2;
     // 城门题额（面向城外）
     if (poi.model === 'gate') {
       const plaques = {

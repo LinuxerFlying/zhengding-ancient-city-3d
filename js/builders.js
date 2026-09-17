@@ -1169,6 +1169,83 @@ export function makeBridge(len, width, opts = {}) {
   return g;
 }
 
+// ---------- 斜拉桥（双塔双索面，桥长沿 Z 轴，-Z 为南） ----------
+const cableMat = new THREE.MeshStandardMaterial({ color: 0xd9d5c8, roughness: 0.4, metalness: 0.6 });
+const pylonMat = new THREE.MeshStandardMaterial({ color: 0xc8c2b4, roughness: 0.85 });
+
+export function makeCableStayedBridge(len = 380, width = 64) {
+  const g = new THREE.Group();
+  // 箱梁桥面
+  const deck = shadowify(new THREE.Mesh(new THREE.BoxGeometry(width, 3.4, len), concreteMat));
+  deck.position.y = 7; g.add(deck);
+  const road = new THREE.Mesh(
+    new THREE.PlaneGeometry(width - 10, len),
+    new THREE.MeshStandardMaterial({ map: asphaltTexture(width, len), roughness: 1 })
+  );
+  road.rotation.x = -Math.PI / 2;
+  road.position.y = 8.8;
+  g.add(road);
+  // 护栏
+  for (const sx of [-1, 1]) {
+    const rail = shadowify(new THREE.Mesh(new THREE.BoxGeometry(1.6, 3.6, len), mats.stoneDark));
+    rail.position.set(sx * (width / 2 - 1.4), 10.6, 0); g.add(rail);
+  }
+  // H 形桥塔（立于两岸近水处）
+  const towerZ = 100;
+  const towerH = 132;
+  for (const sz of [-1, 1]) {
+    for (const sx of [-1, 1]) {
+      const leg = shadowify(new THREE.Mesh(new THREE.BoxGeometry(4.6, towerH, 5.4), pylonMat));
+      leg.position.set(sx * (width / 2 - 7), towerH / 2 + 8, sz * towerZ);
+      g.add(leg);
+    }
+    for (const hy of [30, 86]) {
+      const beam = shadowify(new THREE.Mesh(new THREE.BoxGeometry(width - 6, 5, 6), pylonMat));
+      beam.position.set(0, 8 + hy, sz * towerZ);
+      g.add(beam);
+    }
+  }
+  // 扇形斜拉索（双索面）
+  const cableGeo = new THREE.CylinderGeometry(0.28, 0.28, 1, 6);
+  const up = new THREE.Vector3(0, 1, 0);
+  for (const sz of [-1, 1]) {
+    for (const sx of [-1, 1]) {
+      const apex = new THREE.Vector3(sx * (width / 2 - 7), 8 + towerH - 4, sz * towerZ);
+      for (const side of [-1, 1]) {
+        for (let i = 1; i <= 6; i++) {
+          const az = sz * towerZ + side * (14 + i * 16);
+          if (Math.abs(az) > len / 2 - 8) continue;
+          const anchor = new THREE.Vector3(sx * (width / 2 - 4), 11.4, az);
+          const dir = apex.clone().sub(anchor);
+          const cl = dir.length();
+          const cable = shadowify(new THREE.Mesh(cableGeo, cableMat), false, false);
+          cable.scale.y = cl;
+          cable.position.copy(anchor).addScaledVector(dir, 0.5);
+          cable.quaternion.setFromUnitVectors(up, dir.normalize());
+          g.add(cable);
+        }
+      }
+    }
+  }
+  // 引桥桥墩（仅岸上，河面主跨无墩）
+  for (const z of [-len / 2 + 30, -len / 2 + 80, len / 2 - 80, len / 2 - 30]) {
+    for (const sx of [-1, 1]) {
+      const pier = shadowify(new THREE.Mesh(new THREE.BoxGeometry(3.4, 12, 7), mats.stoneDark));
+      pier.position.set(sx * (width / 2 - 9), 5, z); g.add(pier);
+    }
+  }
+  // 路灯
+  for (let lz = -len / 2 + 30; lz < len / 2; lz += 80) for (const sx of [-1, 1]) {
+    const pole = shadowify(new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.3, 15, 6), mats.stoneDark));
+    pole.position.set(sx * (width / 2 - 6), 16, lz); g.add(pole);
+    const lamp = new THREE.Mesh(GEO.sphere, new THREE.MeshBasicMaterial({ color: 0xfff2c0 }));
+    lamp.scale.setScalar(1);
+    lamp.position.set(sx * (width / 2 - 6), 23.8, lz); g.add(lamp);
+  }
+  g.userData.height = 8 + towerH + 8;
+  return g;
+}
+
 export function asphaltTexture(width, len) {
   const c = document.createElement('canvas');
   c.width = 64; c.height = 256;
