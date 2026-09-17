@@ -229,29 +229,53 @@ export function makeTower(w, d, floors = 2, roofColor = ROOF_GREEN) {
   return g;
 }
 
-// ---------- 凌霄塔（八角木塔，9层） ----------
+// ---------- 凌霄塔（八角楼阁式木塔，9层） ----------
+const winDarkMat = new THREE.MeshStandardMaterial({ color: 0x241a12, roughness: 0.6 });
 export function makeLingxiaoPagoda() {
   const g = new THREE.Group();
   let y = 0;
-  const base = shadowify(new THREE.Mesh(new THREE.CylinderGeometry(26, 30, 6, 8), mats.stone));
-  base.position.y = 3; g.add(base); y = 6;
-  let r = 20;
+  // 八角石砌台基（两层）
+  const base1 = shadowify(new THREE.Mesh(new THREE.CylinderGeometry(30, 34, 5, 8), mats.stone));
+  base1.position.y = 2.5; g.add(base1);
+  const base2 = shadowify(new THREE.Mesh(new THREE.CylinderGeometry(26, 29, 5, 8), mats.stoneDark));
+  base2.position.y = 7.5; g.add(base2);
+  y = 10;
+  let r = 21;
   for (let i = 0; i < 9; i++) {
-    const bodyH = 10 - i * 0.3;
-    const body = shadowify(new THREE.Mesh(new THREE.CylinderGeometry(r, r * 1.04, bodyH, 8), i % 2 ? mats.red : mats.brickGrey));
-    body.position.y = y + bodyH / 2; g.add(body);
-    // 木栏平座
-    const deck = shadowify(new THREE.Mesh(new THREE.CylinderGeometry(r + 2.2, r + 2.2, 1.6, 8), mats.wood));
-    deck.position.y = y + 1.4; g.add(deck);
-    y += bodyH;
-    const eave = makeEaveRing(r + 3.4, 3.4, 8, ROOF_GREEN, 1.2);
+    const bodyH = 7.5 - i * 0.18;
+    // 平座栏杆（木构外廊）
+    const deck = shadowify(new THREE.Mesh(new THREE.CylinderGeometry(r + 3.2, r + 3.2, 1.6, 8), mats.wood));
+    deck.position.y = y + 1.2; g.add(deck);
+    const rail = shadowify(new THREE.Mesh(new THREE.CylinderGeometry(r + 3, r + 3, 2.2, 8, 1, true), mats.redDark), false, true);
+    rail.position.y = y + 2.6; g.add(rail);
+    // 朱红木塔身
+    const body = shadowify(new THREE.Mesh(new THREE.CylinderGeometry(r * 0.96, r, bodyH, 8), mats.red));
+    body.position.y = y + 1.6 + bodyH / 2; g.add(body);
+    // 八面暗窗
+    for (let k = 0; k < 8; k++) {
+      const a = (k / 8) * Math.PI * 2 + Math.PI / 8;
+      const win = new THREE.Mesh(new THREE.BoxGeometry(r * 0.3, bodyH * 0.42, 0.6), winDarkMat);
+      win.position.set(Math.sin(a) * (r + 0.15), y + 1.6 + bodyH * 0.55, Math.cos(a) * (r + 0.15));
+      win.rotation.y = a;
+      g.add(win);
+    }
+    y += bodyH + 1.6;
+    // 绿琉璃瓦密檐（翘角明显）
+    const eave = makeEaveRing(r + 4.6, 4.6, 8, 0x34524a, 1.6);
     eave.position.y = y; g.add(eave);
-    y += 3.4;
-    r *= 0.94;
+    y += 4.6;
+    r *= 0.93;
   }
+  // 塔刹：宝珠+相轮
+  for (let i = 0; i < 4; i++) {
+    const disc = shadowify(new THREE.Mesh(new THREE.CylinderGeometry(3.6 - i * 0.5, 3.6 - i * 0.5, 1.2, 8), mats.gold), true, false);
+    disc.position.y = y + 1 + i * 1.8; g.add(disc);
+  }
+  const bead = shadowify(new THREE.Mesh(GEO.sphere, mats.gold), true, false);
+  bead.scale.setScalar(2.6); bead.position.y = y + 9; g.add(bead);
   const fin = shadowify(new THREE.Mesh(GEO.cone, mats.gold), true, false);
-  fin.scale.set(2.4, 12, 2.4); fin.position.y = y + 6; g.add(fin);
-  g.userData.height = y + 12;
+  fin.scale.set(1.6, 7, 1.6); fin.position.y = y + 14; g.add(fin);
+  g.userData.height = y + 18;
   return g;
 }
 
@@ -698,6 +722,406 @@ function roundRect(ctx, x, y, w, h, r) {
   ctx.arcTo(x, y + h, x, y, r);
   ctx.arcTo(x, y, x + w, y, r);
   ctx.closePath();
+}
+
+// ---------- 现代建筑立面纹理 ----------
+function facadeTexture(base, win, lit, cols, rows, seed, style = 0) {
+  const c = document.createElement('canvas');
+  c.width = 128; c.height = 256;
+  const g = c.getContext('2d');
+  g.fillStyle = base; g.fillRect(0, 0, 128, 256);
+  const rng = mulberry32(seed);
+  const cw = 128 / cols, ch = 256 / rows;
+  for (let r = 0; r < rows; r++) {
+    for (let colI = 0; colI < cols; colI++) {
+      const on = rng() > 0.22;
+      g.fillStyle = on ? (rng() > 0.82 ? lit : win) : 'rgba(20,26,30,0.9)';
+      const m = style === 1 ? 2.2 : 3.2;
+      g.fillRect(colI * cw + m, r * ch + m * 0.7, cw - m * 2, ch - m * 1.6);
+    }
+  }
+  if (style === 1) {
+    g.strokeStyle = 'rgba(255,255,255,0.18)';
+    g.lineWidth = 2;
+    for (let i = 1; i < cols; i++) {
+      g.beginPath(); g.moveTo(i * cw, 0); g.lineTo(i * cw, 256); g.stroke();
+    }
+  }
+  const tex = new THREE.CanvasTexture(c);
+  tex.anisotropy = 4;
+  return tex;
+}
+const facadeMats = [];
+[
+  ['#8fa3ad', '#d8ecf2', '#ffe9b0', 8, 18, 11, 0],
+  ['#6e8894', '#cfe5ee', '#ffd98a', 7, 20, 22, 0],
+  ['#b7b2a6', '#dfe7ea', '#ffe4a0', 9, 22, 33, 1],
+  ['#9aa6ad', '#cfe0e8', '#fff0bf', 6, 24, 44, 1],
+  ['#a8957f', '#e8e0cf', '#ffdf9e', 8, 20, 55, 1],
+  ['#7d8f76', '#dce8d4', '#ffe2a0', 7, 22, 66, 0]
+].forEach(a => {
+  const tex = facadeTexture(...a);
+  facadeMats.push(new THREE.MeshStandardMaterial({ map: tex, roughness: 0.55, metalness: 0.18 }));
+});
+const concreteMat = new THREE.MeshStandardMaterial({ color: 0xb4afa4, roughness: 0.9 });
+const podiumMat = new THREE.MeshStandardMaterial({ color: 0xc2b49c, roughness: 0.8 });
+const glassDark = new THREE.MeshStandardMaterial({ color: 0x33424c, roughness: 0.2, metalness: 0.6 });
+
+// 现代办公楼（写字楼）
+export function makeOfficeTower(rand) {
+  const g = new THREE.Group();
+  const w = 46 + rand() * 34;
+  const d = 42 + rand() * 26;
+  const floors = 12 + Math.floor(rand() * 14);
+  const fh = 6.2;
+  const h = floors * fh;
+  const mat = facadeMats[Math.floor(rand() * 4)];
+  const body = shadowify(new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat));
+  body.position.y = h / 2; g.add(body);
+  // 裙房
+  const pw = w + 18 + rand() * 14;
+  const pd = d + 14 + rand() * 10;
+  const podium = shadowify(new THREE.Mesh(new THREE.BoxGeometry(pw, 14, pd), podiumMat));
+  podium.position.y = 7; g.add(podium);
+  const shopGlass = new THREE.Mesh(new THREE.BoxGeometry(pw - 4, 7, pd - 4), glassDark);
+  shopGlass.position.y = 7; g.add(shopGlass);
+  // 顶部退台/构架
+  if (rand() > 0.4) {
+    const cap = shadowify(new THREE.Mesh(new THREE.BoxGeometry(w * 0.55, 8, d * 0.55), mat));
+    cap.position.y = h + 4; g.add(cap);
+    const mast = shadowify(new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.5, 18, 6), mats.gold), false, false);
+    mast.position.y = h + 17; g.add(mast);
+  }
+  g.userData.height = h + 20;
+  return g;
+}
+
+// 现代居民楼（板式住宅）
+export function makeResidentialTower(rand) {
+  const g = new THREE.Group();
+  const w = 26 + rand() * 14;
+  const d = 60 + rand() * 30;
+  const floors = 11 + Math.floor(rand() * 12);
+  const fh = 4.6;
+  const h = floors * fh;
+  const mat = facadeMats[2 + Math.floor(rand() * 4) % 4];
+  const body = shadowify(new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat));
+  body.position.y = h / 2; g.add(body);
+  // 阳台条
+  for (let r = 2; r < floors; r += 2) {
+    const slab = shadowify(new THREE.Mesh(new THREE.BoxGeometry(w + 2.4, 0.5, d + 2.4), concreteMat), false, true);
+    slab.position.y = r * fh; g.add(slab);
+  }
+  // 楼顶水箱/电梯间
+  const cap = shadowify(new THREE.Mesh(new THREE.BoxGeometry(w * 0.5, 6, d * 0.35), concreteMat));
+  cap.position.set(0, h + 3, 0); g.add(cap);
+  return g;
+}
+
+// 现代低层商业体
+export function makeCommercialLow(rand) {
+  const g = new THREE.Group();
+  const w = 70 + rand() * 50;
+  const d = 40 + rand() * 24;
+  const h = 16 + rand() * 10;
+  const body = shadowify(new THREE.Mesh(new THREE.BoxGeometry(w, h, d), podiumMat));
+  body.position.y = h / 2; g.add(body);
+  const glass = new THREE.Mesh(new THREE.BoxGeometry(w - 4, h * 0.55, d - 4), glassDark);
+  glass.position.y = h * 0.42; g.add(glass);
+  const cap = shadowify(new THREE.Mesh(new THREE.BoxGeometry(w + 6, 2.4, d + 6), facadeMats[1]));
+  cap.position.y = h + 1.2; g.add(cap);
+  return g;
+}
+
+// ---------- 临街二层仿古商铺 ----------
+const SHOP_SIGNS = ['正定八大碗', '马家卤鸡', '崩肝小吃', '郝家排骨', '常山郡', '真定府', '宋记糕坊', '阳和茶馆', '元曲书场', '非遗工坊', '老字号', '古玩字画', '正定特产', '腊味铺子'];
+const signTexCache = {};
+function signTexture(text) {
+  if (signTexCache[text]) return signTexCache[text];
+  const c = document.createElement('canvas');
+  c.width = 256; c.height = 64;
+  const g = c.getContext('2d');
+  g.fillStyle = '#3a2117'; g.fillRect(0, 0, 256, 64);
+  g.strokeStyle = '#d8b15a'; g.lineWidth = 5; g.strokeRect(4, 4, 248, 56);
+  g.fillStyle = '#f0d590';
+  g.font = 'bold 34px "KaiTi","STKaiti","SimSun",serif';
+  g.textAlign = 'center'; g.textBaseline = 'middle';
+  g.fillText(text, 128, 35);
+  const tex = new THREE.CanvasTexture(c);
+  signTexCache[text] = tex;
+  return tex;
+}
+export function makeShop(text) {
+  const g = new THREE.Group();
+  const w = 17, d = 13, h = 11;
+  const base = shadowify(new THREE.Mesh(new THREE.BoxGeometry(w + 1.5, 1.6, d + 1.5), mats.stone));
+  base.position.y = 0.8; g.add(base);
+  const body = shadowify(new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mats.wall));
+  body.position.y = 1.6 + h / 2; g.add(body);
+  // 一层铺面（暗红敞廊）
+  const front = new THREE.Mesh(new THREE.BoxGeometry(w - 2, 4.6, 0.8), mats.redDark);
+  front.position.set(0, 1.6 + 2.4, -d / 2 - 0.1); g.add(front);
+  // 檐柱
+  for (const sx of [-1, 1]) {
+    const col = shadowify(new THREE.Mesh(new THREE.CylinderGeometry(0.45, 0.5, 5.4, 8), mats.red));
+    col.position.set(sx * (w / 2 - 1.2), 1.6 + 2.7, -d / 2 - 0.5); g.add(col);
+  }
+  // 招牌
+  const sign = new THREE.Mesh(
+    new THREE.PlaneGeometry(w - 2, 3.2),
+    new THREE.MeshBasicMaterial({ map: signTexture(text) })
+  );
+  sign.position.set(0, 1.6 + 7.6, -d / 2 - 0.45); g.add(sign);
+  // 二层窗
+  const win = new THREE.Mesh(new THREE.BoxGeometry(w - 3, 3, 0.6), new THREE.MeshStandardMaterial({ map: latticeTexture(), roughness: 0.7 }));
+  win.position.set(0, 1.6 + h - 2.4, -d / 2 - 0.2); g.add(win);
+  // 檐顶
+  const roof = makeHipRoof(w + 3.5, d + 3.5, 4.2, ROOF_GREY, 0.12);
+  roof.position.y = 1.6 + h; g.add(roof);
+  return g;
+}
+export function randomShopName(rand) {
+  return SHOP_SIGNS[Math.floor(rand() * SHOP_SIGNS.length)];
+}
+
+// ---------- 牌坊 ----------
+export function makePaifang(text) {
+  const g = new THREE.Group();
+  const span = 42;
+  for (const sx of [-1, 1]) {
+    const col = shadowify(new THREE.Mesh(new THREE.BoxGeometry(2.6, 22, 2.6), mats.red));
+    col.position.set(sx * span / 2, 11, 0); g.add(col);
+    const foot = shadowify(new THREE.Mesh(new THREE.BoxGeometry(5, 2, 5), mats.stone));
+    foot.position.set(sx * span / 2, 1, 0); g.add(foot);
+  }
+  const beam1 = shadowify(new THREE.Mesh(new THREE.BoxGeometry(span + 8, 3, 3.4), mats.red));
+  beam1.position.y = 15; g.add(beam1);
+  const beam2 = shadowify(new THREE.Mesh(new THREE.BoxGeometry(span + 2, 2.4, 3), mats.redDark));
+  beam2.position.y = 19.5; g.add(beam2);
+  const board = new THREE.Mesh(
+    new THREE.PlaneGeometry(span - 10, 7),
+    new THREE.MeshBasicMaterial({ map: plaqueTexture(text, '#2a1a10', '#f0d590') })
+  );
+  board.position.set(0, 17.4, -1.9); g.add(board);
+  const roof = makeHipRoof(span + 10, 8, 5, ROOF_GREY, 0.16);
+  roof.position.y = 21; g.add(roof);
+  return g;
+}
+
+// ---------- 游客服务中心（新中式） ----------
+export function makeVisitorCenter() {
+  const g = new THREE.Group();
+  const plat = shadowify(new THREE.Mesh(new THREE.BoxGeometry(120, 2, 70), mats.stone));
+  plat.position.y = 1; g.add(plat);
+  const body = shadowify(new THREE.Mesh(new THREE.BoxGeometry(96, 16, 50), mats.wall));
+  body.position.y = 10; g.add(body);
+  const glass = new THREE.Mesh(new THREE.BoxGeometry(40, 10, 1.2), glassDark);
+  glass.position.set(0, 8, -25.4); g.add(glass);
+  for (const sx of [-1, 1]) for (let i = -2; i <= 2; i++) {
+    const col = shadowify(new THREE.Mesh(new THREE.CylinderGeometry(0.9, 1, 16, 10), mats.red));
+    col.position.set(sx * 30 + i * 10, 10, -25.8); g.add(col);
+  }
+  const roof = makeHipRoof(108, 62, 12, ROOF_GREEN, 0.2);
+  roof.position.y = 18; g.add(roof);
+  const sign = new THREE.Mesh(
+    new THREE.PlaneGeometry(52, 9),
+    new THREE.MeshBasicMaterial({ map: plaqueTexture('游客服务中心', '#2a1a10', '#f0d590') })
+  );
+  sign.position.set(0, 14.5, -26.4); g.add(sign);
+  return g;
+}
+
+// ---------- 博物馆（庄重现代） ----------
+export function makeMuseum() {
+  const g = new THREE.Group();
+  const steps = shadowify(new THREE.Mesh(new THREE.BoxGeometry(150, 2.4, 90), mats.stone));
+  steps.position.y = 1.2; g.add(steps);
+  const body = shadowify(new THREE.Mesh(new THREE.BoxGeometry(120, 26, 64), new THREE.MeshStandardMaterial({ color: 0xcac2b0, roughness: 0.75 })));
+  body.position.y = 15.2; g.add(body);
+  // 柱廊
+  for (let i = -5; i <= 5; i++) {
+    const col = shadowify(new THREE.Mesh(new THREE.CylinderGeometry(1.4, 1.5, 20, 12), mats.stoneDark));
+    col.position.set(i * 10, 14, -33); g.add(col);
+  }
+  const door = new THREE.Mesh(new THREE.BoxGeometry(20, 14, 1), glassDark);
+  door.position.set(0, 9, -32.6); g.add(door);
+  const roof = shadowify(new THREE.Mesh(new THREE.BoxGeometry(130, 3, 72), mats.stoneDark));
+  roof.position.y = 29.5; g.add(roof);
+  const sign = new THREE.Mesh(
+    new THREE.PlaneGeometry(60, 10),
+    new THREE.MeshBasicMaterial({ map: plaqueTexture('正定博物馆', '#241a10', '#f0d590') })
+  );
+  sign.position.set(0, 23, -33.6); g.add(sign);
+  return g;
+}
+
+function plaqueTexture(text, bg, fg) {
+  const c = document.createElement('canvas');
+  c.width = 512; c.height = 128;
+  const g = c.getContext('2d');
+  g.fillStyle = bg; roundRect(g, 4, 4, 504, 120, 12); g.fill();
+  g.strokeStyle = '#c9a454'; g.lineWidth = 5; roundRect(g, 4, 4, 504, 120, 12); g.stroke();
+  g.fillStyle = fg;
+  g.font = `bold ${text.length > 5 ? 58 : 70}px "KaiTi","STKaiti","SimSun",serif`;
+  g.textAlign = 'center'; g.textBaseline = 'middle';
+  g.fillText(text, 256, 66);
+  return new THREE.CanvasTexture(c);
+}
+
+// ---------- 停车场 ----------
+export function makeParking(w, d) {
+  const g = new THREE.Group();
+  const c = document.createElement('canvas');
+  c.width = 256; c.height = 256;
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = '#6b6860'; ctx.fillRect(0, 0, 256, 256);
+  ctx.strokeStyle = 'rgba(255,255,255,0.75)';
+  ctx.lineWidth = 4;
+  for (let i = 0; i <= 8; i++) {
+    ctx.beginPath(); ctx.moveTo(i * 32, 0); ctx.lineTo(i * 32, 256); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0, i * 32); ctx.lineTo(256, i * 32); ctx.stroke();
+  }
+  const tex = new THREE.CanvasTexture(c);
+  const plane = new THREE.Mesh(
+    new THREE.PlaneGeometry(w, d),
+    new THREE.MeshStandardMaterial({ map: tex, roughness: 1 })
+  );
+  plane.rotation.x = -Math.PI / 2;
+  plane.position.y = 0.12;
+  plane.receiveShadow = true;
+  g.add(plane);
+  return g;
+}
+
+// ---------- 广场 ----------
+export function makePlaza(w, d) {
+  const g = new THREE.Group();
+  const c = document.createElement('canvas');
+  c.width = c.height = 128;
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = '#b0a693'; ctx.fillRect(0, 0, 128, 128);
+  ctx.strokeStyle = 'rgba(90,84,72,0.5)';
+  ctx.lineWidth = 2;
+  ctx.strokeRect(1, 1, 126, 126);
+  ctx.beginPath(); ctx.moveTo(64, 0); ctx.lineTo(64, 128); ctx.moveTo(0, 64); ctx.lineTo(128, 64); ctx.stroke();
+  const tex = new THREE.CanvasTexture(c);
+  tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+  tex.repeat.set(w / 24, d / 24);
+  const plane = new THREE.Mesh(
+    new THREE.PlaneGeometry(w, d),
+    new THREE.MeshStandardMaterial({ map: tex, roughness: 1 })
+  );
+  plane.rotation.x = -Math.PI / 2;
+  plane.position.y = 0.1;
+  plane.receiveShadow = true;
+  g.add(plane);
+  // 中央鼎式雕塑
+  const ped = shadowify(new THREE.Mesh(new THREE.CylinderGeometry(5, 6, 3, 8), mats.stoneDark));
+  ped.position.y = 1.5; g.add(ped);
+  const ding = shadowify(new THREE.Mesh(new THREE.CylinderGeometry(4, 3, 5, 8), new THREE.MeshStandardMaterial({ color: 0x6b4a26, metalness: 0.5, roughness: 0.4 })));
+  ding.position.y = 5.5; g.add(ding);
+  for (const sx of [-1, 1]) {
+    const handle = shadowify(new THREE.Mesh(new THREE.TorusGeometry(1.6, 0.3, 8, 14, Math.PI), mats.gold));
+    handle.position.set(sx * 4, 8.4, 0);
+    handle.rotation.z = sx > 0 ? 0 : Math.PI;
+    g.add(handle);
+  }
+  // 灯柱
+  for (const sx of [-1, 1]) for (const sz of [-1, 1]) {
+    const pole = shadowify(new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.3, 12, 6), mats.stoneDark));
+    pole.position.set(sx * (w / 2 - 8), 6, sz * (d / 2 - 8)); g.add(pole);
+    const lamp = new THREE.Mesh(GEO.sphere, new THREE.MeshBasicMaterial({ color: 0xfff2c0 }));
+    lamp.scale.setScalar(1.1);
+    lamp.position.set(sx * (w / 2 - 8), 12.4, sz * (d / 2 - 8)); g.add(lamp);
+  }
+  return g;
+}
+
+// ---------- 桥梁 ----------
+export function makeBridge(len, width, opts = {}) {
+  const g = new THREE.Group();
+  const stone = opts.stone ? mats.stone : concreteMat;
+  const deck = shadowify(new THREE.Mesh(new THREE.BoxGeometry(width, 3, len), stone));
+  deck.position.y = 7; g.add(deck);
+  // 路面
+  const road = new THREE.Mesh(
+    new THREE.PlaneGeometry(width - 8, len),
+    new THREE.MeshStandardMaterial({ map: asphaltTexture(width, len), roughness: 1 })
+  );
+  road.rotation.x = -Math.PI / 2;
+  road.position.y = 8.6;
+  g.add(road);
+  // 护栏
+  for (const sx of [-1, 1]) {
+    const rail = shadowify(new THREE.Mesh(new THREE.BoxGeometry(1.4, 3.4, len), mats.stoneDark));
+    rail.position.set(sx * (width / 2 - 1.2), 10.4, 0); g.add(rail);
+  }
+  // 桥墩
+  const pierCount = Math.max(1, Math.floor(len / 110));
+  for (let i = 0; i <= pierCount; i++) {
+    const z = -len / 2 + (i / pierCount) * len;
+    if (Math.abs(z) < 20) continue;
+    for (const sx of [-1, 1]) {
+      const pier = shadowify(new THREE.Mesh(new THREE.BoxGeometry(3, 13, 6), mats.stoneDark));
+      pier.position.set(sx * (width / 2 - 8), 0.5, z); g.add(pier);
+    }
+  }
+  if (!opts.stone) {
+    // 路灯
+    for (let lz = -len / 2 + 30; lz < len / 2; lz += 90) for (const sx of [-1, 1]) {
+      const pole = shadowify(new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.3, 16, 6), mats.stoneDark));
+      pole.position.set(sx * (width / 2 - 5), 16, lz); g.add(pole);
+      const lamp = new THREE.Mesh(GEO.sphere, new THREE.MeshBasicMaterial({ color: 0xfff2c0 }));
+      lamp.scale.setScalar(1);
+      lamp.position.set(sx * (width / 2 - 5), 24.4, lz); g.add(lamp);
+    }
+  }
+  return g;
+}
+
+export function asphaltTexture(width, len) {
+  const c = document.createElement('canvas');
+  c.width = 64; c.height = 256;
+  const g = c.getContext('2d');
+  g.fillStyle = '#4a4742'; g.fillRect(0, 0, 64, 256);
+  const rng = mulberry32(Math.floor(len) + Math.floor(width));
+  for (let i = 0; i < 300; i++) {
+    g.fillStyle = `rgba(255,255,255,${rng() * 0.05})`;
+    g.fillRect(rng() * 64, rng() * 256, 2, 2);
+  }
+  g.strokeStyle = 'rgba(240,235,210,0.85)';
+  g.lineWidth = 3;
+  g.setLineDash([26, 22]);
+  g.beginPath(); g.moveTo(32, 0); g.lineTo(32, 256); g.stroke();
+  g.setLineDash([]);
+  const tex = new THREE.CanvasTexture(c);
+  tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+  tex.repeat.set(1, Math.max(1, len / 90));
+  return tex;
+}
+
+// 现代城区地面铺装
+export function makeUrbanPad(w, d) {
+  const c = document.createElement('canvas');
+  c.width = c.height = 128;
+  const g = c.getContext('2d');
+  g.fillStyle = '#9b9a92'; g.fillRect(0, 0, 128, 128);
+  const rng = mulberry32(Math.floor(Math.abs(w * 7 + d)) + 1);
+  for (let i = 0; i < 500; i++) {
+    g.fillStyle = `rgba(60,60,58,${rng() * 0.08})`;
+    g.fillRect(rng() * 128, rng() * 128, 2, 2);
+  }
+  const tex = new THREE.CanvasTexture(c);
+  tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+  tex.repeat.set(Math.abs(w) / 120, Math.abs(d) / 120);
+  const m = new THREE.Mesh(
+    new THREE.PlaneGeometry(w, d),
+    new THREE.MeshStandardMaterial({ map: tex, roughness: 1 })
+  );
+  m.rotation.x = -Math.PI / 2;
+  m.position.y = 0.06;
+  m.receiveShadow = true;
+  return m;
 }
 
 export const MATERIALS = mats;

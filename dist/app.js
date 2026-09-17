@@ -32470,6 +32470,79 @@
       model: "temple",
       intro: "\u771F\u6B66\u5E99\u4F9B\u5949\u5317\u65B9\u4E4B\u795E\u771F\u6B66\u5927\u5E1D\uFF0C\u662F\u6B63\u5B9A\u53E4\u57CE\u5317\u90E8\u91CD\u8981\u7684\u9053\u6559\u5E99\u5B87\uFF0C\u5BC4\u6258\u7740\u6C11\u4F17\u7948\u613F\u98CE\u8C03\u96E8\u987A\u3001\u57CE\u6C60\u5B89\u5B81\u7684\u6734\u7D20\u613F\u671B\u3002"
     },
+    // ================= 文化街区与服务设施 =================
+    {
+      id: "yanzhao",
+      name: "\u71D5\u8D75\u8001\u8857",
+      cat: "street",
+      tag: "\u6587\u5316\u8857\u533A \xB7 \u975E\u9057\u7F8E\u98DF",
+      x: 120,
+      z: -360,
+      model: "paifang",
+      paifangText: "\u71D5\u8D75\u8001\u8857",
+      intro: "\u71D5\u8D75\u8001\u8857\u4F4D\u4E8E\u9633\u548C\u697C\u4E1C\u5357\uFF0C\u662F\u6B63\u5B9A\u53E4\u57CE\u91CD\u70B9\u6253\u9020\u7684\u5386\u53F2\u6587\u5316\u8857\u533A\uFF1A\u9752\u7816\u7070\u74E6\u7684\u4E8C\u5C42\u94FA\u9762\u6CBF\u8857\u6392\u5F00\uFF0C\u6B63\u5B9A\u516B\u5927\u7897\u3001\u9A6C\u5BB6\u5364\u9E21\u3001\u5D29\u809D\u3001\u90DD\u5BB6\u6392\u9AA8\u7B49\u8001\u5B57\u53F7\u4E0E\u975E\u9057\u5DE5\u574A\u3001\u5143\u66F2\u4E66\u573A\u4E91\u96C6\uFF0C\u65D7\u5E4C\u62DB\u5C55\uFF0C\u91CD\u73B0\u201C\u6CB3\u6714\u4E00\u90FD\u4F1A\u201D\u7684\u5E02\u4E95\u7E41\u534E\u3002"
+    },
+    {
+      id: "nanguan",
+      name: "\u5357\u5173\u53E4\u9547",
+      cat: "street",
+      tag: "\u6587\u5316\u8857\u533A \xB7 \u5357\u5173\u53A2",
+      x: 0,
+      z: -950,
+      model: "paifang",
+      paifangText: "\u5357\u5173\u53E4\u9547",
+      intro: "\u5357\u5173\u53E4\u9547\u5750\u843D\u4E8E\u957F\u4E50\u95E8\u5916\u3001\u6EF9\u6CB1\u6CB3\u5317\u5CB8\uFF0C\u81EA\u53E4\u4E3A\u51FA\u5165\u5357\u95E8\u7684\u5173\u53A2\u5546\u57E0\u3002\u5982\u4ECA\u4EE5\u4F20\u7EDF\u5546\u8857\u98CE\u8C8C\u518D\u73B0\u5357\u5173\u5546\u9053\u7E41\u534E\uFF0C\u4E0E\u53E4\u57CE\u5899\u3001\u6EF9\u6CB1\u6CB3\u5927\u6865\u5171\u540C\u6784\u6210\u5357\u5165\u53E3\u6587\u5316\u666F\u89C2\u5E26\u3002"
+    },
+    {
+      id: "visitor",
+      name: "\u6E38\u5BA2\u670D\u52A1\u4E2D\u5FC3",
+      cat: "service",
+      tag: "\u65C5\u6E38\u670D\u52A1 \xB7 \u8FCE\u65ED\u95E8\u5916",
+      x: 900,
+      z: 70,
+      model: "visitor",
+      intro: "\u6B63\u5B9A\u53E4\u57CE\u6E38\u5BA2\u670D\u52A1\u4E2D\u5FC3\u4F4D\u4E8E\u4E1C\u57CE\u95E8\u8FCE\u65ED\u95E8\u5916\u3001\u901A\u5F80\u9686\u5174\u5BFA\u7684\u65C5\u6E38\u5E72\u9053\u65C1\uFF0C\u63D0\u4F9B\u7968\u52A1\u54A8\u8BE2\u3001\u5BFC\u6E38\u8BB2\u89E3\u3001\u884C\u674E\u5BC4\u5B58\u3001\u6BCD\u5A74\u4F11\u606F\u4E0E\u5927\u578B\u505C\u8F66\u573A\u7B49\u4E00\u7AD9\u5F0F\u670D\u52A1\uFF0C\u65B0\u4E2D\u5F0F\u5EFA\u7B51\u4E0E\u53E4\u57CE\u98CE\u8C8C\u534F\u8C03\u7EDF\u4E00\u3002"
+    },
+    {
+      id: "museum",
+      name: "\u6B63\u5B9A\u535A\u7269\u9986",
+      cat: "service",
+      tag: "\u57CE\u5E02\u6587\u5316\u5BA2\u5385",
+      x: 320,
+      z: 980,
+      model: "museum",
+      intro: "\u6B63\u5B9A\u535A\u7269\u9986\u4F4D\u4E8E\u53E4\u57CE\u5317\u4FA7\uFF0C\u9986\u85CF\u6587\u7269\u4E0A\u6EAF\u65B0\u77F3\u5668\u65F6\u4EE3\uFF0C\u4E0B\u81F3\u660E\u6E05\u6C11\u56FD\uFF0C\u7CFB\u7EDF\u5C55\u793A\u6B63\u5B9A\u4ECE\u4EF0\u97F6\u9F99\u5C71\u805A\u843D\u3001\u5E38\u5C71\u771F\u5B9A\u540D\u90E1\u5230\u201C\u4E5D\u697C\u56DB\u5854\u516B\u5927\u5BFA\u201D\u7684\u5343\u5E74\u5EFA\u57CE\u53F2\u4E0E\u4F5B\u6559\u6587\u5316\u3001\u5143\u66F2\u6587\u5316\u3001\u4E09\u56FD\u5B50\u9F99\u6587\u5316\u3002"
+    },
+    {
+      id: "bridge",
+      name: "\u6EF9\u6CB1\u6CB3\u5927\u6865",
+      cat: "bridge",
+      tag: "\u73B0\u4EE3\u6865\u6881 \xB7 \u5357\u5173\u901A\u8862",
+      x: 0,
+      z: -1330,
+      model: "riverbridge",
+      intro: "\u6EF9\u6CB1\u6CB3\u5927\u6865\u6A2A\u8DE8\u57CE\u5357\u6EF9\u6CB1\u6CB3\uFF0C\u5BBD\u8FBE\u53CC\u5411\u516D\u8F66\u9053\uFF0C\u8FDE\u63A5\u5357\u5173\u53E4\u9547\u4E0E\u6CB3\u5357\u5CB8\u65B0\u533A\uFF0C\u662F\u53E4\u57CE\u5357\u4E2D\u8F74\u7EBF\u7684\u73B0\u4EE3\u5EF6\u4F38\u3002\u51ED\u6865\u5317\u671B\uFF0C\u957F\u4E50\u95E8\u57CE\u697C\u4E0E\u57CE\u5899\u4E00\u7EBF\u5C3D\u6536\u773C\u5E95\uFF0C\u53E4\u4ECA\u4EA4\u6C47\u3002"
+    },
+    {
+      id: "eastcity",
+      name: "\u6B63\u5B9A\u65B0\u533A",
+      cat: "modern",
+      tag: "\u73B0\u4EE3\u57CE\u533A \xB7 \u5546\u52A1\u4E2D\u5FC3",
+      x: 1950,
+      z: -100,
+      model: "landmark",
+      intro: "\u6B63\u5B9A\u65B0\u533A\u4F4D\u4E8E\u53E4\u57CE\u4EE5\u4E1C\uFF0C\u9AD8\u697C\u6797\u7ACB\u3001\u8DEF\u7F51\u5F00\u9614\uFF0C\u5546\u52A1\u5199\u5B57\u697C\u3001\u5546\u4E1A\u7EFC\u5408\u4F53\u4E0E\u73B0\u4EE3\u793E\u533A\u62D4\u5730\u800C\u8D77\uFF0C\u4E0E\u897F\u4FA7\u53E4\u57CE\u5F62\u6210\u201C\u53E4\u97F5\u201D\u4E0E\u201C\u65B0\u533A\u201D\u76F8\u5F97\u76CA\u5F70\u7684\u57CE\u5E02\u683C\u5C40\uFF0C\u662F\u77F3\u5BB6\u5E84\u5411\u5317\u53D1\u5C55\u7684\u91CD\u8981\u677F\u5757\u3002"
+    },
+    {
+      id: "binhe",
+      name: "\u6EE8\u6CB3\u793E\u533A",
+      cat: "modern",
+      tag: "\u73B0\u4EE3\u57CE\u533A \xB7 \u6CB3\u7554\u5B9C\u5C45",
+      x: -1750,
+      z: -1e3,
+      model: "landmark",
+      intro: "\u6EF9\u6CB1\u6CB3\u897F\u5CB8\u7684\u6EE8\u6CB3\u5C45\u4F4F\u793E\u533A\uFF0C\u677F\u5F0F\u5C45\u6C11\u697C\u4E34\u6CB3\u800C\u5EFA\uFF0C\u7EFF\u5730\u4E0E\u591A\u8F66\u9053\u57CE\u5E02\u9053\u8DEF\u914D\u5957\u5B8C\u5584\u3002\u767B\u53E4\u57CE\u897F\u671B\uFF0C\u53E4\u5854\u4E0E\u73B0\u4EE3\u697C\u5B87\u9694\u6CB3\u76F8\u6620\uFF0C\u6B63\u662F\u6B63\u5B9A\u53E4\u4ECA\u4EA4\u878D\u7684\u751F\u52A8\u5199\u7167\u3002"
+    },
     // ================= 城外古迹（参考分布图） =================
     {
       id: "xiaokelong",
@@ -32541,7 +32614,11 @@
     temple: "\u5BFA\u9662",
     mansion: "\u5E9C\u90B8\u540D\u5C45",
     ruin: "\u9057\u5740",
-    outside: "\u57CE\u5916\u53E4\u8FF9"
+    outside: "\u57CE\u5916\u53E4\u8FF9",
+    street: "\u6587\u5316\u8857\u533A",
+    service: "\u670D\u52A1\u8BBE\u65BD",
+    bridge: "\u6865\u6881",
+    modern: "\u73B0\u4EE3\u57CE\u533A"
   };
 
   // js/builders.js
@@ -32759,34 +32836,57 @@
     g.userData.height = y + 8;
     return g;
   }
+  var winDarkMat = new MeshStandardMaterial({ color: 2365970, roughness: 0.6 });
   function makeLingxiaoPagoda() {
     const g = new Group();
     let y = 0;
-    const base = shadowify(new Mesh(new CylinderGeometry(26, 30, 6, 8), mats.stone));
-    base.position.y = 3;
-    g.add(base);
-    y = 6;
-    let r = 20;
+    const base1 = shadowify(new Mesh(new CylinderGeometry(30, 34, 5, 8), mats.stone));
+    base1.position.y = 2.5;
+    g.add(base1);
+    const base2 = shadowify(new Mesh(new CylinderGeometry(26, 29, 5, 8), mats.stoneDark));
+    base2.position.y = 7.5;
+    g.add(base2);
+    y = 10;
+    let r = 21;
     for (let i = 0; i < 9; i++) {
-      const bodyH = 10 - i * 0.3;
-      const body = shadowify(new Mesh(new CylinderGeometry(r, r * 1.04, bodyH, 8), i % 2 ? mats.red : mats.brickGrey));
-      body.position.y = y + bodyH / 2;
-      g.add(body);
-      const deck = shadowify(new Mesh(new CylinderGeometry(r + 2.2, r + 2.2, 1.6, 8), mats.wood));
-      deck.position.y = y + 1.4;
+      const bodyH = 7.5 - i * 0.18;
+      const deck = shadowify(new Mesh(new CylinderGeometry(r + 3.2, r + 3.2, 1.6, 8), mats.wood));
+      deck.position.y = y + 1.2;
       g.add(deck);
-      y += bodyH;
-      const eave = makeEaveRing(r + 3.4, 3.4, 8, ROOF_GREEN, 1.2);
+      const rail = shadowify(new Mesh(new CylinderGeometry(r + 3, r + 3, 2.2, 8, 1, true), mats.redDark), false, true);
+      rail.position.y = y + 2.6;
+      g.add(rail);
+      const body = shadowify(new Mesh(new CylinderGeometry(r * 0.96, r, bodyH, 8), mats.red));
+      body.position.y = y + 1.6 + bodyH / 2;
+      g.add(body);
+      for (let k = 0; k < 8; k++) {
+        const a = k / 8 * Math.PI * 2 + Math.PI / 8;
+        const win = new Mesh(new BoxGeometry(r * 0.3, bodyH * 0.42, 0.6), winDarkMat);
+        win.position.set(Math.sin(a) * (r + 0.15), y + 1.6 + bodyH * 0.55, Math.cos(a) * (r + 0.15));
+        win.rotation.y = a;
+        g.add(win);
+      }
+      y += bodyH + 1.6;
+      const eave = makeEaveRing(r + 4.6, 4.6, 8, 3428938, 1.6);
       eave.position.y = y;
       g.add(eave);
-      y += 3.4;
-      r *= 0.94;
+      y += 4.6;
+      r *= 0.93;
     }
+    for (let i = 0; i < 4; i++) {
+      const disc = shadowify(new Mesh(new CylinderGeometry(3.6 - i * 0.5, 3.6 - i * 0.5, 1.2, 8), mats.gold), true, false);
+      disc.position.y = y + 1 + i * 1.8;
+      g.add(disc);
+    }
+    const bead = shadowify(new Mesh(GEO.sphere, mats.gold), true, false);
+    bead.scale.setScalar(2.6);
+    bead.position.y = y + 9;
+    g.add(bead);
     const fin = shadowify(new Mesh(GEO.cone, mats.gold), true, false);
-    fin.scale.set(2.4, 12, 2.4);
-    fin.position.y = y + 6;
+    fin.scale.set(1.6, 7, 1.6);
+    fin.position.y = y + 14;
     g.add(fin);
-    g.userData.height = y + 12;
+    g.userData.height = y + 18;
     return g;
   }
   function makeXumiPagoda() {
@@ -33256,6 +33356,451 @@
     ctx.arcTo(x, y, x + w, y, r);
     ctx.closePath();
   }
+  function facadeTexture(base, win, lit, cols, rows, seed, style = 0) {
+    const c = document.createElement("canvas");
+    c.width = 128;
+    c.height = 256;
+    const g = c.getContext("2d");
+    g.fillStyle = base;
+    g.fillRect(0, 0, 128, 256);
+    const rng = mulberry32(seed);
+    const cw = 128 / cols, ch = 256 / rows;
+    for (let r = 0; r < rows; r++) {
+      for (let colI = 0; colI < cols; colI++) {
+        const on = rng() > 0.22;
+        g.fillStyle = on ? rng() > 0.82 ? lit : win : "rgba(20,26,30,0.9)";
+        const m = style === 1 ? 2.2 : 3.2;
+        g.fillRect(colI * cw + m, r * ch + m * 0.7, cw - m * 2, ch - m * 1.6);
+      }
+    }
+    if (style === 1) {
+      g.strokeStyle = "rgba(255,255,255,0.18)";
+      g.lineWidth = 2;
+      for (let i = 1; i < cols; i++) {
+        g.beginPath();
+        g.moveTo(i * cw, 0);
+        g.lineTo(i * cw, 256);
+        g.stroke();
+      }
+    }
+    const tex = new CanvasTexture(c);
+    tex.anisotropy = 4;
+    return tex;
+  }
+  var facadeMats = [];
+  [
+    ["#8fa3ad", "#d8ecf2", "#ffe9b0", 8, 18, 11, 0],
+    ["#6e8894", "#cfe5ee", "#ffd98a", 7, 20, 22, 0],
+    ["#b7b2a6", "#dfe7ea", "#ffe4a0", 9, 22, 33, 1],
+    ["#9aa6ad", "#cfe0e8", "#fff0bf", 6, 24, 44, 1],
+    ["#a8957f", "#e8e0cf", "#ffdf9e", 8, 20, 55, 1],
+    ["#7d8f76", "#dce8d4", "#ffe2a0", 7, 22, 66, 0]
+  ].forEach((a) => {
+    const tex = facadeTexture(...a);
+    facadeMats.push(new MeshStandardMaterial({ map: tex, roughness: 0.55, metalness: 0.18 }));
+  });
+  var concreteMat = new MeshStandardMaterial({ color: 11841444, roughness: 0.9 });
+  var podiumMat = new MeshStandardMaterial({ color: 12760220, roughness: 0.8 });
+  var glassDark = new MeshStandardMaterial({ color: 3359308, roughness: 0.2, metalness: 0.6 });
+  function makeOfficeTower(rand) {
+    const g = new Group();
+    const w = 46 + rand() * 34;
+    const d = 42 + rand() * 26;
+    const floors = 12 + Math.floor(rand() * 14);
+    const fh = 6.2;
+    const h = floors * fh;
+    const mat = facadeMats[Math.floor(rand() * 4)];
+    const body = shadowify(new Mesh(new BoxGeometry(w, h, d), mat));
+    body.position.y = h / 2;
+    g.add(body);
+    const pw = w + 18 + rand() * 14;
+    const pd = d + 14 + rand() * 10;
+    const podium = shadowify(new Mesh(new BoxGeometry(pw, 14, pd), podiumMat));
+    podium.position.y = 7;
+    g.add(podium);
+    const shopGlass = new Mesh(new BoxGeometry(pw - 4, 7, pd - 4), glassDark);
+    shopGlass.position.y = 7;
+    g.add(shopGlass);
+    if (rand() > 0.4) {
+      const cap = shadowify(new Mesh(new BoxGeometry(w * 0.55, 8, d * 0.55), mat));
+      cap.position.y = h + 4;
+      g.add(cap);
+      const mast = shadowify(new Mesh(new CylinderGeometry(0.5, 0.5, 18, 6), mats.gold), false, false);
+      mast.position.y = h + 17;
+      g.add(mast);
+    }
+    g.userData.height = h + 20;
+    return g;
+  }
+  function makeResidentialTower(rand) {
+    const g = new Group();
+    const w = 26 + rand() * 14;
+    const d = 60 + rand() * 30;
+    const floors = 11 + Math.floor(rand() * 12);
+    const fh = 4.6;
+    const h = floors * fh;
+    const mat = facadeMats[2 + Math.floor(rand() * 4) % 4];
+    const body = shadowify(new Mesh(new BoxGeometry(w, h, d), mat));
+    body.position.y = h / 2;
+    g.add(body);
+    for (let r = 2; r < floors; r += 2) {
+      const slab = shadowify(new Mesh(new BoxGeometry(w + 2.4, 0.5, d + 2.4), concreteMat), false, true);
+      slab.position.y = r * fh;
+      g.add(slab);
+    }
+    const cap = shadowify(new Mesh(new BoxGeometry(w * 0.5, 6, d * 0.35), concreteMat));
+    cap.position.set(0, h + 3, 0);
+    g.add(cap);
+    return g;
+  }
+  function makeCommercialLow(rand) {
+    const g = new Group();
+    const w = 70 + rand() * 50;
+    const d = 40 + rand() * 24;
+    const h = 16 + rand() * 10;
+    const body = shadowify(new Mesh(new BoxGeometry(w, h, d), podiumMat));
+    body.position.y = h / 2;
+    g.add(body);
+    const glass = new Mesh(new BoxGeometry(w - 4, h * 0.55, d - 4), glassDark);
+    glass.position.y = h * 0.42;
+    g.add(glass);
+    const cap = shadowify(new Mesh(new BoxGeometry(w + 6, 2.4, d + 6), facadeMats[1]));
+    cap.position.y = h + 1.2;
+    g.add(cap);
+    return g;
+  }
+  var SHOP_SIGNS = ["\u6B63\u5B9A\u516B\u5927\u7897", "\u9A6C\u5BB6\u5364\u9E21", "\u5D29\u809D\u5C0F\u5403", "\u90DD\u5BB6\u6392\u9AA8", "\u5E38\u5C71\u90E1", "\u771F\u5B9A\u5E9C", "\u5B8B\u8BB0\u7CD5\u574A", "\u9633\u548C\u8336\u9986", "\u5143\u66F2\u4E66\u573A", "\u975E\u9057\u5DE5\u574A", "\u8001\u5B57\u53F7", "\u53E4\u73A9\u5B57\u753B", "\u6B63\u5B9A\u7279\u4EA7", "\u814A\u5473\u94FA\u5B50"];
+  var signTexCache = {};
+  function signTexture(text) {
+    if (signTexCache[text])
+      return signTexCache[text];
+    const c = document.createElement("canvas");
+    c.width = 256;
+    c.height = 64;
+    const g = c.getContext("2d");
+    g.fillStyle = "#3a2117";
+    g.fillRect(0, 0, 256, 64);
+    g.strokeStyle = "#d8b15a";
+    g.lineWidth = 5;
+    g.strokeRect(4, 4, 248, 56);
+    g.fillStyle = "#f0d590";
+    g.font = 'bold 34px "KaiTi","STKaiti","SimSun",serif';
+    g.textAlign = "center";
+    g.textBaseline = "middle";
+    g.fillText(text, 128, 35);
+    const tex = new CanvasTexture(c);
+    signTexCache[text] = tex;
+    return tex;
+  }
+  function makeShop(text) {
+    const g = new Group();
+    const w = 17, d = 13, h = 11;
+    const base = shadowify(new Mesh(new BoxGeometry(w + 1.5, 1.6, d + 1.5), mats.stone));
+    base.position.y = 0.8;
+    g.add(base);
+    const body = shadowify(new Mesh(new BoxGeometry(w, h, d), mats.wall));
+    body.position.y = 1.6 + h / 2;
+    g.add(body);
+    const front = new Mesh(new BoxGeometry(w - 2, 4.6, 0.8), mats.redDark);
+    front.position.set(0, 1.6 + 2.4, -d / 2 - 0.1);
+    g.add(front);
+    for (const sx of [-1, 1]) {
+      const col = shadowify(new Mesh(new CylinderGeometry(0.45, 0.5, 5.4, 8), mats.red));
+      col.position.set(sx * (w / 2 - 1.2), 1.6 + 2.7, -d / 2 - 0.5);
+      g.add(col);
+    }
+    const sign2 = new Mesh(
+      new PlaneGeometry(w - 2, 3.2),
+      new MeshBasicMaterial({ map: signTexture(text) })
+    );
+    sign2.position.set(0, 1.6 + 7.6, -d / 2 - 0.45);
+    g.add(sign2);
+    const win = new Mesh(new BoxGeometry(w - 3, 3, 0.6), new MeshStandardMaterial({ map: latticeTexture(), roughness: 0.7 }));
+    win.position.set(0, 1.6 + h - 2.4, -d / 2 - 0.2);
+    g.add(win);
+    const roof = makeHipRoof(w + 3.5, d + 3.5, 4.2, ROOF_GREY, 0.12);
+    roof.position.y = 1.6 + h;
+    g.add(roof);
+    return g;
+  }
+  function randomShopName(rand) {
+    return SHOP_SIGNS[Math.floor(rand() * SHOP_SIGNS.length)];
+  }
+  function makePaifang(text) {
+    const g = new Group();
+    const span = 42;
+    for (const sx of [-1, 1]) {
+      const col = shadowify(new Mesh(new BoxGeometry(2.6, 22, 2.6), mats.red));
+      col.position.set(sx * span / 2, 11, 0);
+      g.add(col);
+      const foot = shadowify(new Mesh(new BoxGeometry(5, 2, 5), mats.stone));
+      foot.position.set(sx * span / 2, 1, 0);
+      g.add(foot);
+    }
+    const beam1 = shadowify(new Mesh(new BoxGeometry(span + 8, 3, 3.4), mats.red));
+    beam1.position.y = 15;
+    g.add(beam1);
+    const beam2 = shadowify(new Mesh(new BoxGeometry(span + 2, 2.4, 3), mats.redDark));
+    beam2.position.y = 19.5;
+    g.add(beam2);
+    const board = new Mesh(
+      new PlaneGeometry(span - 10, 7),
+      new MeshBasicMaterial({ map: plaqueTexture(text, "#2a1a10", "#f0d590") })
+    );
+    board.position.set(0, 17.4, -1.9);
+    g.add(board);
+    const roof = makeHipRoof(span + 10, 8, 5, ROOF_GREY, 0.16);
+    roof.position.y = 21;
+    g.add(roof);
+    return g;
+  }
+  function makeVisitorCenter() {
+    const g = new Group();
+    const plat = shadowify(new Mesh(new BoxGeometry(120, 2, 70), mats.stone));
+    plat.position.y = 1;
+    g.add(plat);
+    const body = shadowify(new Mesh(new BoxGeometry(96, 16, 50), mats.wall));
+    body.position.y = 10;
+    g.add(body);
+    const glass = new Mesh(new BoxGeometry(40, 10, 1.2), glassDark);
+    glass.position.set(0, 8, -25.4);
+    g.add(glass);
+    for (const sx of [-1, 1])
+      for (let i = -2; i <= 2; i++) {
+        const col = shadowify(new Mesh(new CylinderGeometry(0.9, 1, 16, 10), mats.red));
+        col.position.set(sx * 30 + i * 10, 10, -25.8);
+        g.add(col);
+      }
+    const roof = makeHipRoof(108, 62, 12, ROOF_GREEN, 0.2);
+    roof.position.y = 18;
+    g.add(roof);
+    const sign2 = new Mesh(
+      new PlaneGeometry(52, 9),
+      new MeshBasicMaterial({ map: plaqueTexture("\u6E38\u5BA2\u670D\u52A1\u4E2D\u5FC3", "#2a1a10", "#f0d590") })
+    );
+    sign2.position.set(0, 14.5, -26.4);
+    g.add(sign2);
+    return g;
+  }
+  function makeMuseum() {
+    const g = new Group();
+    const steps = shadowify(new Mesh(new BoxGeometry(150, 2.4, 90), mats.stone));
+    steps.position.y = 1.2;
+    g.add(steps);
+    const body = shadowify(new Mesh(new BoxGeometry(120, 26, 64), new MeshStandardMaterial({ color: 13288112, roughness: 0.75 })));
+    body.position.y = 15.2;
+    g.add(body);
+    for (let i = -5; i <= 5; i++) {
+      const col = shadowify(new Mesh(new CylinderGeometry(1.4, 1.5, 20, 12), mats.stoneDark));
+      col.position.set(i * 10, 14, -33);
+      g.add(col);
+    }
+    const door = new Mesh(new BoxGeometry(20, 14, 1), glassDark);
+    door.position.set(0, 9, -32.6);
+    g.add(door);
+    const roof = shadowify(new Mesh(new BoxGeometry(130, 3, 72), mats.stoneDark));
+    roof.position.y = 29.5;
+    g.add(roof);
+    const sign2 = new Mesh(
+      new PlaneGeometry(60, 10),
+      new MeshBasicMaterial({ map: plaqueTexture("\u6B63\u5B9A\u535A\u7269\u9986", "#241a10", "#f0d590") })
+    );
+    sign2.position.set(0, 23, -33.6);
+    g.add(sign2);
+    return g;
+  }
+  function plaqueTexture(text, bg, fg) {
+    const c = document.createElement("canvas");
+    c.width = 512;
+    c.height = 128;
+    const g = c.getContext("2d");
+    g.fillStyle = bg;
+    roundRect(g, 4, 4, 504, 120, 12);
+    g.fill();
+    g.strokeStyle = "#c9a454";
+    g.lineWidth = 5;
+    roundRect(g, 4, 4, 504, 120, 12);
+    g.stroke();
+    g.fillStyle = fg;
+    g.font = `bold ${text.length > 5 ? 58 : 70}px "KaiTi","STKaiti","SimSun",serif`;
+    g.textAlign = "center";
+    g.textBaseline = "middle";
+    g.fillText(text, 256, 66);
+    return new CanvasTexture(c);
+  }
+  function makeParking(w, d) {
+    const g = new Group();
+    const c = document.createElement("canvas");
+    c.width = 256;
+    c.height = 256;
+    const ctx = c.getContext("2d");
+    ctx.fillStyle = "#6b6860";
+    ctx.fillRect(0, 0, 256, 256);
+    ctx.strokeStyle = "rgba(255,255,255,0.75)";
+    ctx.lineWidth = 4;
+    for (let i = 0; i <= 8; i++) {
+      ctx.beginPath();
+      ctx.moveTo(i * 32, 0);
+      ctx.lineTo(i * 32, 256);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(0, i * 32);
+      ctx.lineTo(256, i * 32);
+      ctx.stroke();
+    }
+    const tex = new CanvasTexture(c);
+    const plane = new Mesh(
+      new PlaneGeometry(w, d),
+      new MeshStandardMaterial({ map: tex, roughness: 1 })
+    );
+    plane.rotation.x = -Math.PI / 2;
+    plane.position.y = 0.12;
+    plane.receiveShadow = true;
+    g.add(plane);
+    return g;
+  }
+  function makePlaza(w, d) {
+    const g = new Group();
+    const c = document.createElement("canvas");
+    c.width = c.height = 128;
+    const ctx = c.getContext("2d");
+    ctx.fillStyle = "#b0a693";
+    ctx.fillRect(0, 0, 128, 128);
+    ctx.strokeStyle = "rgba(90,84,72,0.5)";
+    ctx.lineWidth = 2;
+    ctx.strokeRect(1, 1, 126, 126);
+    ctx.beginPath();
+    ctx.moveTo(64, 0);
+    ctx.lineTo(64, 128);
+    ctx.moveTo(0, 64);
+    ctx.lineTo(128, 64);
+    ctx.stroke();
+    const tex = new CanvasTexture(c);
+    tex.wrapS = tex.wrapT = RepeatWrapping;
+    tex.repeat.set(w / 24, d / 24);
+    const plane = new Mesh(
+      new PlaneGeometry(w, d),
+      new MeshStandardMaterial({ map: tex, roughness: 1 })
+    );
+    plane.rotation.x = -Math.PI / 2;
+    plane.position.y = 0.1;
+    plane.receiveShadow = true;
+    g.add(plane);
+    const ped = shadowify(new Mesh(new CylinderGeometry(5, 6, 3, 8), mats.stoneDark));
+    ped.position.y = 1.5;
+    g.add(ped);
+    const ding = shadowify(new Mesh(new CylinderGeometry(4, 3, 5, 8), new MeshStandardMaterial({ color: 7031334, metalness: 0.5, roughness: 0.4 })));
+    ding.position.y = 5.5;
+    g.add(ding);
+    for (const sx of [-1, 1]) {
+      const handle = shadowify(new Mesh(new TorusGeometry(1.6, 0.3, 8, 14, Math.PI), mats.gold));
+      handle.position.set(sx * 4, 8.4, 0);
+      handle.rotation.z = sx > 0 ? 0 : Math.PI;
+      g.add(handle);
+    }
+    for (const sx of [-1, 1])
+      for (const sz of [-1, 1]) {
+        const pole = shadowify(new Mesh(new CylinderGeometry(0.3, 0.3, 12, 6), mats.stoneDark));
+        pole.position.set(sx * (w / 2 - 8), 6, sz * (d / 2 - 8));
+        g.add(pole);
+        const lamp = new Mesh(GEO.sphere, new MeshBasicMaterial({ color: 16773824 }));
+        lamp.scale.setScalar(1.1);
+        lamp.position.set(sx * (w / 2 - 8), 12.4, sz * (d / 2 - 8));
+        g.add(lamp);
+      }
+    return g;
+  }
+  function makeBridge(len, width, opts = {}) {
+    const g = new Group();
+    const stone = opts.stone ? mats.stone : concreteMat;
+    const deck = shadowify(new Mesh(new BoxGeometry(width, 3, len), stone));
+    deck.position.y = 7;
+    g.add(deck);
+    const road = new Mesh(
+      new PlaneGeometry(width - 8, len),
+      new MeshStandardMaterial({ map: asphaltTexture(width, len), roughness: 1 })
+    );
+    road.rotation.x = -Math.PI / 2;
+    road.position.y = 8.6;
+    g.add(road);
+    for (const sx of [-1, 1]) {
+      const rail = shadowify(new Mesh(new BoxGeometry(1.4, 3.4, len), mats.stoneDark));
+      rail.position.set(sx * (width / 2 - 1.2), 10.4, 0);
+      g.add(rail);
+    }
+    const pierCount = Math.max(1, Math.floor(len / 110));
+    for (let i = 0; i <= pierCount; i++) {
+      const z = -len / 2 + i / pierCount * len;
+      if (Math.abs(z) < 20)
+        continue;
+      for (const sx of [-1, 1]) {
+        const pier = shadowify(new Mesh(new BoxGeometry(3, 13, 6), mats.stoneDark));
+        pier.position.set(sx * (width / 2 - 8), 0.5, z);
+        g.add(pier);
+      }
+    }
+    if (!opts.stone) {
+      for (let lz = -len / 2 + 30; lz < len / 2; lz += 90)
+        for (const sx of [-1, 1]) {
+          const pole = shadowify(new Mesh(new CylinderGeometry(0.3, 0.3, 16, 6), mats.stoneDark));
+          pole.position.set(sx * (width / 2 - 5), 16, lz);
+          g.add(pole);
+          const lamp = new Mesh(GEO.sphere, new MeshBasicMaterial({ color: 16773824 }));
+          lamp.scale.setScalar(1);
+          lamp.position.set(sx * (width / 2 - 5), 24.4, lz);
+          g.add(lamp);
+        }
+    }
+    return g;
+  }
+  function asphaltTexture(width, len) {
+    const c = document.createElement("canvas");
+    c.width = 64;
+    c.height = 256;
+    const g = c.getContext("2d");
+    g.fillStyle = "#4a4742";
+    g.fillRect(0, 0, 64, 256);
+    const rng = mulberry32(Math.floor(len) + Math.floor(width));
+    for (let i = 0; i < 300; i++) {
+      g.fillStyle = `rgba(255,255,255,${rng() * 0.05})`;
+      g.fillRect(rng() * 64, rng() * 256, 2, 2);
+    }
+    g.strokeStyle = "rgba(240,235,210,0.85)";
+    g.lineWidth = 3;
+    g.setLineDash([26, 22]);
+    g.beginPath();
+    g.moveTo(32, 0);
+    g.lineTo(32, 256);
+    g.stroke();
+    g.setLineDash([]);
+    const tex = new CanvasTexture(c);
+    tex.wrapS = tex.wrapT = RepeatWrapping;
+    tex.repeat.set(1, Math.max(1, len / 90));
+    return tex;
+  }
+  function makeUrbanPad(w, d) {
+    const c = document.createElement("canvas");
+    c.width = c.height = 128;
+    const g = c.getContext("2d");
+    g.fillStyle = "#9b9a92";
+    g.fillRect(0, 0, 128, 128);
+    const rng = mulberry32(Math.floor(Math.abs(w * 7 + d)) + 1);
+    for (let i = 0; i < 500; i++) {
+      g.fillStyle = `rgba(60,60,58,${rng() * 0.08})`;
+      g.fillRect(rng() * 128, rng() * 128, 2, 2);
+    }
+    const tex = new CanvasTexture(c);
+    tex.wrapS = tex.wrapT = RepeatWrapping;
+    tex.repeat.set(Math.abs(w) / 120, Math.abs(d) / 120);
+    const m = new Mesh(
+      new PlaneGeometry(w, d),
+      new MeshStandardMaterial({ map: tex, roughness: 1 })
+    );
+    m.rotation.x = -Math.PI / 2;
+    m.position.y = 0.06;
+    m.receiveShadow = true;
+    return m;
+  }
   var MATERIALS = mats;
 
   // node_modules/three/examples/jsm/utils/BufferGeometryUtils.js
@@ -33533,72 +34078,67 @@
     label.scale.multiplyScalar(2.2);
     scene2.add(label);
   }
-  function addRoad(scene2, x1, z1, x2, z2, width, mat, y = 0.06) {
-    const dx = x2 - x1, dz = z2 - z1;
-    const len = Math.hypot(dx, dz);
+  function addRoad(scene2, dx1, z1, dx2, z2, width, mat, y = 0.06) {
+    const x1 = SX(dx1), x2 = SX(dx2);
+    const ddx = x2 - x1, dz = z2 - z1;
+    const len = Math.hypot(ddx, dz);
+    if (len < 1e-3)
+      return;
     const m = new Mesh(new PlaneGeometry(width, len), mat);
     m.rotation.x = -Math.PI / 2;
-    m.rotation.z = -Math.atan2(dx, dz);
+    m.rotation.z = -Math.atan2(ddx, dz);
     m.position.set((x1 + x2) / 2, y, (z1 + z2) / 2);
     m.receiveShadow = true;
     scene2.add(m);
     return m;
   }
   var TEMPLE_BLOCK = { x0: 432, x1: 698, z0: 128, z1: 542 };
-  function segRoadH(scene2, x1, x2, z, width, mat, block, y = 0.06) {
-    const segs = [[x1, x2]];
-    if (block && z > block.z0 && z < block.z1) {
-      const b0 = block.x0 - width * 0.5, b1 = block.x1 + width * 0.5;
-      for (let i = segs.length - 1; i >= 0; i--) {
-        const [s, e] = segs[i];
-        if (b1 > s && b0 < e) {
-          segs.splice(i, 1);
-          if (b0 - s > 4)
-            segs.push([s, Math.min(b0, e)]);
-          if (e - b1 > 4)
-            segs.push([Math.max(b1, s), e]);
-        }
+  function splitByBlock(a, b, blockStart, blockEnd, width) {
+    let segs = [[a, b]];
+    const b0 = blockStart - width * 0.5, b1 = blockEnd + width * 0.5;
+    for (let i = segs.length - 1; i >= 0; i--) {
+      const [s, e] = segs[i];
+      if (b1 > s && b0 < e) {
+        segs.splice(i, 1);
+        if (b0 - s > 4)
+          segs.push([s, Math.min(b0, e)]);
+        if (e - b1 > 4)
+          segs.push([Math.max(b1, s), e]);
       }
     }
-    for (const [s, e] of segs)
-      addRoad(scene2, s, z, e, z, width, mat, y);
+    return segs;
   }
-  function segRoadV(scene2, x, z1, z2, width, mat, block, y = 0.06) {
-    const segs = [[z1, z2]];
-    if (block && x > block.x0 && x < block.x1) {
-      const b0 = block.z0 - width * 0.5, b1 = block.z1 + width * 0.5;
-      for (let i = segs.length - 1; i >= 0; i--) {
-        const [s, e] = segs[i];
-        if (b1 > s && b0 < e) {
-          segs.splice(i, 1);
-          if (b0 - s > 4)
-            segs.push([s, Math.min(b0, e)]);
-          if (e - b1 > 4)
-            segs.push([Math.max(b1, s), e]);
-        }
-      }
-    }
+  function segRoadH(scene2, x1, x2, z, width, mat, block = null) {
+    const segs = block && z > block.z0 && z < block.z1 ? splitByBlock(x1, x2, block.x0, block.x1, width) : [[x1, x2]];
     for (const [s, e] of segs)
-      addRoad(scene2, x, s, x, e, width, mat, y);
+      addRoad(scene2, s, z, e, z, width, mat);
+  }
+  function segRoadV(scene2, x, z1, z2, width, mat, block = null) {
+    const segs = block && x > block.x0 && x < block.x1 ? splitByBlock(z1, z2, block.z0, block.z1, width) : [[z1, z2]];
+    for (const [s, e] of segs)
+      addRoad(scene2, x, s, x, e, width, mat);
   }
   function buildRoads(scene2) {
     const roadMat = new MeshStandardMaterial({ color: 9273968, roughness: 1 });
     const mainMat = new MeshStandardMaterial({ color: 10260600, roughness: 1 });
     addRoad(scene2, 0, -D + 30, 0, D - 30, 46, mainMat);
-    addRoad(scene2, -W + 30, W - 30, 0, 40, mainMat);
+    addRoad(scene2, -W + 30, 0, W - 30, 0, 40, mainMat);
     segRoadH(scene2, -W + 60, W - 60, -430, 20, roadMat, null);
     segRoadH(scene2, -W + 60, W - 60, -100, 22, roadMat, null);
     segRoadH(scene2, -W + 60, W - 60, 230, 20, roadMat, TEMPLE_BLOCK);
     segRoadH(scene2, -W + 60, W - 60, 480, 20, roadMat, TEMPLE_BLOCK);
     for (const x of [-470, -240, 240, 470]) {
-      segRoadV(scene2, x, -D + 60, D - 60, 18, roadMat, TEMPLE_BLOCK);
+      if (x === 470)
+        segRoadV(scene2, x, -D + 60, D - 60, 18, roadMat, TEMPLE_BLOCK);
+      else
+        segRoadV(scene2, x, -D + 60, D - 60, 18, roadMat);
     }
     addRoad(scene2, 0, -D - 30, 0, -1150, 34, mainMat, 0.04);
-    addRoad(scene2, SX(-W + 40), 60, SX(-620), 60, 24, mainMat, 0.05);
-    addRoad(scene2, SX(-620), 60, SX(-560), 132, 24, mainMat, 0.05);
+    addRoad(scene2, W - 40, 60, 620, 60, 24, mainMat, 0.05);
+    addRoad(scene2, 620, 60, 560, 132, 24, mainMat, 0.05);
     addRoad(scene2, -2600, -1e3, 2600, -1e3, 18, roadMat, 0.03);
-    addRoad(scene2, SX(-1e3), -1200, SX(-1e3), 1500, 16, roadMat, 0.03);
-    addRoad(scene2, SX(1100), -1200, SX(1100), 1500, 16, roadMat, 0.03);
+    addRoad(scene2, -1e3, -1200, -1e3, 1500, 16, roadMat, 0.03);
+    addRoad(scene2, 1100, -1200, 1100, 1500, 16, roadMat, 0.03);
     addRoad(scene2, -2600, 700, 2600, 700, 14, roadMat, 0.03);
   }
   function buildWalls(scene2) {
@@ -33677,6 +34217,26 @@
     }
     return true;
   }
+  var RECTS = {
+    cbd: { x0: 1450, x1: 2900, z0: -700, z1: 500 },
+    westRes: { x0: -2700, x1: -1350, z0: -1500, z1: -350 },
+    northRes: { x0: -800, x1: 800, z0: 1350, z1: 2150 },
+    museumBlock: { x0: 150, x1: 500, z0: 880, z1: 1100 },
+    visitorBlock: { x0: 790, x1: 1120, z0: -40, z1: 200 },
+    oldStreet1: { x0: 60, x1: 190, z0: -560, z1: -120 },
+    oldStreet2: { x0: 300, x1: 620, z0: -500, z1: -360 },
+    nanguan: { x0: -130, x1: 130, z0: -1240, z1: -880 },
+    plaza: { x0: -240, x1: -120, z0: -380, z1: -270 }
+  };
+  var MODERN_RECTS = [RECTS.cbd, RECTS.westRes, RECTS.northRes, RECTS.museumBlock, RECTS.visitorBlock];
+  var MODERN_DISTRICTS = [
+    { ...RECTS.cbd, label: "\u6B63\u5B9A\u65B0\u533A" },
+    { ...RECTS.westRes, label: "\u6EE8\u6CB3\u793E\u533A" },
+    { ...RECTS.northRes, label: "\u5317\u90E8\u5C45\u4F4F\u533A" }
+  ];
+  function inRect(x, z, r) {
+    return x > r.x0 && x < r.x1 && z > r.z0 && z < r.z1;
+  }
   function buildHouses(scene2) {
     const rng = mulberry32(20240917);
     const reserved = reservedAreas();
@@ -33702,6 +34262,8 @@
           continue;
         if (!isFree(x, z, reserved, 26))
           continue;
+        if ([RECTS.oldStreet1, RECTS.oldStreet2, RECTS.nanguan, RECTS.plaza, RECTS.museumBlock].some((r) => inRect(x, z, r)))
+          continue;
         if (rng() < 0.06)
           continue;
         const h = makeHouse(rng);
@@ -33716,37 +34278,41 @@
     const rng = mulberry32(8831);
     const reserved = POIS.filter((p) => p.cat === "outside").map((p) => ({ x: p.x, z: p.z, r: 80 }));
     const villages = [
-      [-1500, 400, 26],
-      [1600, 600, 30],
-      [1300, -600, 20],
-      [-1600, -700, 22],
-      [600, 1400, 24],
-      [-700, 1450, 18],
-      [1900, -100, 16],
-      [-2e3, 100, 16],
-      [400, -1700, 18],
-      [-1500, -1600, 14]
+      [-1500, 400, 24],
+      [-1750, 1e3, 22],
+      [1500, 1050, 22],
+      [-2100, -300, 18],
+      [2050, 800, 18],
+      [-2250, 1100, 16],
+      [600, -1820, 18],
+      [-1100, -1850, 16],
+      [2350, -1050, 16],
+      [-1900, 1500, 14]
     ];
     for (const [vcx, cz, n] of villages) {
-      const cx = SX(vcx);
       for (let i = 0; i < n; i++) {
-        const x = cx + (rng() - 0.5) * 360;
+        const x = vcx + (rng() - 0.5) * 360;
         const z = cz + (rng() - 0.5) * 360;
+        if (MODERN_RECTS.some((r) => inRect(x, z, r)))
+          continue;
         if (!isFree(x, z, reserved, 40))
           continue;
-        const h = rng() < 0.25 ? makeModernBuilding(rng) : makeHouse(rng);
-        h.position.set(x, 0, z);
+        const h = rng() < 0.2 ? makeModernBuilding(rng) : makeHouse(rng);
+        h.position.set(SX(x), 0, z);
         h.rotation.y = Math.round(rng() * 4) * Math.PI / 2;
         scene2.add(h);
       }
     }
     const gates = [[0, -D - 220], [0, D + 200], [W + 220, 0], [-W - 200, 0]];
-    for (const [cx, cz] of gates) {
-      for (let i = 0; i < 16; i++) {
-        const x = cx + (rng() - 0.5) * 260;
-        const z = cz + (rng() - 0.5) * 260;
+    const gateRects = [RECTS.nanguan, RECTS.visitorBlock];
+    for (const [gcx, gcz] of gates) {
+      for (let i = 0; i < 14; i++) {
+        const x = gcx + (rng() - 0.5) * 300;
+        const z = gcz + (rng() - 0.5) * 300;
+        if (gateRects.some((r) => inRect(x, z, r)))
+          continue;
         const h = makeHouse(rng);
-        h.position.set(x, 0, z);
+        h.position.set(SX(x), 0, z);
         h.rotation.y = Math.round(rng() * 4) * Math.PI / 2;
         scene2.add(h);
       }
@@ -33784,8 +34350,24 @@
       positions.push([x, 30, 0.9 + rng() * 0.3]);
       positions.push([x, -30, 0.9 + rng() * 0.3]);
     }
-    for (let i = 0; i < 500; i++) {
-      positions.push([(rng() - 0.5) * 5200, (rng() - 0.5) * 5200, 0.7 + rng() * 1.1]);
+    const excludeRects = [...MODERN_RECTS, RECTS.oldStreet1, RECTS.oldStreet2, RECTS.nanguan, RECTS.plaza];
+    let added = 0, guard = 0;
+    while (added < 460 && guard++ < 3e3) {
+      const dx = (rng() - 0.5) * 5200;
+      const z = (rng() - 0.5) * 5200;
+      if (excludeRects.some((r) => inRect(dx, z, r)))
+        continue;
+      positions.push([SX(dx), z, 0.7 + rng() * 1.1]);
+      added++;
+    }
+    const ring = W + 240, ringZ = D + 240;
+    for (let x = -W - 120; x <= W + 120; x += 70) {
+      positions.push([x, -ringZ, 0.85 + rng() * 0.3]);
+      positions.push([x, ringZ, 0.85 + rng() * 0.3]);
+    }
+    for (let z = -D - 120; z <= D + 120; z += 70) {
+      positions.push([-ring, z, 0.85 + rng() * 0.3]);
+      positions.push([ring, z, 0.85 + rng() * 0.3]);
     }
     const trunkGeo = new CylinderGeometry(0.7, 1, 6, 6);
     const crownGeo = new SphereGeometry(4.4, 8, 6);
@@ -33809,6 +34391,171 @@
       crownInst.instanceColor.needsUpdate = true;
     trunkInst.castShadow = true;
     scene2.add(trunkInst, crownInst);
+  }
+  function shopRow(scene2, rng, { x0, z0, x1, z1, side, n }) {
+    for (let i = 0; i < n; i++) {
+      const shop = makeShop(randomShopName(rng));
+      const t = (i + 0.5) / n;
+      let x, z, rot = 0;
+      if (side === "E" || side === "W") {
+        x = side === "E" ? x0 + 15 : x0 - 15;
+        z = z0 + (z1 - z0) * t;
+        rot = side === "E" ? -Math.PI / 2 : Math.PI / 2;
+      } else {
+        z = side === "N" ? z0 + 15 : z0 - 15;
+        x = x0 + (x1 - x0) * t;
+        rot = side === "N" ? Math.PI : 0;
+      }
+      shop.position.set(SX(x), 0, z);
+      shop.rotation.y = rot;
+      scene2.add(shop);
+    }
+  }
+  function addStoneStreet(scene2, w, d, dataX, z) {
+    const c = document.createElement("canvas");
+    c.width = c.height = 128;
+    const g = c.getContext("2d");
+    g.fillStyle = "#9d9587";
+    g.fillRect(0, 0, 128, 128);
+    g.strokeStyle = "rgba(70,64,54,0.55)";
+    g.lineWidth = 2;
+    for (let i = 0; i <= 4; i++) {
+      g.beginPath();
+      g.moveTo(i * 32, 0);
+      g.lineTo(i * 32, 128);
+      g.stroke();
+      g.beginPath();
+      g.moveTo(0, i * 32);
+      g.lineTo(128, i * 32);
+      g.stroke();
+    }
+    const tex = new CanvasTexture(c);
+    tex.wrapS = tex.wrapT = RepeatWrapping;
+    tex.repeat.set(Math.abs(w) / 16, Math.abs(d) / 16);
+    const m = new Mesh(
+      new PlaneGeometry(w, d),
+      new MeshStandardMaterial({ map: tex, roughness: 1 })
+    );
+    m.rotation.x = -Math.PI / 2;
+    m.position.set(SX(dataX), 0.09, z);
+    m.receiveShadow = true;
+    scene2.add(m);
+  }
+  function buildCulturalStreets(scene2) {
+    const rng = mulberry32(31201);
+    addStoneStreet(scene2, 96, 430, 145, -340);
+    shopRow(scene2, rng, { x0: 100, z0: -545, z1: -135, side: "W", n: 15 });
+    shopRow(scene2, rng, { x0: 190, z0: -545, z1: -135, side: "E", n: 15 });
+    addStoneStreet(scene2, 320, 130, 460, -430);
+    shopRow(scene2, rng, { x0: 300, z0: -356, x1: 600, side: "S", n: 12 });
+    shopRow(scene2, rng, { x0: 300, z0: -504, x1: 600, side: "N", n: 12 });
+    addStoneStreet(scene2, 130, 360, 0, -1060);
+    shopRow(scene2, rng, { x0: -80, z0: -1230, z1: -890, side: "W", n: 9 });
+    shopRow(scene2, rng, { x0: 80, z0: -1230, z1: -890, side: "E", n: 9 });
+  }
+  function addAvenue(scene2, dataX1, z1, dataX2, z2, width = 60) {
+    const ddx = SX(dataX2) - SX(dataX1);
+    const len = Math.hypot(ddx, z2 - z1);
+    if (len < 1e-3)
+      return;
+    const tex = asphaltTexture(width, len);
+    const mat = new MeshStandardMaterial({ map: tex, roughness: 0.95 });
+    const m = new Mesh(new PlaneGeometry(width, len), mat);
+    m.rotation.x = -Math.PI / 2;
+    m.rotation.z = -Math.atan2(ddx, z2 - z1);
+    m.position.set((SX(dataX1) + SX(dataX2)) / 2, 0.07, (z1 + z2) / 2);
+    m.receiveShadow = true;
+    scene2.add(m);
+  }
+  function buildAvenues(scene2) {
+    addAvenue(scene2, 0, -D + 20, 0, -1200, 64);
+    addAvenue(scene2, 0, D - 20, 0, 2500, 64);
+    addAvenue(scene2, -W - 20, 0, 2700, 0, 58);
+    addAvenue(scene2, W + 20, 0, -2700, 0, 58);
+    const ringX = W + 240, ringZ = D + 240;
+    addAvenue(scene2, -ringX, -ringZ, ringX, -ringZ, 46);
+    addAvenue(scene2, -ringX, ringZ, ringX, ringZ, 46);
+    addAvenue(scene2, -ringX, -ringZ, -ringX, ringZ, 46);
+    addAvenue(scene2, ringX, -ringZ, ringX, ringZ, 46);
+    const R = RECTS.cbd;
+    for (let z = R.z0 + 180; z < R.z1; z += 200)
+      addAvenue(scene2, R.x0 + 40, z, R.x1 - 40, z, 34);
+    for (let x = R.x0 + 240; x < R.x1; x += 320)
+      addAvenue(scene2, x, R.z0 + 40, x, R.z1 - 40, 34);
+    const Wr = RECTS.westRes;
+    for (let z = Wr.z0 + 220; z < Wr.z1; z += 260)
+      addAvenue(scene2, Wr.x0 + 40, z, Wr.x1 - 40, z, 30);
+    for (let x = Wr.x0 + 300; x < Wr.x1; x += 340)
+      addAvenue(scene2, x, Wr.z0 + 40, x, Wr.z1 - 40, 30);
+    const Nr = RECTS.northRes;
+    for (let z = Nr.z0 + 200; z < Nr.z1; z += 260)
+      addAvenue(scene2, Nr.x0 + 40, z, Nr.x1 - 40, z, 30);
+    for (let x = Nr.x0 + 260; x < Nr.x1; x += 300)
+      addAvenue(scene2, x, Nr.z0 + 40, x, Nr.z1 - 40, 30);
+  }
+  function buildModernCity(scene2) {
+    buildDistrict(scene2, RECTS.cbd, 51, { office: 0.62, residential: 0.12, commercial: 0.26 });
+    buildDistrict(scene2, RECTS.westRes, 62, { office: 0, residential: 0.82, commercial: 0.18 });
+    buildDistrict(scene2, RECTS.northRes, 58, { office: 0.05, residential: 0.78, commercial: 0.17 });
+  }
+  function buildDistrict(scene2, rect, seed, ratio) {
+    const rng = mulberry32(seed);
+    const pad = makeUrbanPad(rect.x1 - rect.x0, rect.z1 - rect.z0);
+    pad.position.set(SX((rect.x0 + rect.x1) / 2), 0, (rect.z0 + rect.z1) / 2);
+    scene2.add(pad);
+    const reserved = POIS.map((p) => ({ x: p.x, z: p.z, r: p.cat === "service" || p.cat === "modern" ? 130 : 70 }));
+    const cell = 130;
+    for (let x = rect.x0 + 70; x < rect.x1 - 50; x += cell) {
+      for (let z = rect.z0 + 70; z < rect.z1 - 50; z += cell) {
+        if (rng() < 0.28)
+          continue;
+        const bx = x + (rng() - 0.5) * 26;
+        const bz = z + (rng() - 0.5) * 26;
+        if (!isFree(bx, bz, reserved, 55))
+          continue;
+        if (MODERN_RECTS.filter((r2) => r2 !== rect).some((r2) => inRect(bx, bz, r2)))
+          continue;
+        const t = rng();
+        let m;
+        if (t < ratio.office)
+          m = makeOfficeTower(rng);
+        else if (t < ratio.office + ratio.residential)
+          m = makeResidentialTower(rng);
+        else
+          m = makeCommercialLow(rng);
+        m.position.set(SX(bx), 0, bz);
+        m.rotation.y = Math.round(rng() * 4) * Math.PI / 2;
+        scene2.add(m);
+      }
+    }
+  }
+  function buildServiceSites(scene2) {
+    const plaza = makePlaza(120, 110);
+    plaza.position.set(SX(-180), 0, -325);
+    scene2.add(plaza);
+    const p1 = makeParking(150, 110);
+    p1.position.set(SX(1040), 0, 140);
+    scene2.add(p1);
+    const p2 = makeParking(200, 90);
+    p2.position.set(SX(220), 0, -1050);
+    scene2.add(p2);
+    const p3 = makePlaza(150, 110);
+    p3.position.set(SX(320), 0, 870);
+    scene2.add(p3);
+  }
+  function buildBridges(scene2) {
+    const specs = [
+      { x: 0, z: -D - 60, rot: 0 },
+      { x: 0, z: D + 60, rot: 0 },
+      { x: W, z: 0, rot: Math.PI / 2 },
+      { x: -W, z: 0, rot: Math.PI / 2 }
+    ];
+    for (const s of specs) {
+      const br = makeBridge(150, 46, { stone: true });
+      br.position.set(SX(s.x), 0, s.z);
+      br.rotation.y = s.rot;
+      scene2.add(br);
+    }
   }
   function buildPoiModel(poi) {
     switch (poi.model) {
@@ -33836,6 +34583,16 @@
         return makeMansion(poi.id === "rongguo");
       case "courtyard":
         return makeCourtyard(poi.name.length);
+      case "paifang":
+        return makePaifang(poi.paifangText);
+      case "visitor":
+        return makeVisitorCenter();
+      case "museum":
+        return makeMuseum();
+      case "riverbridge":
+        return makeBridge(300, 92);
+      case "landmark":
+        return makeOfficeTower(mulberry32(701));
       case "stele":
       default:
         return makeStele();
@@ -33875,6 +34632,10 @@
       if (poi.model === "gate") {
         group.rotation.y = poi.id === "yingxu" ? Math.PI / 2 : poi.id === "zhenyuan" ? -Math.PI / 2 : poi.id === "guangyuan" ? Math.PI : 0;
       }
+      if (poi.model === "paifang" && poi.paifangRot)
+        group.rotation.y = poi.paifangRot;
+      if (poi.model === "riverbridge")
+        group.rotation.y = Math.PI / 2;
       if (poi.model === "gate") {
         const plaques = {
           changle: { text: "\u4E09\u5173\u96C4\u9547", side: "south" },
@@ -33902,8 +34663,9 @@
       marker.position.set(sx, 0, sz);
       scene2.add(marker);
       const label = makeLabel(poi.name);
-      const topY = group.userData.height || (poi.model === "gate" ? 92 : poi.model === "corner" ? 80 : 55);
-      label.position.set(sx, topY + 16, sz);
+      const topYMap = { gate: 92, corner: 80, paifang: 28, visitor: 42, museum: 44, riverbridge: 22 };
+      const topY = group.userData.height || topYMap[poi.model] || 55;
+      label.position.set(sx, topY + 14, sz);
       scene2.add(label);
       const hit = new Mesh(
         new CylinderGeometry(40, 40, 300, 10),
@@ -33958,9 +34720,14 @@
     buildGround(scene2);
     buildRiver(scene2);
     buildRoads(scene2);
+    buildAvenues(scene2);
     buildWalls(scene2);
+    buildServiceSites(scene2);
     buildHouses(scene2);
+    buildCulturalStreets(scene2);
     buildSuburbs(scene2);
+    buildModernCity(scene2);
+    buildBridges(scene2);
     buildTrees(scene2);
     mergeStatic(scene2);
     const poiObjects2 = buildPois(scene2);
@@ -34065,8 +34832,9 @@
   var SX2 = (x) => -x;
   function flyToPoi(poi) {
     const target = new Vector3(SX2(poi.x), 30, poi.z);
-    const dist = poi.model === "stele" ? 220 : 330;
-    const pos = new Vector3(SX2(poi.x) - dist * 0.45, poi.model === "longxing" ? 420 : 260, poi.z - dist * 0.9);
+    const dist = poi.model === "stele" ? 220 : poi.model === "landmark" ? 560 : poi.model === "riverbridge" ? 480 : poi.model === "museum" || poi.model === "visitor" ? 400 : 330;
+    const height = poi.model === "longxing" ? 420 : poi.model === "landmark" ? 360 : poi.model === "riverbridge" ? 230 : 260;
+    const pos = new Vector3(SX2(poi.x) - dist * 0.45, height, poi.z - dist * 0.9);
     flyTo(target, pos, 1900);
     highlightMarker(poi);
   }
@@ -34103,7 +34871,7 @@
       flyToPoi(currentPoi);
   });
   var listEl = document.getElementById("poi-list");
-  var order = ["gate", "corner", "tower", "pagoda", "temple", "mansion", "ruin", "outside"];
+  var order = ["gate", "corner", "tower", "pagoda", "temple", "mansion", "street", "service", "bridge", "modern", "ruin", "outside"];
   var grouped = {};
   for (const p of POIS)
     (grouped[p.cat] = grouped[p.cat] || []).push(p);
@@ -34144,7 +34912,7 @@
   var compassNeedle = document.getElementById("compass-n");
   var mm = document.getElementById("minimap");
   var mctx = mm.getContext("2d");
-  var MM_RANGE = 2500;
+  var MM_RANGE = 2800;
   function w2m(dataX, dataZ) {
     return [
       dataX / MM_RANGE * (mm.width / 2) + mm.width / 2,
@@ -34168,6 +34936,28 @@
       i ? mctx.lineTo(px2, py2) : mctx.moveTo(px2, py2);
     });
     mctx.stroke();
+    for (const d of MODERN_DISTRICTS) {
+      const [dx0, dy0] = w2m(d.x0, d.z1);
+      const [dx1, dy1] = w2m(d.x1, d.z0);
+      mctx.fillStyle = "rgba(150,160,168,0.4)";
+      mctx.fillRect(dx0, dy0, dx1 - dx0, dy1 - dy0);
+      mctx.strokeStyle = "rgba(210,215,220,0.55)";
+      mctx.lineWidth = 0.8;
+      mctx.strokeRect(dx0, dy0, dx1 - dx0, dy1 - dy0);
+      mctx.fillStyle = "rgba(235,238,240,0.85)";
+      mctx.font = "9px sans-serif";
+      mctx.textAlign = "center";
+      mctx.fillText(d.label, (dx0 + dx1) / 2, (dy0 + dy1) / 2);
+    }
+    mctx.strokeStyle = "rgba(225,210,170,0.7)";
+    mctx.lineWidth = 1.6;
+    mctx.beginPath();
+    for (const [ax, az, bx, bz] of [[0, -820, 0, 2500], [0, -820, 0, -1200], [-700, 0, 2700, 0], [700, 0, -2700, 0]]) {
+      const [p0, p1] = [w2m(ax, az), w2m(bx, bz)];
+      mctx.moveTo(p0[0], p0[1]);
+      mctx.lineTo(p1[0], p1[1]);
+    }
+    mctx.stroke();
     const [x1, y1] = w2m(-700, -820);
     const [x2, y2] = w2m(700, 820);
     mctx.strokeStyle = "#e8d9a8";
@@ -34186,9 +34976,10 @@
     for (const p of POIS) {
       const [px2, py2] = w2m(p.x, p.z);
       const major = p.cat === "gate" || p.cat === "pagoda" || p.id === "longxing";
+      const modern = p.cat === "modern" || p.cat === "bridge";
       mctx.beginPath();
       mctx.arc(px2, py2, major ? 3.4 : 2.2, 0, Math.PI * 2);
-      mctx.fillStyle = major ? "#ffd36b" : "#f3ead2";
+      mctx.fillStyle = modern ? "#7fc7ff" : major ? "#ffd36b" : "#f3ead2";
       mctx.fill();
     }
     const [dcx, dcz] = sceneToData(camera.position.x, camera.position.z);
@@ -34272,7 +35063,7 @@
     renderer.setSize(innerWidth, innerHeight);
   });
   if (new URLSearchParams(location.search).has("debug")) {
-    window.__zd = { camera, controls, THREE: three_module_exports, POIS, SX: SX2, flyToPoi, showPanel };
+    window.__zd = { camera, controls, THREE: three_module_exports, POIS, SX: SX2, flyToPoi, showPanel, scene };
   }
   var intro = document.getElementById("intro");
   document.getElementById("intro-start").addEventListener("click", () => {

@@ -1,7 +1,7 @@
 window.__zdLoaded = true;
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { buildWorld, getPickables } from './world.js';
+import { buildWorld, getPickables, MODERN_DISTRICTS } from './world.js';
 import { POIS, CATEGORY_LABELS } from './data.js';
 
 // ============ 场景基础 ============
@@ -115,8 +115,16 @@ const SX = x => -x;
 function flyToPoi(poi) {
   const target = new THREE.Vector3(SX(poi.x), 30, poi.z);
   // 从南偏东方向看建筑正面（东 = 场景 -X）
-  const dist = poi.model === 'stele' ? 220 : 330;
-  const pos = new THREE.Vector3(SX(poi.x) - dist * 0.45, poi.model === 'longxing' ? 420 : 260, poi.z - dist * 0.9);
+  const dist = poi.model === 'stele' ? 220
+    : poi.model === 'landmark' ? 560
+    : poi.model === 'riverbridge' ? 480
+    : poi.model === 'museum' || poi.model === 'visitor' ? 400
+    : 330;
+  const height = poi.model === 'longxing' ? 420
+    : poi.model === 'landmark' ? 360
+    : poi.model === 'riverbridge' ? 230
+    : 260;
+  const pos = new THREE.Vector3(SX(poi.x) - dist * 0.45, height, poi.z - dist * 0.9);
   flyTo(target, pos, 1900);
   highlightMarker(poi);
 }
@@ -158,7 +166,7 @@ document.getElementById('panel-fly').addEventListener('click', () => {
 
 // ============ 景点列表 ============
 const listEl = document.getElementById('poi-list');
-const order = ['gate', 'corner', 'tower', 'pagoda', 'temple', 'mansion', 'ruin', 'outside'];
+const order = ['gate', 'corner', 'tower', 'pagoda', 'temple', 'mansion', 'street', 'service', 'bridge', 'modern', 'ruin', 'outside'];
 const grouped = {};
 for (const p of POIS) (grouped[p.cat] = grouped[p.cat] || []).push(p);
 for (const cat of order) {
@@ -202,7 +210,7 @@ const compassNeedle = document.getElementById('compass-n');
 // ============ 缩略导航图 ============
 const mm = document.getElementById('minimap');
 const mctx = mm.getContext('2d');
-const MM_RANGE = 2500; // 半幅对应世界距离
+const MM_RANGE = 2800; // 半幅对应世界距离
 // 统一以“数据方位坐标”入参（x+ 东，z+ 北）；相机坐标需先用 SX 转换
 function w2m(dataX, dataZ) {
   return [
@@ -229,6 +237,29 @@ function drawMinimap() {
     i ? mctx.lineTo(px, py) : mctx.moveTo(px, py);
   });
   mctx.stroke();
+  // 现代城区
+  for (const d of MODERN_DISTRICTS) {
+    const [dx0, dy0] = w2m(d.x0, d.z1);
+    const [dx1, dy1] = w2m(d.x1, d.z0);
+    mctx.fillStyle = 'rgba(150,160,168,0.4)';
+    mctx.fillRect(dx0, dy0, dx1 - dx0, dy1 - dy0);
+    mctx.strokeStyle = 'rgba(210,215,220,0.55)';
+    mctx.lineWidth = 0.8;
+    mctx.strokeRect(dx0, dy0, dx1 - dx0, dy1 - dy0);
+    mctx.fillStyle = 'rgba(235,238,240,0.85)';
+    mctx.font = '9px sans-serif';
+    mctx.textAlign = 'center';
+    mctx.fillText(d.label, (dx0 + dx1) / 2, (dy0 + dy1) / 2);
+  }
+  // 主干道
+  mctx.strokeStyle = 'rgba(225,210,170,0.7)';
+  mctx.lineWidth = 1.6;
+  mctx.beginPath();
+  for (const [ax, az, bx, bz] of [[0, -820, 0, 2500], [0, -820, 0, -1200], [-700, 0, 2700, 0], [700, 0, -2700, 0]]) {
+    const [p0, p1] = [w2m(ax, az), w2m(bx, bz)];
+    mctx.moveTo(p0[0], p0[1]); mctx.lineTo(p1[0], p1[1]);
+  }
+  mctx.stroke();
   // 城墙
   const [x1, y1] = w2m(-700, -820);
   const [x2, y2] = w2m(700, 820);
@@ -247,9 +278,10 @@ function drawMinimap() {
   for (const p of POIS) {
     const [px, py] = w2m(p.x, p.z);
     const major = p.cat === 'gate' || p.cat === 'pagoda' || p.id === 'longxing';
+    const modern = p.cat === 'modern' || p.cat === 'bridge';
     mctx.beginPath();
     mctx.arc(px, py, major ? 3.4 : 2.2, 0, Math.PI * 2);
-    mctx.fillStyle = major ? '#ffd36b' : '#f3ead2';
+    mctx.fillStyle = modern ? '#7fc7ff' : major ? '#ffd36b' : '#f3ead2';
     mctx.fill();
   }
   // 相机视锥（转换到数据方位坐标）
@@ -342,7 +374,7 @@ addEventListener('resize', () => {
 });
 
 if (new URLSearchParams(location.search).has('debug')) {
-  window.__zd = { camera, controls, THREE, POIS, SX, flyToPoi, showPanel };
+  window.__zd = { camera, controls, THREE, POIS, SX, flyToPoi, showPanel, scene };
 }
 
 // 启动介绍页

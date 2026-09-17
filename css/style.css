@@ -140,6 +140,10 @@ html, body {
 .dot.cat-mansion { background: #8a9bb0; }
 .dot.cat-ruin, .dot.cat-outside { background: #7f8a72; }
 .dot.cat-tower { background: #e0b84c; }
+.dot.cat-street { background: #d98a4e; }
+.dot.cat-service { background: #6fae9a; }
+.dot.cat-bridge { background: #7fb0d9; }
+.dot.cat-modern { background: #7fc7ff; box-shadow: 0 0 6px #7fc7ff; }
 
 #side-mask {
   position: absolute; inset: 0;

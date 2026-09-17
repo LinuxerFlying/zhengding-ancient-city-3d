@@ -133,12 +133,14 @@ function buildRiver(scene) {
 }
 
 // ---------- 道路 ----------
-function addRoad(scene, x1, z1, x2, z2, width, mat, y = 0.06) {
-  const dx = x2 - x1, dz = z2 - z1;
-  const len = Math.hypot(dx, dz);
+function addRoad(scene, dx1, z1, dx2, z2, width, mat, y = 0.06) {
+  const x1 = SX(dx1), x2 = SX(dx2);
+  const ddx = x2 - x1, dz = z2 - z1;
+  const len = Math.hypot(ddx, dz);
+  if (len < 0.001) return;
   const m = new THREE.Mesh(new THREE.PlaneGeometry(width, len), mat);
   m.rotation.x = -Math.PI / 2;
-  m.rotation.z = -Math.atan2(dx, dz); // 面片局部+Z 对齐道路方向
+  m.rotation.z = -Math.atan2(ddx, dz);
   m.position.set((x1 + x2) / 2, y, (z1 + z2) / 2);
   m.receiveShadow = true;
   scene.add(m);
@@ -148,36 +150,32 @@ function addRoad(scene, x1, z1, x2, z2, width, mat, y = 0.06) {
 // 隆兴寺寺址占位（数据坐标），街巷在此区间断开（寺内自有院落甬道）
 const TEMPLE_BLOCK = { x0: 432, x1: 698, z0: 128, z1: 542 };
 
-function segRoadH(scene, x1, x2, z, width, mat, block, y = 0.06) {
-  const segs = [[x1, x2]];
-  if (block && z > block.z0 && z < block.z1) {
-    const b0 = block.x0 - width * 0.5, b1 = block.x1 + width * 0.5;
-    for (let i = segs.length - 1; i >= 0; i--) {
-      const [s, e] = segs[i];
-      if (b1 > s && b0 < e) {
-        segs.splice(i, 1);
-        if (b0 - s > 4) segs.push([s, Math.min(b0, e)]);
-        if (e - b1 > 4) segs.push([Math.max(b1, s), e]);
-      }
+function splitByBlock(a, b, blockStart, blockEnd, width) {
+  let segs = [[a, b]];
+  const b0 = blockStart - width * 0.5, b1 = blockEnd + width * 0.5;
+  for (let i = segs.length - 1; i >= 0; i--) {
+    const [s, e] = segs[i];
+    if (b1 > s && b0 < e) {
+      segs.splice(i, 1);
+      if (b0 - s > 4) segs.push([s, Math.min(b0, e)]);
+      if (e - b1 > 4) segs.push([Math.max(b1, s), e]);
     }
   }
-  for (const [s, e] of segs) addRoad(scene, s, z, e, z, width, mat, y);
+  return segs;
 }
 
-function segRoadV(scene, x, z1, z2, width, mat, block, y = 0.06) {
-  const segs = [[z1, z2]];
-  if (block && x > block.x0 && x < block.x1) {
-    const b0 = block.z0 - width * 0.5, b1 = block.z1 + width * 0.5;
-    for (let i = segs.length - 1; i >= 0; i--) {
-      const [s, e] = segs[i];
-      if (b1 > s && b0 < e) {
-        segs.splice(i, 1);
-        if (b0 - s > 4) segs.push([s, Math.min(b0, e)]);
-        if (e - b1 > 4) segs.push([Math.max(b1, s), e]);
-      }
-    }
-  }
-  for (const [s, e] of segs) addRoad(scene, x, s, x, e, width, mat, y);
+function segRoadH(scene, x1, x2, z, width, mat, block = null) {
+  const segs = block && z > block.z0 && z < block.z1
+    ? splitByBlock(x1, x2, block.x0, block.x1, width)
+    : [[x1, x2]];
+  for (const [s, e] of segs) addRoad(scene, s, z, e, z, width, mat);
+}
+
+function segRoadV(scene, x, z1, z2, width, mat, block = null) {
+  const segs = block && x > block.x0 && x < block.x1
+    ? splitByBlock(z1, z2, block.z0, block.z1, width)
+    : [[z1, z2]];
+  for (const [s, e] of segs) addRoad(scene, x, s, x, e, width, mat);
 }
 
 function buildRoads(scene) {
@@ -186,24 +184,25 @@ function buildRoads(scene) {
   // 燕赵南大街 / 北大街（南北中轴）
   addRoad(scene, 0, -D + 30, 0, D - 30, 46, mainMat);
   // 中山路等东西向
-  addRoad(scene, -W + 30, W - 30, 0, 40, mainMat);
+  addRoad(scene, -W + 30, 0, W - 30, 0, 40, mainMat);
   segRoadH(scene, -W + 60, W - 60, -430, 20, roadMat, null);
   segRoadH(scene, -W + 60, W - 60, -100, 22, roadMat, null);
   segRoadH(scene, -W + 60, W - 60, 230, 20, roadMat, TEMPLE_BLOCK);
   segRoadH(scene, -W + 60, W - 60, 480, 20, roadMat, TEMPLE_BLOCK);
-  // 纵向次干道
+  // 纵向次干道（数据坐标；x=470 一路在寺址处断开）
   for (const x of [-470, -240, 240, 470]) {
-    segRoadV(scene, x, -D + 60, D - 60, 18, roadMat, TEMPLE_BLOCK);
+    if (x === 470) segRoadV(scene, x, -D + 60, D - 60, 18, roadMat, TEMPLE_BLOCK);
+    else segRoadV(scene, x, -D + 60, D - 60, 18, roadMat);
   }
   // 南关古道（长乐门至滹沱河）
   addRoad(scene, 0, -D - 30, 0, -1150, 34, mainMat, 0.04);
   // 东门内至隆兴寺引道（迎旭门内 → 寺院山门外）
-  addRoad(scene, SX(-W + 40), 60, SX(-620), 60, 24, mainMat, 0.05);
-  addRoad(scene, SX(-620), 60, SX(-560), 132, 24, mainMat, 0.05);
+  addRoad(scene, W - 40, 60, 620, 60, 24, mainMat, 0.05);
+  addRoad(scene, 620, 60, 560, 132, 24, mainMat, 0.05);
   // 城外道路网
   addRoad(scene, -2600, -1000, 2600, -1000, 18, roadMat, 0.03);
-  addRoad(scene, SX(-1000), -1200, SX(-1000), 1500, 16, roadMat, 0.03);
-  addRoad(scene, SX(1100), -1200, SX(1100), 1500, 16, roadMat, 0.03);
+  addRoad(scene, -1000, -1200, -1000, 1500, 16, roadMat, 0.03);
+  addRoad(scene, 1100, -1200, 1100, 1500, 16, roadMat, 0.03);
   addRoad(scene, -2600, 700, 2600, 700, 14, roadMat, 0.03);
 }
 
@@ -291,6 +290,34 @@ function isFree(x, z, list, r) {
   return true;
 }
 
+// 现代城区与文化街区矩形占位（数据坐标），树木/散村/民居避让
+const RECTS = {
+  cbd: { x0: 1450, x1: 2900, z0: -700, z1: 500 },
+  westRes: { x0: -2700, x1: -1350, z0: -1500, z1: -350 },
+  northRes: { x0: -800, x1: 800, z0: 1350, z1: 2150 },
+  museumBlock: { x0: 150, x1: 500, z0: 880, z1: 1100 },
+  visitorBlock: { x0: 790, x1: 1120, z0: -40, z1: 200 },
+  oldStreet1: { x0: 60, x1: 190, z0: -560, z1: -120 },
+  oldStreet2: { x0: 300, x1: 620, z0: -500, z1: -360 },
+  nanguan: { x0: -130, x1: 130, z0: -1240, z1: -880 },
+  plaza: { x0: -240, x1: -120, z0: -380, z1: -270 }
+};
+const MODERN_RECTS = [RECTS.cbd, RECTS.westRes, RECTS.northRes, RECTS.museumBlock, RECTS.visitorBlock];
+
+export const MODERN_DISTRICTS = [
+  { ...RECTS.cbd, label: '正定新区' },
+  { ...RECTS.westRes, label: '滨河社区' },
+  { ...RECTS.northRes, label: '北部居住区' }
+];
+
+export const AVENUES = [
+  [0, -820, 0, -1200], [0, 820, 0, 2500], [-700, 0, 2700, 0], [700, 0, -2700, 0]
+];
+
+function inRect(x, z, r) {
+  return x > r.x0 && x < r.x1 && z > r.z0 && z < r.z1;
+}
+
 function buildHouses(scene) {
   const rng = B.mulberry32(20240917);
   const reserved = reservedAreas();
@@ -309,6 +336,7 @@ function buildHouses(scene) {
       const z = gz + (rng() - 0.5) * 22;
       if (nearRoad(x, z)) continue;
       if (!isFree(x, z, reserved, 26)) continue;
+      if ([RECTS.oldStreet1, RECTS.oldStreet2, RECTS.nanguan, RECTS.plaza, RECTS.museumBlock].some(r => inRect(x, z, r))) continue;
       if (rng() < 0.06) continue;
       const h = B.makeHouse(rng);
       h.position.set(x, 0, z);
@@ -323,32 +351,34 @@ function buildHouses(scene) {
 function buildSuburbs(scene) {
   const rng = B.mulberry32(8831);
   const reserved = POIS.filter(p => p.cat === 'outside').map(p => ({ x: p.x, z: p.z, r: 80 }));
-  // 村庄簇
+  // 村庄簇（数据坐标，避开现代城区）
   const villages = [
-    [-1500, 400, 26], [1600, 600, 30], [1300, -600, 20],
-    [-1600, -700, 22], [600, 1400, 24], [-700, 1450, 18],
-    [1900, -100, 16], [-2000, 100, 16], [400, -1700, 18], [-1500, -1600, 14]
+    [-1500, 400, 24], [-1750, 1000, 22], [1500, 1050, 22],
+    [-2100, -300, 18], [2050, 800, 18], [-2250, 1100, 16],
+    [600, -1820, 18], [-1100, -1850, 16], [2350, -1050, 16], [-1900, 1500, 14]
   ];
   for (const [vcx, cz, n] of villages) {
-    const cx = SX(vcx);
     for (let i = 0; i < n; i++) {
-      const x = cx + (rng() - 0.5) * 360;
+      const x = vcx + (rng() - 0.5) * 360;
       const z = cz + (rng() - 0.5) * 360;
+      if (MODERN_RECTS.some(r => inRect(x, z, r))) continue;
       if (!isFree(x, z, reserved, 40)) continue;
-      const h = rng() < 0.25 ? B.makeModernBuilding(rng) : B.makeHouse(rng);
-      h.position.set(x, 0, z);
+      const h = rng() < 0.2 ? B.makeModernBuilding(rng) : B.makeHouse(rng);
+      h.position.set(SX(x), 0, z);
       h.rotation.y = Math.round(rng() * 4) * Math.PI / 2;
       scene.add(h);
     }
   }
-  // 关厢（城门外街区）
+  // 关厢（城门外街区，避开文化街区与现代地块）
   const gates = [[0, -D - 220], [0, D + 200], [W + 220, 0], [-W - 200, 0]];
-  for (const [cx, cz] of gates) {
-    for (let i = 0; i < 16; i++) {
-      const x = cx + (rng() - 0.5) * 260;
-      const z = cz + (rng() - 0.5) * 260;
+  const gateRects = [RECTS.nanguan, RECTS.visitorBlock];
+  for (const [gcx, gcz] of gates) {
+    for (let i = 0; i < 14; i++) {
+      const x = gcx + (rng() - 0.5) * 300;
+      const z = gcz + (rng() - 0.5) * 300;
+      if (gateRects.some(r => inRect(x, z, r))) continue;
       const h = B.makeHouse(rng);
-      h.position.set(x, 0, z);
+      h.position.set(SX(x), 0, z);
       h.rotation.y = Math.round(rng() * 4) * Math.PI / 2;
       scene.add(h);
     }
@@ -380,9 +410,25 @@ function buildTrees(scene) {
     positions.push([x, 30, 0.9 + rng() * 0.3]);
     positions.push([x, -30, 0.9 + rng() * 0.3]);
   }
-  // 乡村散树
-  for (let i = 0; i < 500; i++) {
-    positions.push([(rng() - 0.5) * 5200, (rng() - 0.5) * 5200, 0.7 + rng() * 1.1]);
+  // 乡村散树（避开现代城区与广场地块；positions 使用场景坐标，需经 SX 反算数据坐标）
+  const excludeRects = [...MODERN_RECTS, RECTS.oldStreet1, RECTS.oldStreet2, RECTS.nanguan, RECTS.plaza];
+  let added = 0, guard = 0;
+  while (added < 460 && guard++ < 3000) {
+    const dx = (rng() - 0.5) * 5200;
+    const z = (rng() - 0.5) * 5200;
+    if (excludeRects.some(r => inRect(dx, z, r))) continue;
+    positions.push([SX(dx), z, 0.7 + rng() * 1.1]);
+    added++;
+  }
+  // 古城外环大道行道树（场景坐标，距墙约 230）
+  const ring = W + 240, ringZ = D + 240;
+  for (let x = -W - 120; x <= W + 120; x += 70) {
+    positions.push([x, -ringZ, 0.85 + rng() * 0.3]);
+    positions.push([x, ringZ, 0.85 + rng() * 0.3]);
+  }
+  for (let z = -D - 120; z <= D + 120; z += 70) {
+    positions.push([-ring, z, 0.85 + rng() * 0.3]);
+    positions.push([ring, z, 0.85 + rng() * 0.3]);
   }
   // 实例化（树干+树冠两批）
   const trunkGeo = new THREE.CylinderGeometry(0.7, 1, 6, 6);
@@ -406,6 +452,182 @@ function buildTrees(scene) {
   if (crownInst.instanceColor) crownInst.instanceColor.needsUpdate = true;
   trunkInst.castShadow = true;
   scene.add(trunkInst, crownInst);
+}
+
+// ---------- 文化街区（仿古商铺） ----------
+function shopRow(scene, rng, { x0, z0, x1, z1, side, n }) {
+  // side: 'E' 店铺在道路东侧(x大)朝西；'W' 西侧朝东；'N' 北侧(z大)朝南；'S' 南侧朝北
+  for (let i = 0; i < n; i++) {
+    const shop = B.makeShop(B.randomShopName(rng));
+    const t = (i + 0.5) / n;
+    let x, z, rot = 0;
+    if (side === 'E' || side === 'W') {
+      x = side === 'E' ? x0 + 15 : x0 - 15;
+      z = z0 + (z1 - z0) * t;
+      rot = side === 'E' ? -Math.PI / 2 : Math.PI / 2;
+    } else {
+      z = side === 'N' ? z0 + 15 : z0 - 15;
+      x = x0 + (x1 - x0) * t;
+      rot = side === 'N' ? Math.PI : 0;
+    }
+    shop.position.set(SX(x), 0, z);
+    shop.rotation.y = rot;
+    scene.add(shop);
+  }
+}
+
+function addStoneStreet(scene, w, d, dataX, z) {
+  const c = document.createElement('canvas');
+  c.width = c.height = 128;
+  const g = c.getContext('2d');
+  g.fillStyle = '#9d9587'; g.fillRect(0, 0, 128, 128);
+  g.strokeStyle = 'rgba(70,64,54,0.55)';
+  g.lineWidth = 2;
+  for (let i = 0; i <= 4; i++) {
+    g.beginPath(); g.moveTo(i * 32, 0); g.lineTo(i * 32, 128); g.stroke();
+    g.beginPath(); g.moveTo(0, i * 32); g.lineTo(128, i * 32); g.stroke();
+  }
+  const tex = new THREE.CanvasTexture(c);
+  tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+  tex.repeat.set(Math.abs(w) / 16, Math.abs(d) / 16);
+  const m = new THREE.Mesh(
+    new THREE.PlaneGeometry(w, d),
+    new THREE.MeshStandardMaterial({ map: tex, roughness: 1 })
+  );
+  m.rotation.x = -Math.PI / 2;
+  m.position.set(SX(dataX), 0.09, z);
+  m.receiveShadow = true;
+  scene.add(m);
+}
+
+function buildCulturalStreets(scene) {
+  const rng = B.mulberry32(31201);
+  // 燕赵老街：阳和楼东南，南北小街（数据 x≈145，z -560~-130），东西两侧铺面
+  addStoneStreet(scene, 96, 430, 145, -340);
+  shopRow(scene, rng, { x0: 100, z0: -545, z1: -135, side: 'W', n: 15 });
+  shopRow(scene, rng, { x0: 190, z0: -545, z1: -135, side: 'E', n: 15 });
+  // 东西向横街（z≈-430 南侧一带）
+  addStoneStreet(scene, 320, 130, 460, -430);
+  shopRow(scene, rng, { x0: 300, z0: -356, x1: 600, side: 'S', n: 12 });
+  shopRow(scene, rng, { x0: 300, z0: -504, x1: 600, side: 'N', n: 12 });
+  // 南关古镇：长乐门外南北大街两侧
+  addStoneStreet(scene, 130, 360, 0, -1060);
+  shopRow(scene, rng, { x0: -80, z0: -1230, z1: -890, side: 'W', n: 9 });
+  shopRow(scene, rng, { x0: 80, z0: -1230, z1: -890, side: 'E', n: 9 });
+}
+
+// ---------- 现代马路（沥青多车道） ----------
+function addAvenue(scene, dataX1, z1, dataX2, z2, width = 60) {
+  const ddx = SX(dataX2) - SX(dataX1);
+  const len = Math.hypot(ddx, z2 - z1);
+  if (len < 0.001) return;
+  const tex = B.asphaltTexture(width, len);
+  const mat = new THREE.MeshStandardMaterial({ map: tex, roughness: 0.95 });
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(width, len), mat);
+  m.rotation.x = -Math.PI / 2;
+  m.rotation.z = -Math.atan2(ddx, z2 - z1);
+  m.position.set((SX(dataX1) + SX(dataX2)) / 2, 0.07, (z1 + z2) / 2);
+  m.receiveShadow = true;
+  scene.add(m);
+}
+
+function buildAvenues(scene) {
+  // 中轴向城外延伸的城市主干道
+  addAvenue(scene, 0, -D + 20, 0, -1200, 64);   // 南关大街
+  addAvenue(scene, 0, D - 20, 0, 2500, 64);     // 燕赵北大街
+  addAvenue(scene, -W - 20, 0, 2700, 0, 58);    // 中山路向东接新区
+  addAvenue(scene, W + 20, 0, -2700, 0, 58);    // 向西
+  // 古城外环大道
+  const ringX = W + 240, ringZ = D + 240;
+  addAvenue(scene, -ringX, -ringZ, ringX, -ringZ, 46);
+  addAvenue(scene, -ringX, ringZ, ringX, ringZ, 46);
+  addAvenue(scene, -ringX, -ringZ, -ringX, ringZ, 46);
+  addAvenue(scene, ringX, -ringZ, ringX, ringZ, 46);
+  // 新区网格路
+  const R = RECTS.cbd;
+  for (let z = R.z0 + 180; z < R.z1; z += 200) addAvenue(scene, R.x0 + 40, z, R.x1 - 40, z, 34);
+  for (let x = R.x0 + 240; x < R.x1; x += 320) addAvenue(scene, x, R.z0 + 40, x, R.z1 - 40, 34);
+  // 西部滨河社区路网
+  const Wr = RECTS.westRes;
+  for (let z = Wr.z0 + 220; z < Wr.z1; z += 260) addAvenue(scene, Wr.x0 + 40, z, Wr.x1 - 40, z, 30);
+  for (let x = Wr.x0 + 300; x < Wr.x1; x += 340) addAvenue(scene, x, Wr.z0 + 40, x, Wr.z1 - 40, 30);
+  // 北部住宅路网
+  const Nr = RECTS.northRes;
+  for (let z = Nr.z0 + 200; z < Nr.z1; z += 260) addAvenue(scene, Nr.x0 + 40, z, Nr.x1 - 40, z, 30);
+  for (let x = Nr.x0 + 260; x < Nr.x1; x += 300) addAvenue(scene, x, Nr.z0 + 40, x, Nr.z1 - 40, 30);
+}
+
+// ---------- 现代城区建筑群 ----------
+function buildModernCity(scene) {
+  // 东区 CBD
+  buildDistrict(scene, RECTS.cbd, 51, { office: 0.62, residential: 0.12, commercial: 0.26 });
+  // 西部滨河社区
+  buildDistrict(scene, RECTS.westRes, 62, { office: 0, residential: 0.82, commercial: 0.18 });
+  // 北部居住组团
+  buildDistrict(scene, RECTS.northRes, 58, { office: 0.05, residential: 0.78, commercial: 0.17 });
+}
+
+function buildDistrict(scene, rect, seed, ratio) {
+  const rng = B.mulberry32(seed);
+  const pad = B.makeUrbanPad(rect.x1 - rect.x0, rect.z1 - rect.z0);
+  pad.position.set(SX((rect.x0 + rect.x1) / 2), 0, (rect.z0 + rect.z1) / 2);
+  scene.add(pad);
+
+  const reserved = POIS.map(p => ({ x: p.x, z: p.z, r: p.cat === 'service' || p.cat === 'modern' ? 130 : 70 }));
+  const cell = 130;
+  for (let x = rect.x0 + 70; x < rect.x1 - 50; x += cell) {
+    for (let z = rect.z0 + 70; z < rect.z1 - 50; z += cell) {
+      if (rng() < 0.28) continue;
+      const bx = x + (rng() - 0.5) * 26;
+      const bz = z + (rng() - 0.5) * 26;
+      if (!isFree(bx, bz, reserved, 55)) continue;
+      if (MODERN_RECTS.filter(r2 => r2 !== rect).some(r2 => inRect(bx, bz, r2))) continue;
+      const t = rng();
+      let m;
+      if (t < ratio.office) m = B.makeOfficeTower(rng);
+      else if (t < ratio.office + ratio.residential) m = B.makeResidentialTower(rng);
+      else m = B.makeCommercialLow(rng);
+      m.position.set(SX(bx), 0, bz);
+      m.rotation.y = Math.round(rng() * 4) * Math.PI / 2;
+      scene.add(m);
+    }
+  }
+}
+
+// ---------- 广场、停车场、桥梁 ----------
+function buildServiceSites(scene) {
+  // 阳和楼前文化广场
+  const plaza = B.makePlaza(120, 110);
+  plaza.position.set(SX(-180), 0, -325);
+  scene.add(plaza);
+  // 游客中心停车场
+  const p1 = B.makeParking(150, 110);
+  p1.position.set(SX(1040), 0, 140);
+  scene.add(p1);
+  // 南关停车场
+  const p2 = B.makeParking(200, 90);
+  p2.position.set(SX(220), 0, -1050);
+  scene.add(p2);
+  // 博物馆前广场
+  const p3 = B.makePlaza(150, 110);
+  p3.position.set(SX(320), 0, 870);
+  scene.add(p3);
+}
+
+function buildBridges(scene) {
+  // 四座城门护城河平桥（石桥）
+  const specs = [
+    { x: 0, z: -D - 60, rot: 0 },
+    { x: 0, z: D + 60, rot: 0 },
+    { x: W, z: 0, rot: Math.PI / 2 },
+    { x: -W, z: 0, rot: Math.PI / 2 }
+  ];
+  for (const s of specs) {
+    const br = B.makeBridge(150, 46, { stone: true });
+    br.position.set(SX(s.x), 0, s.z);
+    br.rotation.y = s.rot;
+    scene.add(br);
+  }
 }
 
 // ---------- 景点模型 ----------
@@ -435,6 +657,16 @@ function buildPoiModel(poi) {
       return B.makeMansion(poi.id === 'rongguo');
     case 'courtyard':
       return B.makeCourtyard(poi.name.length);
+    case 'paifang':
+      return B.makePaifang(poi.paifangText);
+    case 'visitor':
+      return B.makeVisitorCenter();
+    case 'museum':
+      return B.makeMuseum();
+    case 'riverbridge':
+      return B.makeBridge(300, 92);
+    case 'landmark':
+      return B.makeOfficeTower(B.mulberry32(701));
     case 'stele':
     default:
       return B.makeStele();
@@ -476,6 +708,8 @@ export function buildPois(scene) {
         : poi.id === 'zhenyuan' ? -Math.PI / 2
         : poi.id === 'guangyuan' ? Math.PI : 0;
     }
+    if (poi.model === 'paifang' && poi.paifangRot) group.rotation.y = poi.paifangRot;
+    if (poi.model === 'riverbridge') group.rotation.y = Math.PI / 2;
     // 城门题额（面向城外）
     if (poi.model === 'gate') {
       const plaques = {
@@ -503,8 +737,9 @@ export function buildPois(scene) {
     scene.add(marker);
 
     const label = B.makeLabel(poi.name);
-    const topY = group.userData.height || (poi.model === 'gate' ? 92 : poi.model === 'corner' ? 80 : 55);
-    label.position.set(sx, topY + 16, sz);
+    const topYMap = { gate: 92, corner: 80, paifang: 28, visitor: 42, museum: 44, riverbridge: 22 };
+    const topY = group.userData.height || topYMap[poi.model] || 55;
+    label.position.set(sx, topY + 14, sz);
     scene.add(label);
 
     // 扩大点击区域（隐形圆柱）
@@ -561,9 +796,14 @@ export function buildWorld(scene) {
   buildGround(scene);
   buildRiver(scene);
   buildRoads(scene);
+  buildAvenues(scene);
   buildWalls(scene);
+  buildServiceSites(scene);
   buildHouses(scene);
+  buildCulturalStreets(scene);
   buildSuburbs(scene);
+  buildModernCity(scene);
+  buildBridges(scene);
   buildTrees(scene);
   mergeStatic(scene);
   const poiObjects = buildPois(scene);
